@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - 9000:80
+    volumes:
+      - ./data:/var/www/html/data
+    environment:
+      - APP_ENV=production
+
+volumes:
+  job-tracker-db:
