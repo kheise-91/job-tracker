@@ -18,9 +18,9 @@
 ## Phase 3: Frontend (React + PWA)
 - [ ] **3.1 Initialize React App:** Use Vite or Create React App with PWA plugin.
 - [ ] **3.2 UI Components:** Build basic components:
-    - `JobList`: Table or card view of jobs.
-    - `JobForm`: Modal or page to add/edit jobs.
-    - `StatusFilter`: Filter by status (Applied, Interview, Rejected, etc.).
+    - `JobList`: Kanban style with multiple columns depending on state of application
+    - `JobForm`: Modal to add/edit jobs.
+    - `LeftNav`: Left collapsible navigation menu with logo and app name (ATS) at the top
 - [ ] **3.3 API Integration:** Connect React components to the PHP backend endpoints.
 - [ ] **3.4 PWA Configuration:** Add `manifest.json` and service worker for offline capability and "Add to Home Screen" support.
 

@@ -1,7 +1,17 @@
 FROM php:8.2-fpm
 
-# Install required PHP extensions for SQLite
-RUN docker-php-ext-install pdo pdo_sqlite
+# Install system dependencies including SQLite dev headers
+RUN apt-get update && apt-get install -y \
+    libsqlite3-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install PHP extensions
+RUN docker-php-ext-install pdo pdo_sqlite \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd
 
 # Install nginx
 RUN apt-get update && apt-get install -y \
@@ -20,8 +30,8 @@ RUN mkdir -p /var/www/html/data
 # Copy backend files
 COPY backend/ ./backend/
 
-# Copy frontend build output (must be built before docker build)
-COPY frontend/build/ ./frontend/
+# Copy frontend build output (Vite outputs to 'dist' by default)
+COPY frontend/dist/ ./frontend/
 
 # Expose port 80
 EXPOSE 80
