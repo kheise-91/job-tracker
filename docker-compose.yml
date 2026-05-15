@@ -1,10 +1,10 @@
-version: '3.8'
-
 services:
   app:
     build:
       context: .
       dockerfile: docker/Dockerfile
+    container_name: ats
+    restart: unless-stopped
     ports:
       - 9000:80
     volumes:
