@@ -14,7 +14,7 @@
     - `PUT /api/jobs/{id}` (Update job status/details)
     - `DELETE /api/jobs/{id}` (Remove a job)
 - [x] **2.3 API Testing:** Confirm API works through command line (CURL) and browser.
-- [ ] **2.4 CORS Configuration:** Ensure the backend allows requests from the frontend (if running on different ports during dev).
+- [x] **2.4 CORS Configuration:** Ensure the backend allows requests from the frontend (if running on different ports during dev).
 - [ ] **2.5 Code Review:** Ensure all back-end code meets professional standards.
 
 ## Phase 3: Frontend (React + PWA)
