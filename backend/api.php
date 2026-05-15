@@ -6,6 +6,8 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
 
+$allowedStatuses = ['Wishlist', 'Applied', 'Interviewing', 'Offer', 'Rejected', 'Withdrawn'];
+
 // Handle preflight requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
@@ -23,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/api/jo
 // Add a new job
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/jobs') {
     $input = json_decode(file_get_contents('php://input'), true);
-    
+
     $company = $input['company'] ?? '';
     $position = $input['position'] ?? '';
     $status = $input['status'] ?? 'Applied';
@@ -32,6 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/j
     if (empty($company) || empty($position)) {
         http_response_code(400);
         echo json_encode(['error' => 'Company and position are required']);
+        exit();
+    }
+
+    if (!in_array($status, $allowedStatuses)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid status']);
         exit();
     }
 
