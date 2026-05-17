@@ -15,13 +15,14 @@
     - `DELETE /api/jobs/{id}` (Remove a job)
 - [x] **2.3 API Testing:** Confirm API works through command line (CURL) and browser.
 - [x] **2.4 CORS Configuration:** Ensure the backend allows requests from the frontend (if running on different ports during dev).
-- [ ] **2.5 Code Review:** Ensure all back-end code meets professional standards.
+- [x] **2.5 Code Review:** Ensure all back-end code meets professional standards.
 
-## Phase 3: Frontend (React + PWA)
-- [ ] **3.1 UI Components:** Build basic components:
-    - `LeftNav`: Left collapsible navigation menu with logo and app name (ATS) at the top
-    - `JobList`: Kanban style with multiple columns depending on state of application
-    - `JobForm`: Modal to add/edit jobs.
+## Phase 3: Frontend (React + Tailwind)
+- [ ] **3.1 UI Components:** Build basic React components and style with Tailwind:
+    - `Header`: Page header with page title (Application Tracking System) and a search bar
+    - `Sidebar Navigation`: Left collapsible navigation menu with logo and app abbreviated name (ATS) at the top
+    - `Kanban Board`: Using https://github.com/braiekhazem/react-kanban-kit
+    - `Model Form`: Pop-up form for adding jobs
 - [ ] **3.2 API Integration:** Connect React components to the PHP backend endpoints.
 - [ ] **3.3 PWA Configuration:** Ensure PWA meets professional standards.
 - [ ] **3.4 Code Review:** Ensure all front-end code meets professional standards.
