@@ -7,24 +7,25 @@
 - [x] **1.4 Configure Docker Compose:** Set up `docker-compose.yml` to mount the SQLite database file and frontend build output.
 
 ## Phase 2: Backend API (PHP + SQLite)
-- [x] **2.1 Database Schema:** Design the SQLite schema for `jobs` table (id, company, position, status, date_applied, notes, etc.).
+- [x] **2.1 Database Schema:** Design the SQLite schema for `jobs` table (id, company, position, status, date_applied, interview_date, order, notes, updated_at).
 - [x] **2.2 API Endpoints:** Create PHP scripts for:
     - `GET /api/jobs` (List all jobs)
     - `POST /api/jobs` (Add a new job)
     - `PUT /api/jobs/{id}` (Update job status/details)
     - `DELETE /api/jobs/{id}` (Remove a job)
 - [x] **2.3 API Testing:** Confirm API works through command line (CURL) and browser.
-- [x] **2.4 CORS Configuration:** Ensure the backend allows requests from the frontend (if running on different ports during dev).
+- [x] **2.4 CORS Configuration:** Nginx-level CORS headers + preflight handling for dev server compatibility.
 - [x] **2.5 Code Review:** Ensure all back-end code meets professional standards.
+- [x] **2.6 Database Migration:** Add `interview_date` and `order` columns with backward-compatible ALTER TABLE.
 
 ## Phase 3: Frontend (React + Tailwind)
 - [ ] **3.1 UI Components:** Build basic React components and style with Tailwind:
     - `Header`: Page header with page title (Application Tracking System) and a search bar
     - `Sidebar Navigation`: Left collapsible navigation menu with logo and app abbreviated name (ATS) at the top
     - `Kanban Board`: Using https://github.com/braiekhazem/react-kanban-kit
-    - `Model Form`: Pop-up form for adding jobs
+    - `Modal Form`: Pop-up form for adding/editing jobs (includes interview date picker)
 - [ ] **3.2 API Integration:** Connect React components to the PHP backend endpoints.
-- [ ] **3.3 PWA Configuration:** Ensure PWA meets professional standards.
+- [ ] **3.3 PWA Configuration:** Ensure PWA meets professional standards (manifest, service worker, offline support).
 - [ ] **3.4 Code Review:** Ensure all front-end code meets professional standards.
 
 ## Phase 4: Testing & Deployment
