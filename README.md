@@ -6,7 +6,7 @@ A simple, self-hosted Job Application Tracker designed to replace spreadsheets. 
 - **Add/Update/Delete Jobs**: Track company, position, status, and more.
 - **Mobile Friendly**: Works as a PWA on iOS and Android.
 - **Simple Deployment**: Runs in a single Docker container for easy setup.
-- **Kanban Style**: After adding a job, simple drag it to the corresponding column whenever there are status updates.
+- **Kanban Style**: After adding a job, simply drag it to the corresponding column whenever there are status updates.
 
 ## Tech Stack
 - **Frontend**: React (with Vite) and Tailwind CSS

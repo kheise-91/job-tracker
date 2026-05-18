@@ -6,8 +6,8 @@ services:
     container_name: ats
     restart: unless-stopped
     ports:
-      - 9000:80
+      - 5000:80
     volumes:
-      - ./data:/var/www/html/data:rw
+      - /home/admin/Projects/ats/data:/var/www/html/data:rw
     environment:
       - APP_ENV=production
