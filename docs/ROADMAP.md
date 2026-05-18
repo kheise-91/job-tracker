@@ -1,5 +1,10 @@
 # Job Tracker PWA Roadmap
 
+## File Instructions
+'[ ]' = Not completed
+'[-]' = In progress
+'[x]' = Completed
+
 ## Phase 1: Project Setup & Architecture
 - [x] **1.1 Define Tech Stack:** Confirm PHP (backend), SQLite (database), React (frontend), and Docker (deployment).
 - [x] **1.2 Initialize Project Structure:** Create directories for `backend`, `frontend`, and `docker`.
@@ -19,7 +24,7 @@
 - [x] **2.6 Database Migration:** Add `interview_date` and `order` columns with backward-compatible ALTER TABLE.
 
 ## Phase 3: Frontend (React + Tailwind)
-- [ ] **3.1 UI Components:** Build basic React components and style with Tailwind:
+- [-] **3.1 UI Components:** Build basic React components and style with Tailwind:
     - `Header`: Page header with page title (Application Tracking System) and a search bar
     - `Sidebar Navigation`: Left collapsible navigation menu with logo and app abbreviated name (ATS) at the top
     - `Kanban Board`: Using https://github.com/braiekhazem/react-kanban-kit
