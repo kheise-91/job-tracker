@@ -28,7 +28,7 @@
     
     - [-] **3.1.1: Layout skeleton — Sidebar + Header**
         *Why first: Everything else lives inside this shell. Get the structure down before adding interactivity.*
-        - [ ] Create components/Sidebar.jsx — left nav with "ATS" logo, collapsible toggle button
+        - [ ] Create components/Sidebar.jsx — left nav with "ATS" logo (just text for now: "Job ATS"), collapsible toggle button
         - [ ] Create components/Header.jsx — page title "Application Tracking System" + search input
         - [ ] Wire them into App.jsx so the layout is a flex row (sidebar on left, header + content on right)
     
