@@ -25,12 +25,46 @@
 
 ## Phase 3: Frontend (React + Tailwind)
 - [-] **3.1 UI Components:** Build basic React components and style with Tailwind:
-    - `Header`: Page header with page title (Application Tracking System) and a search bar
-    - `Sidebar Navigation`: Left collapsible navigation menu with logo and app abbreviated name (ATS) at the top
-    - `Kanban Board`: Using https://github.com/braiekhazem/react-kanban-kit
-    - `Modal Form`: Pop-up form for adding/editing jobs (includes interview date picker)
+    
+    - **Step 1: Layout skeleton — Sidebar + Header**
+        - Create components/Sidebar.jsx — left nav with "ATS" logo, collapsible toggle button
+        - Create components/Header.jsx — page title "Application Tracking System" + search input
+        - Wire them into App.jsx so the layout is a flex row (sidebar on left, header + content on right)
+        - Why first: Everything else lives inside this shell. Get the structure down before adding interactivity.
+
+    
+    - **Step 2: Kanban board columns**
+        - Install/verify react-kanban-kit is in dependencies (it is)
+        - Create components/KanbanBoard.jsx — renders 5 columns: Wishlist → Applied → Interviewing → Offer → Rejected
+        - Each column shows job cards as cards within the kanban framework
+        - Why second: This is the core visual of Phase 3. It replaces the current flat list view.
+
+    
+    - **Step 3: Job card component**
+        - Create components/JobCard.jsx — displays company, position, status badge, and action buttons (edit/delete)
+        - Style with Tailwind (reuse the existing color palette from index.css)
+        - Why third: The kanban board needs a card component to render per job.
+
+    
+    - **Step 4: Modal form for add/edit**
+        - Create components/JobModal.jsx — pop-up form with fields: company, position, status dropdown, date_applied, interview_date, notes
+        - Uses a backdrop overlay pattern (fixed div + centered card)
+        - Why fourth: The modal is the most complex React pattern (state lifting, props drilling). Do it after the simpler components.
+
+    
+    - **Step 5: Search/filter functionality**
+        - Add search state to App.jsx that filters jobs displayed in the Kanban board by company or position name
+        - Connect Header's search input to this filter
+        - Why fifth: It's a small feature built on top of everything else already in place.
+
+    - **Step 6: Cleanup and polish**
+        - Remove old form/list code from App.jsx (the flat list is replaced by Kanban)
+        - Ensure consistent styling across all components
+        - Verify the sidebar collapses/expand works properly
+        - Why last: Tidy up once the pieces are working.
+
 - [ ] **3.2 API Integration:** Connect React components to the PHP backend endpoints.
-- [ ] **3.3 PWA Configuration:** Ensure PWA meets professional standards (manifest, service worker, offline support).
+- [ ] **3.3 PWA Configuration:** Ensure PWA meets professional standards (manifest, service worker).
 - [ ] **3.4 Code Review:** Ensure all front-end code meets professional standards.
 
 ## Phase 4: Testing & Deployment
