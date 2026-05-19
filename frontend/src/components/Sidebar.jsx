@@ -3,9 +3,9 @@ import { Bars3Icon, XMarkIcon, HomeIcon, CalendarDaysIcon, AcademicCapIcon } fro
 function Sidebar({ isOpen, onToggle }) {
   return (
     <div className="bg-sidebar text-white flex flex-col h-full">
-      <div className="flex items-center justify-between p-3 border-b border-secondary">
+      <div className="flex items-center justify-between p-3 border-b-3 border-secondary-dark">
         <div className="flex items-center gap-2">
-          {isOpen && (<img src="/pwa-512x512.png" alt="ATS" className="size-11 rounded" />)}
+          {isOpen && (<img src="/pwa-512x512.png" alt="ATS" className="nav-logo size-15 rounded" />)}
           {isOpen && (
             <div className="flex flex-col leading-tight">
               <span className="text-lg font-bold whitespace-nowrap">Job Tracker</span>
@@ -16,14 +16,14 @@ function Sidebar({ isOpen, onToggle }) {
         {isOpen ? 
           <button
             onClick={onToggle}
-            className="p-2 rounded-md cursor-pointer hover:bg-gray-600 transition-colors ml-auto"
+            className="p-2 rounded-md cursor-pointer hover:bg-gray-700 transition-colors ml-auto"
             aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
           ><XMarkIcon className="w-5 h-5" />
           </button> 
         : 
           <button
             onClick={onToggle}
-            className="p-2 rounded-md cursor-pointer hover:bg-gray-600 transition-colors ml-auto mb-2 mr-2"
+            className="p-2 rounded-md cursor-pointer hover:bg-gray-700 transition-colors ml-auto mt-1 mb-1 mr-2"
             aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
           ><Bars3Icon className="w-5 h-5" /></button>
           }

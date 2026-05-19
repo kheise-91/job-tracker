@@ -28,13 +28,13 @@
     
     - [x] **3.1.1: Layout skeleton — Sidebar + Header**
         *Why first: Everything else lives inside this shell. Get the structure down before adding interactivity.*
-        - [ ] Create components/Sidebar.jsx — left nav with "ATS" logo (just text for now: "Job ATS"), collapsible toggle button
-        - [ ] Create components/Header.jsx — page title "Application Tracking System" + search input
-        - [ ] Wire them into App.jsx so the layout is a flex row (sidebar on left, header + content on right)
+        - [x] Create components/Sidebar.jsx — left nav with "ATS" logo (just text for now: "Job ATS"), collapsible toggle button
+        - [x] Create components/Header.jsx — page title "Application Tracking System" + search input
+        - [x] Wire them into App.jsx so the layout is a flex row (sidebar on left, header + content on right)
     
     - [-] **3.1.2: Kanban board columns**
         *Why second: This is the core visual of Phase 3. It replaces the current flat list view.*
-        - [ ] Install/verify react-kanban-kit is in dependencies (it is)
+        - [x] Install/verify react-kanban-kit is in dependencies
         - [ ] Create components/KanbanBoard.jsx — renders 5 columns: Wishlist → Applied → Interviewing → Offer → Rejected
         - [ ] Each column shows job cards as cards within the kanban framework
     
