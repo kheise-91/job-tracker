@@ -113,7 +113,7 @@ export default function KanbanBoard({ jobs, onStatusChange, onDeleteJob }) {
       <Kanban
         dataSource={dataSource}
         configMap={configMap}
-        cardsGap={15}
+        cardsGap={10}
         onCardMove={handleCardMove}
         columnHeaderClassName={(column) =>
           `${column.content?.status || "default"}-status`

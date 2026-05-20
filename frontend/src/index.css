@@ -34,12 +34,12 @@ body {
 /* REACT KANABAN KIT OVERRIDE STYLES         */
 /* ========================================= */
 .rkk-board {
-  gap: 15px;
+  gap: 10px;
 }
 
 .rkk-column-outer {
-  min-width: 300px;
-  max-width: 300px;
+  min-width: 290px;
+  max-width: 290px;
 }
 
 .rkk-column {
