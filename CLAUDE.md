@@ -67,3 +67,6 @@ Serves on port 9000. Database stored in `data/jobs.db` (volume-mounted).
 - `frontend/src/App.jsx` — only React component
 - `docker/nginx.conf` — SPA fallback + PHP routing rules
 - `docs/ROADMAP.md` — Phase 3 (Kanban UI) is incomplete
+
+#### External source
+- [Documentation for react-kanban-kit](https://github.com/braiekhazem/react-kanban-kit/?tab=readme-ov-file#react-kanban-kit)

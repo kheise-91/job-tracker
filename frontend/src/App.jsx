@@ -46,6 +46,29 @@ function App() {
     }
   }
 
+  const handleStatusChange = async (jobId, newStatus) => {
+    try {
+      const res = await fetch(`/api/jobs/${jobId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus }),
+      })
+      const updatedJob = await res.json()
+      setJobs(jobs.map(j => (j.id === jobId ? updatedJob : j)))
+    } catch (error) {
+      console.error('Error updating job status:', error)
+    }
+  }
+
+  const handleDeleteJob = async (jobId) => {
+    try {
+      await fetch(`/api/jobs/${jobId}`, { method: 'DELETE' })
+      setJobs(jobs.filter(j => j.id !== jobId))
+    } catch (error) {
+      console.error('Error deleting job:', error)
+    }
+  }
+
   if (loading) return <div className="flex items-center justify-center h-screen">Loading...</div>
 
   return (
@@ -92,7 +115,7 @@ function App() {
           </div>
 
           <div className="flex-1 overflow-hidden px-6 pb-6">
-            <KanbanBoard />
+            <KanbanBoard jobs={jobs} onStatusChange={handleStatusChange} onDeleteJob={handleDeleteJob} />
           </div>
         </main>
       </div>
