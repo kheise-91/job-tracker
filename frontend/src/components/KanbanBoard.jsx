@@ -113,7 +113,7 @@ export default function KanbanBoard({ jobs, onStatusChange, onDeleteJob }) {
       <Kanban
         dataSource={dataSource}
         configMap={configMap}
-        cardsGap={12}
+        cardsGap={15}
         onCardMove={handleCardMove}
       />
     </div>

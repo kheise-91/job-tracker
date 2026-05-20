@@ -28,3 +28,7 @@ body {
 .nav-logo {
   margin: -2px -8px;
 }
+
+.rkk-board {
+  gap: 15px;
+}
