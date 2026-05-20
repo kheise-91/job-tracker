@@ -59,9 +59,10 @@
         - [ ] Ensure consistent styling across all components
         - [ ] Verify the sidebar collapses/expand works properly
 
-- [ ] **3.2 API Integration:** Connect React components to the PHP backend endpoints.
-- [ ] **3.3 PWA Configuration:** Ensure PWA meets professional standards (manifest, service worker).
-- [ ] **3.4 Code Review:** Ensure all front-end code meets professional standards.
+- [ ] **3.2 API Integration:** Connect React components to the PHP backend endpoints. Make sure `order` is working correctly so job card positions within columns are saved.
+- [ ] **3.3 Add Extra Field:** Add new field to the database, API, and UI: hyperlink of job posting.
+- [ ] **3.4 PWA Configuration:** Ensure PWA meets professional standards (manifest, service worker).
+- [ ] **3.5 Code Review:** Ensure all front-end code meets professional standards.
 
 ## Phase 4: Testing & Deployment
 - [ ] **4.1 Local Testing:** Run the app locally with `docker-compose up` and test all CRUD operations.
