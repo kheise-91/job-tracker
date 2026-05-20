@@ -60,7 +60,7 @@
         - [ ] Verify the sidebar collapses/expand works properly
 
 - [ ] **3.2 API Integration:** Connect React components to the PHP backend endpoints. Make sure `order` is working correctly so job card positions within columns are saved.
-- [ ] **3.3 Add Extra Field:** Add new field to the database, API, and UI: hyperlink of job posting.
+- [ ] **3.3 Add Two Extra Fields:** Add new fields to the database, API, and UI: hyperlink of job posting, and source of job posting.
 - [ ] **3.4 PWA Configuration:** Ensure PWA meets professional standards (manifest, service worker).
 - [ ] **3.5 Code Review:** Ensure all front-end code meets professional standards.
 
