@@ -49,7 +49,7 @@ function buildDataSource(jobs) {
         children: jobsByColumn[col.id],
         totalChildrenCount: jobsByColumn[col.id].length,
         type: col.type,
-        content: { status: col.title },
+        content: { status: col.id },
       },
     ])
   )
@@ -115,6 +115,12 @@ export default function KanbanBoard({ jobs, onStatusChange, onDeleteJob }) {
         configMap={configMap}
         cardsGap={15}
         onCardMove={handleCardMove}
+        columnHeaderClassName={(column) =>
+          `${column.content?.status || "default"}-status`
+        }
+        columnClassName={(column) =>
+          `${column.content?.status || "default"}-status`
+        }
       />
     </div>
   )

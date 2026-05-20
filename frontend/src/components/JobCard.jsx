@@ -6,20 +6,20 @@ function JobCard({ job, onEdit, onDelete }) {
       <div className="font-semibold text-gray-800 text-sm">{job.company}</div>
       <div className="text-gray-500 text-xs mt-0.5">{job.position}</div>
       <div className="mt-2 flex items-center justify-between">
-        <span className="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-accent/10 text-accent">
-          {job.status}
+        <span className="inline-block">
+          
         </span>
         <div className="flex gap-1">
           <button
             onClick={(e) => { e.stopPropagation(); onEdit(job.id) }}
-            className="p-0.5 rounded text-gray-400 hover:text-primary transition-colors"
+            className="p-0.5 rounded cursor-pointer text-gray-400 hover:text-accent-dark transition-colors"
             aria-label="Edit job"
           >
             <PencilIcon className="w-4 h-4" />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); onDelete(job.id) }}
-            className="p-0.5 rounded text-gray-400 hover:text-secondary transition-colors"
+            className="p-0.5 rounded cursor-pointer text-gray-400 hover:text-secondary-dark transition-colors"
             aria-label="Delete job"
           >
             <TrashIcon className="w-4 h-4" />
