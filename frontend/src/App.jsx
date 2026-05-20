@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
+import KanbanBoard from './components/KanbanBoard'
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -54,9 +55,9 @@ function App() {
       </aside>
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header searchValue={searchQuery} onSearchChange={setSearchQuery} />
-        <main className="flex-1 overflow-auto p-6">
-          <div className="max-w-4xl mx-auto">
-            <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow p-5 mb-6 grid grid-cols-1 sm:grid-cols-4 gap-3">
+        <main className="flex-1 flex flex-col overflow-hidden">
+          <div className="px-6 pt-6 pb-4 shrink-0">
+            <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow p-5 grid grid-cols-1 sm:grid-cols-4 gap-3">
               <input
                 type="text"
                 placeholder="Company"
@@ -88,23 +89,10 @@ function App() {
                 Add Job
               </button>
             </form>
+          </div>
 
-            <div className="space-y-3">
-              {jobs.map(job => (
-                <div key={job.id} className="bg-white rounded-lg shadow p-4 flex justify-between items-center">
-                  <h3 className="text-base font-medium">{job.company} — {job.position}</h3>
-                  <span className={`px-3 py-1 rounded-full text-sm font-semibold capitalize
-                    ${job.status === 'Applied' ? 'bg-blue-100 text-blue-700' : ''}
-                    ${job.status === 'Interviewing' ? 'bg-orange-100 text-orange-700' : ''}
-                    ${job.status === 'Offer' ? 'bg-green-100 text-green-700' : ''}
-                    ${job.status === 'Rejected' ? 'bg-red-100 text-red-700' : ''}
-                    ${job.status === 'Wishlist' ? 'bg-purple-100 text-purple-700' : ''}
-                  `}>
-                    {job.status}
-                  </span>
-                </div>
-              ))}
-            </div>
+          <div className="flex-1 overflow-hidden px-6 pb-6">
+            <KanbanBoard />
           </div>
         </main>
       </div>
