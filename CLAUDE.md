@@ -25,6 +25,12 @@ docker-compose up --build
 ```
 Serves on port 9000. Database stored in `data/jobs.db` (volume-mounted).
 
+## Agent Execution Rules
+
+- ALWAYS run sub-agents sequentially, never in parallel
+- Wait for each sub-agent to fully complete before spawning the next
+- This is a hard requirement due to local GPU memory constraints
+
 ## Architecture
 
 ### Single-container deployment
