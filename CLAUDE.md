@@ -6,6 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Application Tracking System (ATS) — a self-hosted PWA for tracking job applications. Built as a single Docker container serving a React frontend and PHP backend with SQLite.
 
+## Documentation
+
+The `/docs` folder is the source of truth for the project.
+
 ## Commands
 
 **Frontend development:**
@@ -24,10 +28,6 @@ cd frontend && npm run build
 docker-compose up --build
 ```
 Serves on port 9000. Database stored in `data/jobs.db` (volume-mounted).
-
-## Documentation
-
-- The `/docs` folder is the source of truth for the project.
 
 ## Agent Execution Rules
 
