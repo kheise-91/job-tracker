@@ -29,29 +29,35 @@
     - [x] **3.1.1: Layout skeleton — Sidebar + Header** *Why first: Everything else lives inside this shell. Get the structure down before adding interactivity.*
         - [x] Create components/Sidebar.jsx — left nav with "ATS" logo (just text for now: "Job ATS"), collapsible toggle button
         - [x] Create components/Header.jsx — page title "Application Tracking System" + search input
-        - [x] Wire them into App.jsx so the layout is a flex row (sidebar on left, header + content on right)
-    
+        - [x] Wire them into App.jsx so the layout is a flex row (sidebar on left, header + content on right) 
+        <br /><br />
+
     - [x] **3.1.2: Kanban board columns** *Why second: This is the core visual of Phase 3. It replaces the current flat list view.*
         - [x] Install/verify react-kanban-kit is in dependencies
         - [x] Create components/KanbanBoard.jsx — renders 5 columns: Wishlist → Applied → Interviewing → Offer → Rejected
         - [x] Each column shows job cards as cards within the kanban framework
+        <br /><br />
     
     - [x] **3.1.3: Job card component** *Why third: The kanban board needs a card component to render per job.*
         - [x] Create components/JobCard.jsx — displays company, position, status badge, and action buttons (edit/delete)
         - [x] Style with Tailwind (reuse the existing color palette from index.css)
+        <br /><br />
     
     - [x] **3.1.4: Modal form for add/edit** *Why fourth: The modal is the most complex React pattern (state lifting, props drilling). Do it after the simpler components.*
         - [x] Create components/JobModal.jsx — pop-up form with fields: company, position, status dropdown, date_applied, interview_date, notes
         - [x] Uses a backdrop overlay pattern (fixed div + centered card)
+        <br /><br />
     
     - [ ] **3.1.5: Search/filter functionality** *Why fifth: It's a small feature built on top of everything else already in place.*
         - [ ] Add search state to App.jsx that filters jobs displayed in the Kanban board by company or position name
         - [ ] Connect Header's search input to this filter
+        <br /><br />
 
     - [ ] **3.1.6: Cleanup and polish** *Why last: Tidy up once the pieces are working.*
         - [ ] Remove old form/list code from App.jsx (the flat list is replaced by Kanban)
         - [ ] Ensure consistent styling across all components
         - [ ] Verify the sidebar collapses/expand works properly
+        <br /><br />
 
 - [ ] **3.2 PWA Configuration:** Ensure PWA meets professional standards (manifest, service worker).
 - [ ] **3.3 Code Review:** Ensure all front-end code meets professional standards.
