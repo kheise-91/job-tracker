@@ -59,7 +59,7 @@ body {
 
 .rkk-column-header {
   height: unset !important;
-  padding: 0px 6px !important;
+  padding: 2px 6px 2px 12px !important;
   width: 99%;
 }
 .rkk-column-header.wishlist-status     {background: #2f4f4f;}
