@@ -9,6 +9,8 @@
   --color-accent-dark: #4a8a96;
   --color-sidebar: #242e37;
   --color-sidebar-muted: #7a8f9e; 
+  --color-interview-status: #f57c00;
+  --color-interview-status-light: #fff3e0;
 }
 
 :root {
@@ -27,4 +29,57 @@ body {
 
 .nav-logo {
   margin: -2px -8px;
+}
+
+
+/* ========================================= */
+/* REACT KANABAN KIT OVERRIDE STYLES         */
+/* ========================================= */
+.rkk-board {
+  gap: 10px;
+}
+
+.rkk-column-outer {
+  min-width: 290px;
+  max-width: 290px;
+}
+
+.rkk-column {
+  background-color: unset !important;
+}
+.rkk-column.wishlist-status     {background-color: #e6f0f0 !important;}
+.rkk-column.applied-status      {background-color: #e3f2fd !important;}
+.rkk-column.interviewing-status {background-color: #fff3e0 !important;}
+.rkk-column.offer-status        {background-color: #e8f5e9 !important;}
+.rkk-column.rejected-status     {background-color: #ffebee !important;}
+
+.rkk-column-wrapper {
+  gap: 0px !important;
+}
+
+.rkk-column-header {
+  height: unset !important;
+  padding: 0px 6px !important;
+  width: 99%;
+}
+.rkk-column-header.wishlist-status     {background: #2f4f4f;}
+.rkk-column-header.applied-status      {background: #1976d2;}
+.rkk-column-header.interviewing-status {background: #f57c00;}
+.rkk-column-header.offer-status        {background: #388e3c;}
+.rkk-column-header.rejected-status     {background: #d32f2f;}
+
+.rkk-column-header .rkk-column-header-left,
+.rkk-column-header .rkk-column-header-right {
+  color: white;
+}
+
+.rkk-column-header-right {
+  margin: 4px 0;
+  padding: 4px 12px;
+  background-color: #37352f33;
+  border-radius: 8px;
+}
+
+.rkk-column-content-list {
+  padding-right: 5px;
 }

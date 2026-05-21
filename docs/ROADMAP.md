@@ -32,21 +32,21 @@
         - [x] Create components/Header.jsx — page title "Application Tracking System" + search input
         - [x] Wire them into App.jsx so the layout is a flex row (sidebar on left, header + content on right)
     
-    - [-] **3.1.2: Kanban board columns**
+    - [x] **3.1.2: Kanban board columns**
         *Why second: This is the core visual of Phase 3. It replaces the current flat list view.*
         - [x] Install/verify react-kanban-kit is in dependencies
-        - [ ] Create components/KanbanBoard.jsx — renders 5 columns: Wishlist → Applied → Interviewing → Offer → Rejected
-        - [ ] Each column shows job cards as cards within the kanban framework
+        - [x] Create components/KanbanBoard.jsx — renders 5 columns: Wishlist → Applied → Interviewing → Offer → Rejected
+        - [x] Each column shows job cards as cards within the kanban framework
     
-    - [ ] **3.1.3: Job card component**
+    - [x] **3.1.3: Job card component**
         *Why third: The kanban board needs a card component to render per job.*
-        - [ ] Create components/JobCard.jsx — displays company, position, status badge, and action buttons (edit/delete)
-        - [ ] Style with Tailwind (reuse the existing color palette from index.css)
+        - [x] Create components/JobCard.jsx — displays company, position, status badge, and action buttons (edit/delete)
+        - [x] Style with Tailwind (reuse the existing color palette from index.css)
     
-    - [ ] **3.1.4: Modal form for add/edit**
+    - [x] **3.1.4: Modal form for add/edit**
         *Why fourth: The modal is the most complex React pattern (state lifting, props drilling). Do it after the simpler components.*
-        - [ ] Create components/JobModal.jsx — pop-up form with fields: company, position, status dropdown, date_applied, interview_date, notes
-        - [ ] Uses a backdrop overlay pattern (fixed div + centered card)
+        - [x] Create components/JobModal.jsx — pop-up form with fields: company, position, status dropdown, date_applied, interview_date, notes
+        - [x] Uses a backdrop overlay pattern (fixed div + centered card)
     
     - [ ] **3.1.5: Search/filter functionality**
         *Why fifth: It's a small feature built on top of everything else already in place.*
