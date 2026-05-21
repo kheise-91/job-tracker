@@ -1,6 +1,6 @@
 # Application Tracking System
 
-A simple, self-hosted Job Application Tracker designed to replace spreadsheets. This Progressive Web App (PWA) allows you to track your job applications, update statuses, and manage details across all your devices, including mobile.
+A simple, self-hosted Job Application Tracker designed to replace spreadsheets. This Progressive Web App (PWA) was built with AI assistance and allows you to track your job applications, update statuses, and manage details across all your devices, including mobile.
 
 ## Features
 - **Add/Update/Delete Jobs**: Track company, position, status, and more.
@@ -13,6 +13,13 @@ A simple, self-hosted Job Application Tracker designed to replace spreadsheets. 
 - **Backend**: PHP (Native)
 - **Database**: SQLite (Embedded in the container)
 - **Deployment**: Docker & Docker Compose
+
+## AI Tools
+- **Claude Code** — Primary coding assistant for development, debugging, and architecture decisions
+- **Qwen3.6-27B** — Locally hosted model on RTX 5080 for rapid prototyping and code generation
+- **Qwen3.6-35B-A3B** — Locally hosted model on RTX 5080 for complex reasoning and code review
+- **llama.cpp** — Inference engine for running local models
+- **llama-swap** — Model serving layer for swapping between local models on the fly
 
 ## Project Structure
 ```
