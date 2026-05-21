@@ -86,11 +86,12 @@ export default function KanbanBoard({ jobs, onStatusChange, onDeleteJob, onEditJ
       ])
     ),
     'job-card': {
-      render: ({ data }) => {
+      render: ({ data, columnId }) => {
         const job = data.content
         return (
           <JobCard
             job={job}
+            status={job.status}
             onEdit={(job) => onEditJob?.(job)}
             onDelete={(jobId) => onDeleteJob(jobId)}
           />
@@ -116,9 +117,6 @@ export default function KanbanBoard({ jobs, onStatusChange, onDeleteJob, onEditJ
         cardsGap={10}
         onCardMove={handleCardMove}
         columnHeaderClassName={(column) =>
-          `${column.content?.status || "default"}-status`
-        }
-        columnClassName={(column) =>
           `${column.content?.status || "default"}-status`
         }
       />
