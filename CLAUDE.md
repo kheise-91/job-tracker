@@ -31,6 +31,11 @@ Serves on port 9000. Database stored in `data/jobs.db` (volume-mounted).
 - Wait for each sub-agent to fully complete before spawning the next
 - This is a hard requirement due to local GPU memory constraints
 
+## Documentation
+
+- The `/docs` folder is the source of truth for the project.
+- All agents must read relevant docs before starting work.
+
 ## Architecture
 
 ### Single-container deployment
