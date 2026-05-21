@@ -11,7 +11,7 @@ function JobCard({ job, onEdit, onDelete }) {
         </span>
         <div className="flex gap-1">
           <button
-            onClick={(e) => { e.stopPropagation(); onEdit(job.id) }}
+            onClick={(e) => { e.stopPropagation(); onEdit(job) }}
             className="p-0.5 rounded cursor-pointer text-gray-400 hover:text-accent-dark transition-colors"
             aria-label="Edit job"
           >

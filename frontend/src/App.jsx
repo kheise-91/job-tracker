@@ -2,17 +2,15 @@ import { useState, useEffect } from 'react'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import KanbanBoard from './components/KanbanBoard'
+import JobModal from './components/JobModal'
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [jobs, setJobs] = useState([])
   const [loading, setLoading] = useState(true)
-  const [formData, setFormData] = useState({
-    company: '',
-    position: '',
-    status: 'Applied'
-  })
+  const [modalOpen, setModalOpen] = useState(false)
+  const [editingJob, setEditingJob] = useState(null)
 
   useEffect(() => {
     fetchJobs()
@@ -30,19 +28,39 @@ function App() {
     }
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const handleAddJob = () => {
+    setEditingJob(null)
+    setModalOpen(true)
+  }
+
+  const handleEditJob = (job) => {
+    setEditingJob(job)
+    setModalOpen(true)
+  }
+
+  const handleModalSubmit = async (data) => {
     try {
-      const res = await fetch('/api/jobs', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      })
-      const newJob = await res.json()
-      setJobs([...jobs, newJob])
-      setFormData({ company: '', position: '', status: 'Applied' })
+      if (editingJob) {
+        const res = await fetch(`/api/jobs/${editingJob.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        })
+        const updatedJob = await res.json()
+        setJobs(jobs.map(j => (j.id === updatedJob.id ? updatedJob : j)))
+      } else {
+        const res = await fetch('/api/jobs', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        })
+        const newJob = await res.json()
+        setJobs([...jobs, newJob])
+      }
+      setModalOpen(false)
+      setEditingJob(null)
     } catch (error) {
-      console.error('Error adding job:', error)
+      console.error('Error saving job:', error)
     }
   }
 
@@ -80,43 +98,29 @@ function App() {
         <Header searchValue={searchQuery} onSearchChange={setSearchQuery} />
         <main className="flex-1 flex flex-col overflow-hidden">
           <div className="px-6 pt-6 pb-4 shrink-0">
-            <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow p-5 grid grid-cols-1 sm:grid-cols-4 gap-3">
-              <input
-                type="text"
-                placeholder="Company"
-                value={formData.company}
-                onChange={(e) => setFormData({...formData, company: e.target.value})}
-                required
-                className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <input
-                type="text"
-                placeholder="Position"
-                value={formData.position}
-                onChange={(e) => setFormData({...formData, position: e.target.value})}
-                required
-                className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <select
-                value={formData.status}
-                onChange={(e) => setFormData({...formData, status: e.target.value})}
-                className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="Wishlist">Wishlist</option>
-                <option value="Applied">Applied</option>
-                <option value="Interviewing">Interviewing</option>
-                <option value="Offer">Offer</option>
-                <option value="Rejected">Rejected</option>
-              </select>
-              <button type="submit" className="bg-accent text-white px-4 py-2 rounded-md hover:bg-blue-700 font-medium transition-colors">
-                Add Job
-              </button>
-            </form>
+            <button
+              onClick={handleAddJob}
+              className="bg-accent text-white px-4 py-2 rounded-md hover:bg-accent-dark font-medium transition-colors cursor-pointer"
+            >
+              Add Job
+            </button>
           </div>
 
           <div className="flex-1 overflow-hidden px-6 pb-6">
-            <KanbanBoard jobs={jobs} onStatusChange={handleStatusChange} onDeleteJob={handleDeleteJob} />
+            <KanbanBoard
+              jobs={jobs}
+              onStatusChange={handleStatusChange}
+              onDeleteJob={handleDeleteJob}
+              onEditJob={handleEditJob}
+            />
           </div>
+
+          <JobModal
+            isOpen={modalOpen}
+            onClose={() => { setModalOpen(false); setEditingJob(null) }}
+            onSubmit={handleModalSubmit}
+            initialData={editingJob}
+          />
         </main>
       </div>
     </div>

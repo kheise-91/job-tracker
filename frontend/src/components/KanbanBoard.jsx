@@ -68,7 +68,7 @@ function buildDataSource(jobs) {
   }
 }
 
-export default function KanbanBoard({ jobs, onStatusChange, onDeleteJob }) {
+export default function KanbanBoard({ jobs, onStatusChange, onDeleteJob, onEditJob }) {
   const dataSource = useMemo(() => buildDataSource(jobs), [jobs])
 
   const configMap = useMemo(() => ({
@@ -91,7 +91,7 @@ export default function KanbanBoard({ jobs, onStatusChange, onDeleteJob }) {
         return (
           <JobCard
             job={job}
-            onEdit={() => {}}
+            onEdit={(job) => onEditJob?.(job)}
             onDelete={(jobId) => onDeleteJob(jobId)}
           />
         )
