@@ -1,6 +1,6 @@
 ---
 name: "frontend-ux"
-description: "Use this agent when implementing, modifying, or debugging frontend UI components, styling, state management, or client-side logic. Examples include creating new React components, updating Tailwind CSS styles, fixing accessibility issues, integrating frontend with backend APIs, or implementing routing changes. Must run to completion before any other agent starts."
+description: "Use this agent when implementing, modifying, or debugging frontend UI components, styling, state management, or client-side logic. Examples include creating new React components, updating existing components, updating Tailwind CSS styles, fixing accessibility issues, integrating frontend with backend APIs, or implementing routing changes. Must run to completion before any other agent starts."
 model: inherit
 color: green
 memory: project
