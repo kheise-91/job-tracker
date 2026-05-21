@@ -43,10 +43,10 @@
         - [x] Create components/JobCard.jsx — displays company, position, status badge, and action buttons (edit/delete)
         - [x] Style with Tailwind (reuse the existing color palette from index.css)
     
-    - [ ] **3.1.4: Modal form for add/edit**
+    - [x] **3.1.4: Modal form for add/edit**
         *Why fourth: The modal is the most complex React pattern (state lifting, props drilling). Do it after the simpler components.*
-        - [ ] Create components/JobModal.jsx — pop-up form with fields: company, position, status dropdown, date_applied, interview_date, notes
-        - [ ] Uses a backdrop overlay pattern (fixed div + centered card)
+        - [x] Create components/JobModal.jsx — pop-up form with fields: company, position, status dropdown, date_applied, interview_date, notes
+        - [x] Uses a backdrop overlay pattern (fixed div + centered card)
     
     - [ ] **3.1.5: Search/filter functionality**
         *Why fifth: It's a small feature built on top of everything else already in place.*

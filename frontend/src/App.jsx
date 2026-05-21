@@ -95,17 +95,8 @@ function App() {
         <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
       </aside>
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Header searchValue={searchQuery} onSearchChange={setSearchQuery} />
+        <Header searchValue={searchQuery} onSearchChange={setSearchQuery} onAddJob={handleAddJob} />
         <main className="flex-1 flex flex-col overflow-hidden">
-          <div className="px-6 pt-6 pb-4 shrink-0">
-            <button
-              onClick={handleAddJob}
-              className="bg-accent text-white px-4 py-2 rounded-md hover:bg-accent-dark font-medium transition-colors cursor-pointer"
-            >
-              Add Job
-            </button>
-          </div>
-
           <div className="flex-1 overflow-hidden px-6 pb-6">
             <KanbanBoard
               jobs={jobs}
