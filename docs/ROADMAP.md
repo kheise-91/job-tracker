@@ -49,7 +49,7 @@
         <br /><br />
 
     - [ ] **3.1.5: Reorder cards within columns** *Why fifth: The kanban board needs persistent ordering before adding more card features.*
-        - [ ] Update `KanbanBoard.jsx` to handle drag-end events and call `PUT /api/jobs/{id}` with the new `order` value
+        - [ ] Update `KanbanBoard.jsx` to allow re-ordering cards within their columns and other columns
         - [ ] Ensure the kanban library emits the new order index on drop
         <br /><br />
 

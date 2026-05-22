@@ -25,7 +25,6 @@ try {
             date_applied DATETIME DEFAULT CURRENT_TIMESTAMP,
             interview_date DATETIME DEFAULT NULL,
             notes TEXT,
-            `order` INTEGER NOT NULL DEFAULT 1,
             updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     ");

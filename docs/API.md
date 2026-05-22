@@ -39,7 +39,6 @@ Return all jobs, ordered by `date_applied` descending.
     "date_applied": "2026-05-15 10:30:00",
     "interview_date": null,
     "notes": "Referred by Jane",
-    "order": 1,
     "updated_at": "2026-05-15 10:30:00"
   }
 ]
@@ -56,7 +55,6 @@ Each job object contains:
 | date_applied    | datetime | Application date                   |
 | interview_date  | datetime | Scheduled interview date (nullable)|
 | notes           | string   | Free-form notes                    |
-| order           | integer  | Kanban column ordering             |
 | updated_at      | datetime | Last update timestamp              |
 
 ---
@@ -74,7 +72,6 @@ Create a new job entry.
 | status         | string  | No       | `"Applied"`  | Initial status           |
 | interview_date | string  | No       | `null`       | ISO datetime string      |
 | notes          | string  | No       | `""`         | Free-form notes          |
-| order          | integer | No       | `1`          | Kanban column ordering   |
 
 **Response** — `201 Created`
 
@@ -87,7 +84,6 @@ Create a new job entry.
   "date_applied": null,
   "interview_date": null,
   "notes": "",
-  "order": 1,
   "updated_at": "2026-05-21 12:00:00"
 }
 ```
@@ -120,7 +116,6 @@ Partially update an existing job. Only provided fields are updated; `updated_at`
 | status         | string  | New status               |
 | interview_date | string  | New interview date       |
 | notes          | string  | New notes                |
-| order          | integer | New kanban order value   |
 
 **Response** — `200 OK` (full updated job object)
 
@@ -133,7 +128,6 @@ Partially update an existing job. Only provided fields are updated; `updated_at`
   "date_applied": "2026-05-15 10:30:00",
   "interview_date": "2026-05-28 14:00:00",
   "notes": "Referred by Jane",
-  "order": 1,
   "updated_at": "2026-05-21 12:00:00"
 }
 ```

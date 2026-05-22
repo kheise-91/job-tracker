@@ -69,7 +69,6 @@ Serves on port 9000. Database stored in `data/jobs.db` (volume-mounted).
 | date_applied | DATETIME | |
 | interview_date | DATETIME DEFAULT NULL | |
 | notes | TEXT | |
-| order | INTEGER DEFAULT 0 | Kanban column ordering |
 | updated_at | DATETIME | |
 
 ### Key files to know

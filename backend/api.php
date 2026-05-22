@@ -31,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/j
     $status = $input['status'] ?? 'Applied';
     $interview_date = $input['interview_date'] ?? null;
     $notes = $input['notes'] ?? '';
-    $order = isset($input['order']) ? (int)$input['order'] : 1;
 
     if (empty($company) || empty($position)) {
         http_response_code(400);
@@ -45,8 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/j
         exit();
     }
 
-    $stmt = $pdo->prepare("INSERT INTO jobs (company, position, status, interview_date, notes, `order`) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$company, $position, $status, $interview_date, $notes, $order]);
+    $stmt = $pdo->prepare("INSERT INTO jobs (company, position, status, interview_date, notes) VALUES (?, ?, ?, ?, ?)");
+    $stmt->execute([$company, $position, $status, $interview_date, $notes]);
     
     $id = $pdo->lastInsertId();
     $stmt = $pdo->prepare("SELECT * FROM jobs WHERE id = ?");
@@ -67,7 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && preg_match('/^\/api\/jobs\/(\d+)$/',
     $status = $input['status'] ?? null;
     $interview_date = $input['interview_date'] ?? null;
     $notes = $input['notes'] ?? null;
-    $order = $input['order'] ?? null;
 
     $updates = [];
     $params = [];
@@ -91,10 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && preg_match('/^\/api\/jobs\/(\d+)$/',
     if ($notes !== null) {
         $updates[] = "notes = ?";
         $params[] = $notes;
-    }
-    if ($order !== null) {
-        $updates[] = "`order` = ?";
-        $params[] = (int)$order;
     }
     
     if (empty($updates)) {
