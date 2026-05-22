@@ -48,9 +48,11 @@
         - [x] Uses a backdrop overlay pattern (fixed div + centered card)
         <br /><br />
 
-    - [ ] **3.1.5: Reorder cards within columns** *Why fifth: The kanban board needs persistent ordering before adding more card features.*
-        - [ ] Update `KanbanBoard.jsx` to allow re-ordering cards within their columns and other columns
-        - [ ] Ensure the kanban library emits the new order index on drop
+    - [x] **3.1.5: Reorder cards within columns** *Why fifth: The kanban board needs persistent ordering before adding more card features.*
+        - [x] Update `KanbanBoard.jsx` to allow re-ordering cards within their columns and other columns
+        - [x] Ensure the kanban library emits the new order index on drop
+        - [x] Backend re-sequences all cards in the affected column to sequential `order` values (0, 1, 2, 3...) after any move
+        - [x] Frontend re-fetches the full job list after every reorder to get consistent `order` values from the server
         <br /><br />
 
     - [ ] **3.1.6: Add `hyperlink` field** *Why sixth: A core piece of job tracking data that many postings already include.*

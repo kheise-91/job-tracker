@@ -25,7 +25,7 @@ Valid status values across all endpoints:
 
 ## GET /api/jobs
 
-Return all jobs, ordered by `date_applied` descending.
+Return all jobs, ordered by `status` then `order` ascending (per-column ordering).
 
 **Response** — `200 OK`
 
@@ -39,7 +39,8 @@ Return all jobs, ordered by `date_applied` descending.
     "date_applied": "2026-05-15 10:30:00",
     "interview_date": null,
     "notes": "Referred by Jane",
-    "updated_at": "2026-05-15 10:30:00"
+    "updated_at": "2026-05-15 10:30:00",
+    "order": 1
   }
 ]
 ```
@@ -55,6 +56,7 @@ Each job object contains:
 | date_applied    | datetime | Application date                   |
 | interview_date  | datetime | Scheduled interview date (nullable)|
 | notes           | string   | Free-form notes                    |
+| order           | integer  | Per-column display order           |
 | updated_at      | datetime | Last update timestamp              |
 
 ---
@@ -72,6 +74,7 @@ Create a new job entry.
 | status         | string  | No       | `"Applied"`  | Initial status           |
 | interview_date | string  | No       | `null`       | ISO datetime string      |
 | notes          | string  | No       | `""`         | Free-form notes          |
+| order          | integer | No       | (auto: id)   | Per-column display order |
 
 **Response** — `201 Created`
 
@@ -116,6 +119,7 @@ Partially update an existing job. Only provided fields are updated; `updated_at`
 | status         | string  | New status               |
 | interview_date | string  | New interview date       |
 | notes          | string  | New notes                |
+| order          | integer | New per-column order     |
 
 **Response** — `200 OK` (full updated job object)
 
@@ -137,6 +141,43 @@ Partially update an existing job. Only provided fields are updated; `updated_at`
 - `400` — No fields provided:
   ```json
   { "error": "No fields to update" }
+  ```
+
+---
+
+## PUT /api/jobs/reorder
+
+Bulk-reorder jobs across columns. Accepts an object mapping column IDs (lowercase) to ordered arrays of job IDs.
+
+**Request body**
+
+```json
+{
+  "columns": {
+    "wishlist": [3, 7],
+    "applied": [5, 1, 9],
+    "interviewing": [2]
+  }
+}
+```
+
+Each key is a lowercase column ID (`wishlist`, `applied`, `interviewing`, `offer`, `rejected`, `withdrawn`). Each value is an ordered array of job IDs reflecting the desired column order (0-indexed). Unknown column keys are silently ignored.
+
+**Response** — `200 OK`
+
+```json
+{ "success": true }
+```
+
+**Error responses**
+
+- `400` — Missing or invalid `columns`:
+  ```json
+  { "error": "Invalid payload" }
+  ```
+- `500` — Database error (transaction rolled back):
+  ```json
+  { "error": "<message>" }
   ```
 
 ---
