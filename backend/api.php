@@ -6,121 +6,269 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
 
-$allowedStatuses = ['Wishlist', 'Applied', 'Interviewing', 'Offer', 'Rejected', 'Withdrawn'];
+$allowedStatuses = [
+    'Wishlist',
+    'Applied',
+    'Interviewing',
+    'Offer',
+    'Rejected',
+    'Withdrawn'
+];
 
-// Handle preflight requests
+$statusMap = [
+    'wishlist' => 'Wishlist',
+    'applied' => 'Applied',
+    'interviewing' => 'Interviewing',
+    'offer' => 'Offer',
+    'rejected' => 'Rejected',
+    'withdrawn' => 'Withdrawn',
+];
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
-// Get all jobs
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/api/jobs') {
-    $stmt = $pdo->query("SELECT * FROM jobs ORDER BY date_applied DESC");
-    $jobs = $stmt->fetchAll();
-    echo json_encode($jobs);
+function sendJson($data, int $status = 200): void {
+    http_response_code($status);
+    echo json_encode($data);
     exit();
 }
 
-// Add a new job
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/jobs') {
+function getJsonInput(): array {
     $input = json_decode(file_get_contents('php://input'), true);
+    return is_array($input) ? $input : [];
+}
 
-    $company = $input['company'] ?? '';
-    $position = $input['position'] ?? '';
+// =========================
+// GET ALL JOBS
+// =========================
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/api/jobs') {
+    $stmt = $pdo->query("
+        SELECT * FROM jobs
+        ORDER BY
+            CASE status
+                WHEN 'Wishlist' THEN 1
+                WHEN 'Applied' THEN 2
+                WHEN 'Interviewing' THEN 3
+                WHEN 'Offer' THEN 4
+                WHEN 'Rejected' THEN 5
+                WHEN 'Withdrawn' THEN 6
+                ELSE 99
+            END,
+            `order` ASC,
+            id ASC
+    ");
+
+    sendJson($stmt->fetchAll());
+}
+
+// =========================
+// CREATE JOB
+// =========================
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/jobs') {
+    $input = getJsonInput();
+
+    $company = trim($input['company'] ?? '');
+    $position = trim($input['position'] ?? '');
     $status = $input['status'] ?? 'Applied';
-    $interview_date = $input['interview_date'] ?? null;
+    $interviewDate = $input['interview_date'] ?? null;
     $notes = $input['notes'] ?? '';
 
-    if (empty($company) || empty($position)) {
-        http_response_code(400);
-        echo json_encode(['error' => 'Company and position are required']);
-        exit();
+    if (!$company || !$position) {
+        sendJson([
+            'error' => 'Company and position are required'
+        ], 400);
     }
 
-    if (!in_array($status, $allowedStatuses)) {
-        http_response_code(400);
-        echo json_encode(['error' => 'Invalid status']);
-        exit();
+    if (!in_array($status, $allowedStatuses, true)) {
+        sendJson([
+            'error' => 'Invalid status'
+        ], 400);
     }
 
-    $stmt = $pdo->prepare("INSERT INTO jobs (company, position, status, interview_date, notes) VALUES (?, ?, ?, ?, ?)");
-    $stmt->execute([$company, $position, $status, $interview_date, $notes]);
-    
+    $stmt = $pdo->prepare("SELECT COALESCE(MAX(`order`), -1) + 1 FROM jobs WHERE status = ?");
+    $stmt->execute([$status]);
+    $nextOrder = (int)$stmt->fetchColumn();
+
+    $stmt = $pdo->prepare("
+        INSERT INTO jobs (
+            company,
+            position,
+            status,
+            interview_date,
+            notes,
+            `order`
+        ) VALUES (?, ?, ?, ?, ?, ?)
+    ");
+
+    $stmt->execute([
+        $company,
+        $position,
+        $status,
+        $interviewDate,
+        $notes,
+        $nextOrder
+    ]);
+
     $id = $pdo->lastInsertId();
+
     $stmt = $pdo->prepare("SELECT * FROM jobs WHERE id = ?");
     $stmt->execute([$id]);
-    $job = $stmt->fetch();
-    
-    echo json_encode($job);
-    exit();
+
+    sendJson($stmt->fetch(), 201);
 }
 
-// Update a job
-if ($_SERVER['REQUEST_METHOD'] === 'PUT' && preg_match('/^\/api\/jobs\/(\d+)$/', $_SERVER['REQUEST_URI'], $matches)) {
-    $id = $matches[1];
-    $input = json_decode(file_get_contents('php://input'), true);
-    
-    $company = $input['company'] ?? null;
-    $position = $input['position'] ?? null;
-    $status = $input['status'] ?? null;
-    $interview_date = $input['interview_date'] ?? null;
-    $notes = $input['notes'] ?? null;
+// =========================
+// REORDER JOBS
+// =========================
+
+if ($_SERVER['REQUEST_METHOD'] === 'PUT' && $_SERVER['REQUEST_URI'] === '/api/jobs/reorder') {
+    $input = getJsonInput();
+
+    $columns = $input['columns'] ?? null;
+
+    if (!is_array($columns)) {
+        sendJson([
+            'error' => 'Invalid payload'
+        ], 400);
+    }
+
+    try {
+        $pdo->beginTransaction();
+
+        foreach ($columns as $columnId => $jobIds) {
+            if (!isset($statusMap[$columnId])) {
+                continue;
+            }
+
+            $status = $statusMap[$columnId];
+
+            if (!is_array($jobIds)) {
+                continue;
+            }
+
+            foreach ($jobIds as $index => $jobId) {
+                $stmt = $pdo->prepare("
+                    UPDATE jobs
+                    SET
+                        status = ?,
+                        `order` = ?,
+                        updated_at = CURRENT_TIMESTAMP
+                    WHERE id = ?
+                ");
+
+                $stmt->execute([
+                    $status,
+                    $index,
+                    (int)$jobId
+                ]);
+            }
+        }
+
+        $pdo->commit();
+
+        sendJson([
+            'success' => true
+        ]);
+    } catch (Exception $e) {
+        $pdo->rollBack();
+
+        sendJson([
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
+
+// =========================
+// UPDATE JOB
+// =========================
+
+if (
+    $_SERVER['REQUEST_METHOD'] === 'PUT' &&
+    preg_match('/^\/api\/jobs\/(\d+)$/', $_SERVER['REQUEST_URI'], $matches)
+) {
+    $jobId = (int)$matches[1];
+    $input = getJsonInput();
 
     $updates = [];
     $params = [];
-    
-    if ($company !== null) {
-        $updates[] = "company = ?";
-        $params[] = $company;
+
+    if (array_key_exists('company', $input)) {
+        $updates[] = 'company = ?';
+        $params[] = trim($input['company']);
     }
-    if ($position !== null) {
-        $updates[] = "position = ?";
-        $params[] = $position;
+
+    if (array_key_exists('position', $input)) {
+        $updates[] = 'position = ?';
+        $params[] = trim($input['position']);
     }
-    if ($status !== null) {
-        $updates[] = "status = ?";
-        $params[] = $status;
+
+    if (array_key_exists('status', $input)) {
+        if (!in_array($input['status'], $allowedStatuses, true)) {
+            sendJson([
+                'error' => 'Invalid status'
+            ], 400);
+        }
+
+        $updates[] = 'status = ?';
+        $params[] = $input['status'];
     }
-    if ($interview_date !== null) {
-        $updates[] = "interview_date = ?";
-        $params[] = $interview_date;
+
+    if (array_key_exists('interview_date', $input)) {
+        $updates[] = 'interview_date = ?';
+        $params[] = $input['interview_date'];
     }
-    if ($notes !== null) {
-        $updates[] = "notes = ?";
-        $params[] = $notes;
+
+    if (array_key_exists('notes', $input)) {
+        $updates[] = 'notes = ?';
+        $params[] = $input['notes'];
     }
-    
+
     if (empty($updates)) {
-        http_response_code(400);
-        echo json_encode(['error' => 'No fields to update']);
-        exit();
+        sendJson([
+            'error' => 'No fields to update'
+        ], 400);
     }
-    
-    $params[] = $id;
-    $sql = "UPDATE jobs SET " . implode(', ', $updates) . ", updated_at = CURRENT_TIMESTAMP WHERE id = ?";
+
+    $params[] = $jobId;
+
+    $sql = "
+        UPDATE jobs
+        SET
+            " . implode(', ', $updates) . ",
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+    ";
+
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
-    
+
     $stmt = $pdo->prepare("SELECT * FROM jobs WHERE id = ?");
-    $stmt->execute([$id]);
-    $job = $stmt->fetch();
-    
-    echo json_encode($job);
-    exit();
+    $stmt->execute([$jobId]);
+
+    sendJson($stmt->fetch());
 }
 
-// Delete a job
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && preg_match('/^\/api\/jobs\/(\d+)$/', $_SERVER['REQUEST_URI'], $matches)) {
-    $id = $matches[1];
-    
+// =========================
+// DELETE JOB
+// =========================
+
+if (
+    $_SERVER['REQUEST_METHOD'] === 'DELETE' &&
+    preg_match('/^\/api\/jobs\/(\d+)$/', $_SERVER['REQUEST_URI'], $matches)
+) {
+    $jobId = (int)$matches[1];
+
     $stmt = $pdo->prepare("DELETE FROM jobs WHERE id = ?");
-    $stmt->execute([$id]);
-    
-    echo json_encode(['success' => true]);
-    exit();
+    $stmt->execute([$jobId]);
+
+    sendJson([
+        'success' => true
+    ]);
 }
 
-http_response_code(404);
-echo json_encode(['error' => 'Endpoint not found']);
-?>
+sendJson([
+    'error' => 'Endpoint not found'
+], 404);

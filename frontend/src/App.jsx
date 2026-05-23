@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import KanbanBoard from './components/KanbanBoard'
@@ -21,8 +21,8 @@ function App() {
       const res = await fetch('/api/jobs')
       const data = await res.json()
       setJobs(data)
-    } catch (error) {
-      console.error('Error fetching jobs:', error)
+    } catch (err) {
+      console.error('Error fetching jobs:', err)
     } finally {
       setLoading(false)
     }
@@ -43,64 +43,87 @@ function App() {
       if (editingJob) {
         const res = await fetch(`/api/jobs/${editingJob.id}`, {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify(data),
         })
+
         const updatedJob = await res.json()
-        setJobs(jobs.map(j => (j.id === updatedJob.id ? updatedJob : j)))
+
+        setJobs(prev =>
+          prev.map(job =>
+            job.id === updatedJob.id
+              ? updatedJob
+              : job
+          )
+        )
       } else {
         const res = await fetch('/api/jobs', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify(data),
         })
+
         const newJob = await res.json()
-        setJobs([...jobs, newJob])
+
+        setJobs(prev => [...prev, newJob])
       }
+
       setModalOpen(false)
       setEditingJob(null)
-    } catch (error) {
-      console.error('Error saving job:', error)
-    }
-  }
-
-  const handleStatusChange = async (jobId, newStatus) => {
-    try {
-      const res = await fetch(`/api/jobs/${jobId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus }),
-      })
-      const updatedJob = await res.json()
-      setJobs(jobs.map(j => (j.id === jobId ? updatedJob : j)))
-    } catch (error) {
-      console.error('Error updating job status:', error)
+    } catch (err) {
+      console.error('Error saving job:', err)
     }
   }
 
   const handleDeleteJob = async (jobId) => {
     try {
-      await fetch(`/api/jobs/${jobId}`, { method: 'DELETE' })
-      setJobs(jobs.filter(j => j.id !== jobId))
-    } catch (error) {
-      console.error('Error deleting job:', error)
+      await fetch(`/api/jobs/${jobId}`, {
+        method: 'DELETE',
+      })
+
+      setJobs(prev => prev.filter(job => job.id !== jobId))
+    } catch (err) {
+      console.error('Error deleting job:', err)
     }
   }
 
-  if (loading) return <div className="flex items-center justify-center h-screen">Loading...</div>
+  const handleBoardUpdate = (updatedJobs) => {
+    setJobs(updatedJobs)
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    )
+  }
 
   return (
     <div className="flex h-screen bg-gray-100">
       <aside className={`${sidebarOpen ? 'w-72' : 'w-16'} flex-shrink-0 transition-all duration-200`}>
-        <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
+        <Sidebar
+          isOpen={sidebarOpen}
+          onToggle={() => setSidebarOpen(!sidebarOpen)}
+        />
       </aside>
+
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Header searchValue={searchQuery} onSearchChange={setSearchQuery} onAddJob={handleAddJob} />
+        <Header
+          searchValue={searchQuery}
+          onSearchChange={setSearchQuery}
+          onAddJob={handleAddJob}
+        />
+
         <main className="flex-1 flex flex-col overflow-hidden">
           <div className="flex-1 overflow-hidden px-6 pb-6">
             <KanbanBoard
               jobs={jobs}
-              onStatusChange={handleStatusChange}
+              onBoardUpdate={handleBoardUpdate}
               onDeleteJob={handleDeleteJob}
               onEditJob={handleEditJob}
             />
@@ -108,7 +131,10 @@ function App() {
 
           <JobModal
             isOpen={modalOpen}
-            onClose={() => { setModalOpen(false); setEditingJob(null) }}
+            onClose={() => {
+              setModalOpen(false)
+              setEditingJob(null)
+            }}
             onSubmit={handleModalSubmit}
             initialData={editingJob}
           />
