@@ -1,4 +1,4 @@
-import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { LinkIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 
 function formatInterviewDate(dateStr) {
   if (!dateStr) return ''
@@ -27,11 +27,20 @@ function JobCard({ job, status, onEdit, onDelete }) {
       )}
       <div className={`font-semibold text-gray-800 text-sm ${interviewDate ? 'pr-16' : ''}`}>{job.company}</div>
       <div className={`text-gray-500 text-xs mt-0.5 ${interviewDate ? 'pr-16' : ''}`}>{job.position}</div>
-      <div className={`mt-2 flex items-center justify-between `}>
-        <span className="inline-block">
-
-        </span>
+      <div className={`mt-2 flex items-center justify-end `}>
         <div className="flex gap-1">
+          {job.hyperlink && (
+            <a
+              href={job.hyperlink}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => { e.stopPropagation(); }}
+              className="p-0.5 rounded cursor-pointer text-gray-400 hover:text-accent-dark transition-colors"
+              aria-label="View job posting"
+            >
+              <LinkIcon className="w-4 h-4" />
+            </a>
+          )}
           <button
             onClick={(e) => { e.stopPropagation(); onEdit(job) }}
             className="p-0.5 rounded cursor-pointer text-gray-400 hover:text-accent-dark transition-colors"

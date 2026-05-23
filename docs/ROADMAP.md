@@ -55,11 +55,11 @@
         - [x] Frontend re-fetches the full job list after every reorder to get consistent `order` values from the server
         <br /><br />
 
-    - [ ] **3.1.6: Add `hyperlink` field** *Why sixth: A core piece of job tracking data that many postings already include.*
-        - [ ] Add `hyperlink` TEXT column to `jobs` table in `backend/db.php` schema
-        - [ ] Include `hyperlink` in all API read/write responses in `backend/api.php`
-        - [ ] Add a text input for `hyperlink` in `JobModal.jsx` (add/edit mode)
-        - [ ] In `JobCard.jsx`, add a link icon button next to the existing action buttons that opens the URL in a new tab (`target="_blank" rel="noopener noreferrer"`)
+    - [x] **3.1.6: Add `hyperlink` field** *Why sixth: A core piece of job tracking data that many postings already include.*
+        - [x] Add `hyperlink` TEXT column to `jobs` table in `backend/db.php` schema
+        - [x] Include `hyperlink` in all API read/write responses in `backend/api.php`
+        - [x] Add a text input for `hyperlink` in `JobModal.jsx` (add/edit mode)
+        - [x] In `JobCard.jsx`, add a link icon button next to the existing action buttons that opens the URL in a new tab (`target="_blank" rel="noopener noreferrer"`)
         <br /><br />
 
     - [ ] **3.1.7: Add `source` field** *Why seventh: Provides useful context about where the job was found without cluttering the card.*

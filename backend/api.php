@@ -43,10 +43,9 @@ function getJsonInput(): array {
 // =========================
 // GET ALL JOBS
 // =========================
-
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/api/jobs') {
     $stmt = $pdo->query("
-        SELECT * FROM jobs
+        SELECT id, company, position, status, date_applied, interview_date, hyperlink, notes, `order`, updated_at FROM jobs
         ORDER BY
             CASE status
                 WHEN 'Wishlist' THEN 1
@@ -74,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/j
     $position = trim($input['position'] ?? '');
     $status = $input['status'] ?? 'Applied';
     $interviewDate = $input['interview_date'] ?? null;
+    $hyperlink = $input['hyperlink'] ?? '';
     $notes = $input['notes'] ?? '';
 
     if (!$company || !$position) {
@@ -98,9 +98,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/j
             position,
             status,
             interview_date,
+            hyperlink,
             notes,
             `order`
-        ) VALUES (?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?)
     ");
 
     $stmt->execute([
@@ -108,6 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/j
         $position,
         $status,
         $interviewDate,
+        $hyperlink,
         $notes,
         $nextOrder
     ]);
@@ -123,7 +125,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/j
 // =========================
 // REORDER JOBS
 // =========================
-
 if ($_SERVER['REQUEST_METHOD'] === 'PUT' && $_SERVER['REQUEST_URI'] === '/api/jobs/reorder') {
     $input = getJsonInput();
 
@@ -184,7 +185,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && $_SERVER['REQUEST_URI'] === '/api/jo
 // =========================
 // UPDATE JOB
 // =========================
-
 if (
     $_SERVER['REQUEST_METHOD'] === 'PUT' &&
     preg_match('/^\/api\/jobs\/(\d+)$/', $_SERVER['REQUEST_URI'], $matches)
@@ -226,6 +226,11 @@ if (
         $params[] = $input['notes'];
     }
 
+    if (array_key_exists('hyperlink', $input)) {
+        $updates[] = 'hyperlink = ?';
+        $params[] = $input['hyperlink'];
+    }
+
     if (empty($updates)) {
         sendJson([
             'error' => 'No fields to update'
@@ -254,7 +259,6 @@ if (
 // =========================
 // DELETE JOB
 // =========================
-
 if (
     $_SERVER['REQUEST_METHOD'] === 'DELETE' &&
     preg_match('/^\/api\/jobs\/(\d+)$/', $_SERVER['REQUEST_URI'], $matches)
