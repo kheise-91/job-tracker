@@ -24,6 +24,7 @@ try {
             status TEXT NOT NULL DEFAULT 'Applied',
             date_applied DATETIME DEFAULT CURRENT_TIMESTAMP,
             interview_date DATETIME DEFAULT NULL,
+            hyperlink TEXT,
             notes TEXT,
             `order` INTEGER NOT NULL DEFAULT 0,
             updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
