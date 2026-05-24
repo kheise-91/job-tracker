@@ -62,11 +62,11 @@
         - [x] In `JobCard.jsx`, add a link icon button next to the existing action buttons that opens the URL in a new tab (`target="_blank" rel="noopener noreferrer"`)
         <br /><br />
 
-    - [ ] **3.1.7: Add `source` field**
-        - [ ] Add `source` TEXT column to `jobs` table in `backend/db.php` schema
-        - [ ] Include `source` in all API read/write responses in `backend/api.php`
-        - [ ] Add a text input for `source` in `JobModal.jsx`
-        - [ ] Source field is NOT displayed on `JobCard.jsx` (only visible in edit modal)
+    - [x] **3.1.7: Add `source` field**
+        - [x] Add `source` TEXT column to `jobs` table in `backend/db.php` schema
+        - [x] Include `source` in all API read/write responses in `backend/api.php`
+        - [x] Add a text input for `source` in `JobModal.jsx`
+        - [x] Source field is NOT displayed on `JobCard.jsx` (only visible in edit modal)
         <br /><br />
 
     - [ ] **3.1.8: Notes preview on hover**
