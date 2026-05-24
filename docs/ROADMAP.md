@@ -66,7 +66,7 @@
         - [ ] Add `source` TEXT column to `jobs` table in `backend/db.php` schema
         - [ ] Include `source` in all API read/write responses in `backend/api.php`
         - [ ] Add a text input for `source` in `JobModal.jsx`
-        - [ ] Display the source value on `JobCard.jsx`
+        - [ ] Source field is NOT displayed on `JobCard.jsx` (only visible in edit modal)
         <br /><br />
 
     - [ ] **3.1.8: Notes preview on hover**

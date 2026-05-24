@@ -38,6 +38,8 @@ Return all jobs, ordered by `status` then `order` ascending (per-column ordering
     "status": "Applied",
     "date_applied": "2026-05-15 10:30:00",
     "interview_date": null,
+    "source": "LinkedIn",
+    "hyperlink": "https://linkedin.com/job/123",
     "notes": "Referred by Jane",
     "updated_at": "2026-05-15 10:30:00",
     "order": 1
@@ -55,6 +57,8 @@ Each job object contains:
 | status          | string   | Current status                     |
 | date_applied    | datetime | Application date                   |
 | interview_date  | datetime | Scheduled interview date (nullable)|
+| source          | string   | Where the job was found            |
+| hyperlink       | string   | Link to job posting (nullable)     |
 | notes           | string   | Free-form notes                    |
 | order           | integer  | Per-column display order           |
 | updated_at      | datetime | Last update timestamp              |
@@ -73,6 +77,8 @@ Create a new job entry.
 | position       | string  | Yes      | —            | Job title                |
 | status         | string  | No       | `"Applied"`  | Initial status           |
 | interview_date | string  | No       | `null`       | ISO datetime string      |
+| source         | string  | No       | `""`         | Where job was found      |
+| hyperlink      | string  | No       | `""`         | Link to job posting      |
 | notes          | string  | No       | `""`         | Free-form notes          |
 | order          | integer | No       | (auto: id)   | Per-column display order |
 
@@ -86,6 +92,8 @@ Create a new job entry.
   "status": "Applied",
   "date_applied": null,
   "interview_date": null,
+  "source": "LinkedIn",
+  "hyperlink": "https://linkedin.com/job/123",
   "notes": "",
   "updated_at": "2026-05-21 12:00:00"
 }
@@ -118,6 +126,8 @@ Partially update an existing job. Only provided fields are updated; `updated_at`
 | position       | string  | New job title            |
 | status         | string  | New status               |
 | interview_date | string  | New interview date       |
+| source         | string  | New source               |
+| hyperlink      | string  | New hyperlink            |
 | notes          | string  | New notes                |
 | order          | integer | New per-column order     |
 
@@ -131,6 +141,8 @@ Partially update an existing job. Only provided fields are updated; `updated_at`
   "status": "Interviewing",
   "date_applied": "2026-05-15 10:30:00",
   "interview_date": "2026-05-28 14:00:00",
+  "source": "LinkedIn",
+  "hyperlink": "https://linkedin.com/job/123",
   "notes": "Referred by Jane",
   "updated_at": "2026-05-21 12:00:00"
 }
