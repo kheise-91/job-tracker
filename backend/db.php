@@ -24,12 +24,14 @@ try {
             status TEXT NOT NULL DEFAULT 'Applied',
             date_applied DATETIME DEFAULT CURRENT_TIMESTAMP,
             interview_date DATETIME DEFAULT NULL,
+            `source` TEXT,
             hyperlink TEXT,
             notes TEXT,
             `order` INTEGER NOT NULL DEFAULT 0,
             updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     ");
+
 } catch (PDOException $e) {
     http_response_code(500);
     header('Content-Type: application/json');

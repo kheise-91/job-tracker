@@ -26,6 +26,8 @@ The database file and its parent directory are created automatically on startup 
 | `status`       | TEXT         | NOT NULL                           | `'Applied'`              | Application status          |
 | `date_applied` | DATETIME     | —                                  | `CURRENT_TIMESTAMP`      | When the job was created    |
 | `interview_date`| DATETIME    | —                                  | `NULL`                  | Scheduled interview date     |
+| `source`       | TEXT         | —                                  | `NULL`                  | Where job was found         |
+| `hyperlink`    | TEXT         | —                                  | `NULL`                  | Link to job posting         |
 | `notes`        | TEXT         | —                                  | `NULL`                  | Free-form notes              |
 | `order`        | INTEGER      | NOT NULL                           | `0`                     | Per-column display order     |
 | `updated_at`   | DATETIME     | —                                  | `CURRENT_TIMESTAMP`      | Last row update timestamp   |

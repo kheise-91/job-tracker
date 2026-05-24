@@ -45,7 +45,7 @@ function getJsonInput(): array {
 // =========================
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/api/jobs') {
     $stmt = $pdo->query("
-        SELECT id, company, position, status, date_applied, interview_date, hyperlink, notes, `order`, updated_at FROM jobs
+        SELECT id, company, position, status, date_applied, interview_date, `source`, hyperlink, notes, `order`, updated_at FROM jobs
         ORDER BY
             CASE status
                 WHEN 'Wishlist' THEN 1
@@ -73,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/j
     $position = trim($input['position'] ?? '');
     $status = $input['status'] ?? 'Applied';
     $interviewDate = $input['interview_date'] ?? null;
+    $source = $input['source'] ?? '';
     $hyperlink = $input['hyperlink'] ?? '';
     $notes = $input['notes'] ?? '';
 
@@ -98,10 +99,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/j
             position,
             status,
             interview_date,
+            `source`,
             hyperlink,
             notes,
             `order`
-        ) VALUES (?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     ");
 
     $stmt->execute([
@@ -109,6 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/j
         $position,
         $status,
         $interviewDate,
+        $source,
         $hyperlink,
         $notes,
         $nextOrder
@@ -224,6 +227,11 @@ if (
     if (array_key_exists('notes', $input)) {
         $updates[] = 'notes = ?';
         $params[] = $input['notes'];
+    }
+
+    if (array_key_exists('source', $input)) {
+        $updates[] = '`source` = ?';
+        $params[] = $input['source'];
     }
 
     if (array_key_exists('hyperlink', $input)) {
