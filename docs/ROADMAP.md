@@ -73,7 +73,8 @@ working and dismissable, and PWA criteria met.
     operations in `api.php`. Text input added to `JobModal.jsx`. Field intentionally
     not displayed on `JobCard.jsx` - edit modal only.
 
-- ### [ ] 3.8 - Notes preview on hover
+- ### [ ] [3.8 - Notes preview on hover](https://gitea.heise.home/kheise/ats/milestone/2)
+
     In `JobCard.jsx`, add a notes icon button next to the hyperlink button, rendered only
     when the job's `notes` field is non-empty. On hover (desktop) or tap (mobile), display
     a floating Tailwind-styled tooltip showing the notes text. No modal - lightweight
