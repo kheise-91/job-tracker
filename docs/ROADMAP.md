@@ -68,7 +68,7 @@ working and dismissable, and PWA criteria met.
     operations in `api.php`. Text input added to `JobModal.jsx`. Link icon button on
     `JobCard.jsx` opens URL in a new tab; hidden when no hyperlink is set.
 
-- ### [x] 3.7 - Source field
+- ### [x] 3.7 - Source field 
     `source` TEXT column added to `jobs` in `db.php`. Exposed in all API read/write
     operations in `api.php`. Text input added to `JobModal.jsx`. Field intentionally
     not displayed on `JobCard.jsx` - edit modal only.
