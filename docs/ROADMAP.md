@@ -90,7 +90,7 @@ working and dismissable, and PWA criteria met.
     Done when: The notes icon appears only on cards with notes. Hovering reveals the text
     in a floating tooltip. Tapping works on mobile. Cards without notes are unchanged.
 
-- [-] **3.9 - Followed-up date and "Followed Up" kanban column**
+- [-] **[3.9 - Followed-up date and "Followed Up" kanban column](https://gitea.heise.home/kheise/ats/milestone/3)**
     
     > **Implementation note:** Only `followed_up_date` is needed - not a separate
     > `follow_up_date` field. The reminder trigger (7 days after applied) is fully
