@@ -152,7 +152,7 @@ working and dismissable, and PWA criteria met.
     Done when: Typing in the search box filters visible cards across all columns in real
     time. Clearing the input restores all cards. Empty search shows all jobs.
 
-- [ ] **3.13 - Auto-update status on date field changes**
+- [ ] **3.13 - Auto-update fields on related changes**
     
     In `JobModal.jsx`, implement logic that auto-updates the status dropdown when certain
     date fields are set: if `followed_up_date` is filled and status is "Applied", switch
@@ -160,9 +160,21 @@ working and dismissable, and PWA criteria met.
     status to "Interviewing". The auto-change happens in the modal before save - the user
     can still override it before submitting.
 
+    Additionally, implement a backend-only rule in `api.php`: when a card's status changes
+    to "Followed Up" via drag-and-drop and `followed_up_date` is not already set, auto-set
+    it to the current date on save. This is the only scenario where `followed_up_date`
+    should be auto-set — specifically when the current `status` is "Applied" and
+    `followed_up_date` is null/empty. If a date already exists, it must not be overwritten.
+
+    > **Implementation note:** The drag-to-update feature requires backend work only. No
+    > frontend changes are needed beyond what's already in place for drag-and-drop status
+    > updates.
+
     Done when: Setting a followed-up date on an Applied job auto-selects "Followed Up" in
     the dropdown. Setting an interview date on an Applied job auto-selects "Interviewing".
-    Manual override works. Other status transitions are unaffected.
+    Dragging an Applied card to "Followed Up" with no existing `followed_up_date` auto-sets
+    it to today's date. Manual override works for all cases. Other status transitions are
+    unaffected.
 
 - [ ] **3.14 - Cleanup and polish**
     
