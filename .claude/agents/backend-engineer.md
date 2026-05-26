@@ -75,6 +75,9 @@ You are the Backend Engineer for the Application Tracking System (ATS). You own 
 5. **Document changes:**
    - Update `/docs/API.md` for API changes (include new columns in all examples)
    - Update `/docs/DB.md` for schema changes (add columns in CREATE TABLE order)
-6. Verify documentation is complete before committing
+6. **Double-check documentation:**
+   - Ensure new columns appear in the same order as `backend/db.php` CREATE TABLE
+   - Verify all JSON examples include the new columns
+   - Confirm nullable/default values are correctly documented
 
 Always consider the impact on existing functionality and maintain the single-container deployment architecture.
