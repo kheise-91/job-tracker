@@ -41,39 +41,46 @@ Done when: The app runs end-to-end in Docker with all kanban columns, full CRUD 
 modal, drag-to-reorder, all data fields stored and displayed correctly, reminder alerts
 working and dismissable, and PWA criteria met.
 
-- ### [x] 3.1 - Layout skeleton (Sidebar + Header)
+- [x] **3.1 - Layout skeleton (Sidebar + Header)**
+    
     `Sidebar.jsx` with collapsible toggle and "Job ATS" logo text. `Header.jsx` with page
     title and search input stub. Both wired into `App.jsx` as a flex-row layout.
 
-- ### [x] 3.2 - Kanban board columns
+- [x] **3.2 - Kanban board columns**
+    
     `KanbanBoard.jsx` rendering five columns (Wishlist → Applied → Interviewing → Offer →
     Rejected) using `react-kanban-kit`, each displaying job cards.
 
-- ### [x] 3.3 - Job card component
+- [x] **3.3 - Job card component**
+    
     `JobCard.jsx` displaying company, position, status badge, and edit/delete buttons.
     Styled with Tailwind using the existing palette from `index.css`.
 
-- ### [x] 3.4 - Modal form (add and edit)
+- [x] **3.4 - Modal form (add and edit)**
+    
     `JobModal.jsx` with fixed backdrop overlay and centered card. Fields: company,
     position, status dropdown, date_applied, interview_date, notes. Handles both add
     (blank) and edit (pre-filled) modes.
 
-- ### [x] 3.5 - Drag-to-reorder cards
+- [x] **3.5 - Drag-to-reorder cards**
+    
     `KanbanBoard.jsx` supports drag-and-drop within and across columns. On drop, the API
     re-sequences all cards in the affected column to sequential `order` integers. Frontend
     re-fetches the full job list after every reorder for consistency.
 
-- ### [x] 3.6 - Hyperlink field
+- [x] **3.6 - Hyperlink field**
+    
     `hyperlink` TEXT column added to `jobs` in `db.php`. Exposed in all API read/write
     operations in `api.php`. Text input added to `JobModal.jsx`. Link icon button on
     `JobCard.jsx` opens URL in a new tab; hidden when no hyperlink is set.
 
-- ### [x] 3.7 - Source field 
+- [x] **[3.7 - Source field](https://gitea.heise.home/kheise/ats/milestone/1)**
+    
     `source` TEXT column added to `jobs` in `db.php`. Exposed in all API read/write
     operations in `api.php`. Text input added to `JobModal.jsx`. Field intentionally
     not displayed on `JobCard.jsx` - edit modal only.
 
-- ### [ ] [3.8 - Notes preview on hover](https://gitea.heise.home/kheise/ats/milestone/2)
+- [x] **[3.8 - Notes preview on hover](https://gitea.heise.home/kheise/ats/milestone/2)**
 
     In `JobCard.jsx`, add a notes icon button next to the hyperlink button, rendered only
     when the job's `notes` field is non-empty. On hover (desktop) or tap (mobile), display
@@ -83,7 +90,8 @@ working and dismissable, and PWA criteria met.
     Done when: The notes icon appears only on cards with notes. Hovering reveals the text
     in a floating tooltip. Tapping works on mobile. Cards without notes are unchanged.
 
-- ### [ ] 3.9 - Followed-up date and "Followed Up" kanban column
+- [-] **3.9 - Followed-up date and "Followed Up" kanban column**
+    
     > **Implementation note:** Only `followed_up_date` is needed - not a separate
     > `follow_up_date` field. The reminder trigger (7 days after applied) is fully
     > calculable from the existing `date_applied` column, so there is nothing to store.
@@ -105,7 +113,8 @@ working and dismissable, and PWA criteria met.
     into it. `followed_up_date` stores and retrieves correctly via the API. The date input
     works in the modal. `follow_up_dismissed` is stored and returned by the API.
 
-- ### [ ] 3.10 - Follow-up reminder alerts
+- [ ] **3.10 - Follow-up reminder alerts**
+    
     > **Implementation note:** Reminders require no new table. The query driving them is:
     > `status = 'Applied' AND date_applied <= today - 7 days AND follow_up_dismissed = false`.
     > Dismissing a reminder sets `follow_up_dismissed = true` on that job via a PUT to the
@@ -124,7 +133,8 @@ working and dismissable, and PWA criteria met.
     the rest. Dismissing persists and the alert does not reappear on reload. Jobs moved to
     "Followed Up" no longer appear in alerts.
 
-- ### [ ] 3.11 - View-only job modal
+- [ ] **3.11 - View-only job modal**
+    
     When clicking anywhere on a `JobCard` (excluding action buttons), open `JobModal.jsx`
     in read-only mode. All fields render as plain text with the same layout and styling as
     the edit form. Edit/delete buttons are hidden. A close/dismiss button is the only action.
@@ -133,7 +143,8 @@ working and dismissable, and PWA criteria met.
     visible as text. The close button dismisses without changes. Clicking action buttons
     still triggers their respective actions, not the view modal.
 
-- ### [ ] 3.12 - Search and filter
+- [ ] **3.12 - Search and filter**
+    
     Add search state to `App.jsx` that filters the kanban board by company or position
     name (case-insensitive substring match). Wire `Header.jsx`'s existing search input
     to this state. Filtering applies across all columns simultaneously.
@@ -141,7 +152,8 @@ working and dismissable, and PWA criteria met.
     Done when: Typing in the search box filters visible cards across all columns in real
     time. Clearing the input restores all cards. Empty search shows all jobs.
 
-- ### [ ] 3.13 - Auto-update status on date field changes
+- [ ] **3.13 - Auto-update status on date field changes**
+    
     In `JobModal.jsx`, implement logic that auto-updates the status dropdown when certain
     date fields are set: if `followed_up_date` is filled and status is "Applied", switch
     status to "Followed Up"; if `interview_date` is filled and status is "Applied", switch
@@ -152,7 +164,8 @@ working and dismissable, and PWA criteria met.
     the dropdown. Setting an interview date on an Applied job auto-selects "Interviewing".
     Manual override works. Other status transitions are unaffected.
 
-- ### [ ] 3.14 - Cleanup and polish
+- [ ] **3.14 - Cleanup and polish**
+    
     Remove old flat list and form code from `App.jsx` superseded by the kanban. Review
     all components for consistent Tailwind styling and no visual rough edges. Verify the
     sidebar collapse/expand works correctly at all viewport sizes. Fix any issues found.
@@ -160,7 +173,8 @@ working and dismissable, and PWA criteria met.
     Done when: No dead code remains in `App.jsx`. All components are visually consistent.
     Sidebar toggle works at all screen sizes. No obvious UI bugs remain.
 
-- ### [ ] 3.15 - PWA configuration
+- [ ] **3.15 - PWA configuration**
+    
     Add and validate the web app manifest (name, short name, icons, theme color, display
     mode). Implement a service worker for basic offline access. Verify the app passes PWA
     installability criteria on desktop and mobile via a Lighthouse audit.
@@ -168,7 +182,8 @@ working and dismissable, and PWA criteria met.
     Done when: The app installs to a mobile home screen via "Add to Home Screen". Basic
     offline access works. Lighthouse PWA audit shows no blocking issues.
 
-- ### [ ] 3.16 - Frontend code review
+- [ ] **3.16 - Frontend code review**
+    
     Review all frontend code against professional standards: consistent naming conventions,
     no dead imports, no `console.log` statements, component responsibilities clearly
     separated, and styling consistent across all components.
@@ -186,7 +201,7 @@ production Docker image deployable with a single `docker run` command.
 Done when: All CRUD operations verified, PWA works on mobile, and the production image
 runs cleanly with a single command.
 
-- ### [ ] 4.1 - Local testing
+- [ ] **4.1 - Local testing**
     Run the app with `docker-compose up` and verify all CRUD operations, drag-to-reorder,
     modal add/edit/view, search filtering, reminder alerts, and dismissal. Fix any bugs
     found before mobile testing.
@@ -194,14 +209,14 @@ runs cleanly with a single command.
     Done when: All features work end-to-end in the local Docker environment with no
     console errors or broken interactions.
 
-- ### [ ] 4.2 - Mobile testing
+- [ ] **4.2 - Mobile testing**
     Verify PWA functionality on a physical mobile device: install to home screen, test
     offline access, verify touch interactions (drag-to-reorder, tooltip tap, modal open).
 
     Done when: App installs and runs from home screen. Offline mode works. All touch
     interactions behave correctly on a real device.
 
-- ### [ ] 4.3 - Production build and packaging
+- [ ] **4.3 - Production build and packaging**
     Optimize the React build. Minimize the Docker image (remove dev dependencies, use a
     minimal base). Ensure the app runs correctly with a single `docker run` command with
     only the SQLite volume mount needed.
