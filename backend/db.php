@@ -23,9 +23,9 @@ try {
             position TEXT NOT NULL,
             status TEXT NOT NULL DEFAULT 'Applied',
             date_applied DATETIME DEFAULT CURRENT_TIMESTAMP,
-            interview_date DATETIME DEFAULT NULL,
             followed_up_date DATETIME DEFAULT NULL,
             follow_up_dismissed BOOLEAN DEFAULT 0,
+            interview_date DATETIME DEFAULT NULL,
             `source` TEXT,
             hyperlink TEXT,
             notes TEXT,
@@ -33,18 +33,6 @@ try {
             updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     ");
-
-    // Add new columns for existing installations
-    $columns = $pdo->query("PRAGMA table_info(jobs)")->fetchAll();
-    $columnNames = array_column($columns, 'name');
-
-    if (!in_array('followed_up_date', $columnNames)) {
-        $pdo->exec("ALTER TABLE jobs ADD COLUMN followed_up_date DATETIME DEFAULT NULL");
-    }
-
-    if (!in_array('follow_up_dismissed', $columnNames)) {
-        $pdo->exec("ALTER TABLE jobs ADD COLUMN follow_up_dismissed BOOLEAN DEFAULT 0");
-    }
 
 } catch (PDOException $e) {
     http_response_code(500);
