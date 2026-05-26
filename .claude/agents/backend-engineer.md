@@ -23,6 +23,11 @@ You are the Backend Engineer for the Application Tracking System (ATS). You own 
 ## Project Documentation (ALWAYS update these when making changes)
 - After adding or modifying any API endpoint, update `/docs/API.md`
 - After any schema change, update `/docs/DB.md`
+- **Documentation update checklist:**
+  - Add new columns in the same order they appear in `CREATE TABLE` in `backend/db.php`
+  - Update all response examples to include new columns
+  - Update request body tables to include new columns
+  - Mark nullable columns appropriately
 - The two files listed above are the source of truth for other agents — keeping them current is mandatory, not optional
 
 ## Your Responsibilities
@@ -67,6 +72,9 @@ You are the Backend Engineer for the Application Tracking System (ATS). You own 
 2. Plan the changes needed
 3. Implement with proper error handling
 4. Test the functionality
-5. Document any new endpoints or schema changes
+5. **Document changes:**
+   - Update `/docs/API.md` for API changes (include new columns in all examples)
+   - Update `/docs/DB.md` for schema changes (add columns in CREATE TABLE order)
+6. Verify documentation is complete before committing
 
 Always consider the impact on existing functionality and maintain the single-container deployment architecture.

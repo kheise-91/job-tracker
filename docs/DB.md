@@ -18,19 +18,21 @@ The database file and its parent directory are created automatically on startup 
 
 ## Table: `jobs`
 
-| Column         | Type         | Constraints                        | Default                  | Description                 |
-|----------------|--------------|------------------------------------|--------------------------|-----------------------------|
-| `id`           | INTEGER      | PRIMARY KEY, AUTOINCREMENT         | —                        | Unique row identifier       |
-| `company`      | TEXT         | NOT NULL                           | —                        | Company name                |
-| `position`     | TEXT         | NOT NULL                           | —                        | Job title                   |
-| `status`       | TEXT         | NOT NULL                           | `'Applied'`              | Application status          |
-| `date_applied` | DATETIME     | —                                  | `CURRENT_TIMESTAMP`      | When the job was created    |
-| `interview_date`| DATETIME    | —                                  | `NULL`                  | Scheduled interview date     |
-| `source`       | TEXT         | —                                  | `NULL`                  | Where job was found         |
-| `hyperlink`    | TEXT         | —                                  | `NULL`                  | Link to job posting         |
-| `notes`        | TEXT         | —                                  | `NULL`                  | Free-form notes              |
-| `order`        | INTEGER      | NOT NULL                           | `0`                     | Per-column display order     |
-| `updated_at`   | DATETIME     | —                                  | `CURRENT_TIMESTAMP`      | Last row update timestamp   |
+| Column               | Type         | Constraints                        | Default                  | Description                 |
+|----------------------|--------------|------------------------------------|--------------------------|-----------------------------|
+| `id`                 | INTEGER      | PRIMARY KEY, AUTOINCREMENT         | —                        | Unique row identifier       |
+| `company`            | TEXT         | NOT NULL                           | —                        | Company name                |
+| `position`           | TEXT         | NOT NULL                           | —                        | Job title                   |
+| `status`             | TEXT         | NOT NULL                           | `'Applied'`              | Application status          |
+| `date_applied`       | DATETIME     | —                                  | `CURRENT_TIMESTAMP`      | When the job was created    |
+| `followed_up_date`   | DATETIME     | —                                  | `NULL`                   | When user followed up       |
+| `follow_up_dismissed`| BOOLEAN      | —                                  | `0`                      | Reminder dismissed flag     |
+| `interview_date`     | DATETIME     | —                                  | `NULL`                   | Scheduled interview date     |
+| `source`             | TEXT         | —                                  | `NULL`                   | Where job was found         |
+| `hyperlink`          | TEXT         | —                                  | `NULL`                   | Link to job posting         |
+| `notes`              | TEXT         | —                                  | `NULL`                   | Free-form notes              |
+| `order`              | INTEGER      | NOT NULL                           | `0`                     | Per-column display order     |
+| `updated_at`         | DATETIME     | —                                  | `CURRENT_TIMESTAMP`      | Last row update timestamp   |
 
 ### Valid `status` values
 
