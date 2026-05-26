@@ -8,6 +8,7 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
     company: '',
     position: '',
     status: 'Applied',
+    followed_up_date: '',
     interview_date: '',
     notes: '',
     hyperlink: '',
@@ -20,6 +21,9 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
         company: initialData.company || '',
         position: initialData.position || '',
         status: initialData.status || 'Applied',
+        followed_up_date: initialData.followed_up_date
+          ? initialData.followed_up_date.split(' ')[0]
+          : '',
         interview_date: initialData.interview_date
           ? initialData.interview_date.replace(' ', 'T').slice(0, 16)
           : '',
@@ -32,6 +36,7 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
         company: '',
         position: '',
         status: 'Applied',
+        followed_up_date: '',
         interview_date: '',
         notes: '============= SALARY =============\n\n========== TECHNOLOGY ===========\n',
         hyperlink: '',
@@ -115,6 +120,16 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
                       </option>
                     ))}
                   </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Followed Up Date</label>
+                  <input
+                    type="date"
+                    value={formData.followed_up_date}
+                    onChange={(e) => setFormData({ ...formData, followed_up_date: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
                 </div>
 
                 <div>
