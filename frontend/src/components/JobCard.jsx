@@ -1,5 +1,6 @@
 import { LinkIcon, PencilIcon, TrashIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 
 function formatInterviewDate(dateStr) {
   if (!dateStr) return ''
@@ -19,6 +20,19 @@ function JobCard({ job, status, onEdit, onDelete }) {
     ? formatInterviewDate(job.interview_date)
     : ''
   const [showNotes, setShowNotes] = useState(false)
+  const buttonRef = useRef(null)
+  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 })
+
+  // Calculate tooltip position relative to viewport when tooltip opens
+  useEffect(() => {
+    if (showNotes && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect()
+      setTooltipPosition({
+        top: rect.top - 8, // 8px gap above button
+        left: rect.left + rect.width / 2, // center horizontally on button
+      })
+    }
+  }, [showNotes])
 
   const handleMouseEnter = () => setShowNotes(true)
   const handleMouseLeave = () => setShowNotes(false)
@@ -39,8 +53,9 @@ function JobCard({ job, status, onEdit, onDelete }) {
       <div className="mt-2 flex items-center justify-between">
         <div className="flex items-center">
           {job.notes && (
-            <div className="relative">
+            <div className="relative inline-block">
               <button
+                ref={buttonRef}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 onClick={handleTap}
@@ -49,12 +64,25 @@ function JobCard({ job, status, onEdit, onDelete }) {
               >
                 <InformationCircleIcon className="w-4 h-4" />
               </button>
-              <div
-                className={`absolute bottom-full left-0 mb-2 w-64 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg z-10 transition-opacity duration-200 ${showNotes ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
-              >
-                <div className="whitespace-pre-wrap">{job.notes}</div>
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-gray-800 rotate-45"></div>
-              </div>
+
+              {/* Tooltip rendered via portal — escapes all overflow: hidden parents */}
+              {showNotes && createPortal(
+                <div
+                  className="fixed w-max max-w-[250px] bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg z-[9999] transition-opacity duration-200 whitespace-pre-wrap pointer-events-auto"
+                  style={{
+                    top: tooltipPosition.top,
+                    left: tooltipPosition.left,
+                    transform: 'translate(-50%, -100%)',
+                  }}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  {job.notes}
+                  {/* Arrow pointing down */}
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 -translate-y-1 w-2 h-2 bg-gray-800 rotate-45" />
+                </div>,
+                document.body
+              )}
             </div>
           )}
         </div>
