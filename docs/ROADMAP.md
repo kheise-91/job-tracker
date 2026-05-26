@@ -202,6 +202,7 @@ Done when: All CRUD operations verified, PWA works on mobile, and the production
 runs cleanly with a single command.
 
 - [ ] **4.1 - Local testing**
+
     Run the app with `docker-compose up` and verify all CRUD operations, drag-to-reorder,
     modal add/edit/view, search filtering, reminder alerts, and dismissal. Fix any bugs
     found before mobile testing.
@@ -210,6 +211,7 @@ runs cleanly with a single command.
     console errors or broken interactions.
 
 - [ ] **4.2 - Mobile testing**
+
     Verify PWA functionality on a physical mobile device: install to home screen, test
     offline access, verify touch interactions (drag-to-reorder, tooltip tap, modal open).
 
@@ -217,6 +219,7 @@ runs cleanly with a single command.
     interactions behave correctly on a real device.
 
 - [ ] **4.3 - Production build and packaging**
+
     Optimize the React build. Minimize the Docker image (remove dev dependencies, use a
     minimal base). Ensure the app runs correctly with a single `docker run` command with
     only the SQLite volume mount needed.

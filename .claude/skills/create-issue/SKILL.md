@@ -1,1 +1,0 @@
-create-issues/SKILL.md
