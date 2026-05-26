@@ -37,6 +37,8 @@ Return all jobs, ordered by `status` then `order` ascending (per-column ordering
     "position": "Senior Engineer",
     "status": "Applied",
     "date_applied": "2026-05-15 10:30:00",
+    "followed_up_date": null,
+    "follow_up_dismissed": 0,
     "interview_date": null,
     "source": "LinkedIn",
     "hyperlink": "https://linkedin.com/job/123",
@@ -49,19 +51,21 @@ Return all jobs, ordered by `status` then `order` ascending (per-column ordering
 
 Each job object contains:
 
-| Field           | Type     | Description                        |
-|-----------------|----------|------------------------------------|
-| id              | integer  | Unique identifier                  |
-| company         | string   | Company name                       |
-| position        | string   | Job title                          |
-| status          | string   | Current status                     |
-| date_applied    | datetime | Application date                   |
-| interview_date  | datetime | Scheduled interview date (nullable)|
-| source          | string   | Where the job was found            |
-| hyperlink       | string   | Link to job posting (nullable)     |
-| notes           | string   | Free-form notes                    |
-| order           | integer  | Per-column display order           |
-| updated_at      | datetime | Last update timestamp              |
+| Field                | Type     | Description                        |
+|----------------------|----------|------------------------------------|
+| id                   | integer  | Unique identifier                  |
+| company              | string   | Company name                       |
+| position             | string   | Job title                          |
+| status               | string   | Current status                     |
+| date_applied         | datetime | Application date                   |
+| followed_up_date     | datetime | When user followed up (nullable)   |
+| follow_up_dismissed  | boolean  | Reminder dismissed flag (0/1)      |
+| interview_date       | datetime | Scheduled interview date (nullable)|
+| source               | string   | Where the job was found            |
+| hyperlink            | string   | Link to job posting (nullable)     |
+| notes                | string   | Free-form notes                    |
+| order                | integer  | Per-column display order           |
+| updated_at           | datetime | Last update timestamp              |
 
 ---
 
@@ -71,16 +75,18 @@ Create a new job entry.
 
 **Request body**
 
-| Field          | Type    | Required | Default      | Description              |
-|----------------|---------|----------|--------------|--------------------------|
-| company        | string  | Yes      | —            | Company name             |
-| position       | string  | Yes      | —            | Job title                |
-| status         | string  | No       | `"Applied"`  | Initial status           |
-| interview_date | string  | No       | `null`       | ISO datetime string      |
-| source         | string  | No       | `""`         | Where job was found      |
-| hyperlink      | string  | No       | `""`         | Link to job posting      |
-| notes          | string  | No       | `""`         | Free-form notes          |
-| order          | integer | No       | (auto: id)   | Per-column display order |
+| Field                | Type    | Required | Default      | Description              |
+|----------------------|---------|----------|--------------|--------------------------|
+| company              | string  | Yes      | —            | Company name             |
+| position             | string  | Yes      | —            | Job title                |
+| status               | string  | No       | `"Applied"`  | Initial status           |
+| followed_up_date     | string  | No       | `null`       | ISO datetime string      |
+| follow_up_dismissed  | boolean | No       | `0`          | Reminder dismissed flag  |
+| interview_date       | string  | No       | `null`       | ISO datetime string      |
+| source               | string  | No       | `""`         | Where job was found      |
+| hyperlink            | string  | No       | `""`         | Link to job posting      |
+| notes                | string  | No       | `""`         | Free-form notes          |
+| order                | integer | No       | (auto: id)   | Per-column display order |
 
 **Response** — `201 Created`
 
@@ -91,6 +97,8 @@ Create a new job entry.
   "position": "Staff Engineer",
   "status": "Applied",
   "date_applied": null,
+  "followed_up_date": null,
+  "follow_up_dismissed": 0,
   "interview_date": null,
   "source": "LinkedIn",
   "hyperlink": "https://linkedin.com/job/123",
@@ -120,16 +128,18 @@ Partially update an existing job. Only provided fields are updated; `updated_at`
 
 **Request body** — any subset of:
 
-| Field          | Type    | Description              |
-|----------------|---------|--------------------------|
-| company        | string  | New company name         |
-| position       | string  | New job title            |
-| status         | string  | New status               |
-| interview_date | string  | New interview date       |
-| source         | string  | New source               |
-| hyperlink      | string  | New hyperlink            |
-| notes          | string  | New notes                |
-| order          | integer | New per-column order     |
+| Field                | Type    | Description              |
+|----------------------|---------|--------------------------|
+| company              | string  | New company name         |
+| position             | string  | New job title            |
+| status               | string  | New status               |
+| followed_up_date     | string  | New followed up date     |
+| follow_up_dismissed  | boolean | New dismissed flag       |
+| interview_date       | string  | New interview date       |
+| source               | string  | New source               |
+| hyperlink            | string  | New hyperlink            |
+| notes                | string  | New notes                |
+| order                | integer | New per-column order     |
 
 **Response** — `200 OK` (full updated job object)
 
@@ -140,6 +150,8 @@ Partially update an existing job. Only provided fields are updated; `updated_at`
   "position": "Senior Engineer",
   "status": "Interviewing",
   "date_applied": "2026-05-15 10:30:00",
+  "followed_up_date": null,
+  "follow_up_dismissed": 0,
   "interview_date": "2026-05-28 14:00:00",
   "source": "LinkedIn",
   "hyperlink": "https://linkedin.com/job/123",

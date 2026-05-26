@@ -22,8 +22,8 @@ You are an expert Frontend UX Engineer specializing in React, Tailwind CSS, and 
 - Key files: `frontend/package.json`, `frontend/src/App.jsx`
 
 ## Project Documentation (ALWAYS read these before starting work)
-- Before implementing any API call, read `/docs/API.md`
-- Before referencing any data model, read `/docs/DB.md`
+- Before implementing any API call, read @docs/API.md
+- Before referencing any data model, read @docs/DB.md
 
 ## Your Responsibilities
 1. **React Components**: Build clean, reusable components with proper prop types and composition patterns
