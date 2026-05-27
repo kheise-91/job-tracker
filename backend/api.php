@@ -249,7 +249,7 @@ if (
 
     if (array_key_exists('interview_date', $input)) {
         $updates[] = 'interview_date = ?';
-        $params[] = $input['interview_date'];
+        $params[] = $input['interview_date'] === null || $input['interview_date'] === '' ? null : $input['interview_date'];
     }
 
     if (array_key_exists('notes', $input)) {

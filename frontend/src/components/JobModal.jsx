@@ -8,7 +8,8 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
     company: '',
     position: '',
     status: 'Applied',
-    interview_date: '',
+    followed_up_date: null,
+    interview_date: null,
     notes: '',
     hyperlink: '',
     source: '',
@@ -20,6 +21,9 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
         company: initialData.company || '',
         position: initialData.position || '',
         status: initialData.status || 'Applied',
+        followed_up_date: initialData.followed_up_date
+          ? initialData.followed_up_date.split(' ')[0]
+          : '',
         interview_date: initialData.interview_date
           ? initialData.interview_date.replace(' ', 'T').slice(0, 16)
           : '',
@@ -32,7 +36,8 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
         company: '',
         position: '',
         status: 'Applied',
-        interview_date: '',
+        followed_up_date: null,
+        interview_date: null,
         notes: '============= SALARY =============\n\n========== TECHNOLOGY ===========\n',
         hyperlink: '',
         source: '',
@@ -43,8 +48,9 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     // Use React state directly — FormData from DOM can be stale
+    const dateFields = ['followed_up_date', 'interview_date']
     const payload = Object.fromEntries(
-      Object.entries(formData).filter(([, v]) => v !== '')
+      Object.entries(formData).filter(([k, v]) => v !== '' && (v !== null || dateFields.includes(k)))
     )
     onSubmit(payload)
   }
@@ -118,13 +124,45 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
                 </div>
 
                 <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Followed Up Date</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="date"
+                      value={formData.followed_up_date || ''}
+                      onChange={(e) => setFormData({ ...formData, followed_up_date: e.target.value })}
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    {formData.followed_up_date && (
+                      <button
+                        type="button"
+                        onClick={() => setFormData({ ...formData, followed_up_date: null })}
+                        className="px-3 py-2 border border-gray-300 rounded-md text-gray-500 hover:bg-gray-50 text-sm font-medium transition-colors cursor-pointer"
+                      >
+                        Clear
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Interview Date</label>
-                  <input
-                    type="datetime-local"
-                    value={formData.interview_date}
-                    onChange={(e) => setFormData({ ...formData, interview_date: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
+                  <div className="flex gap-2">
+                    <input
+                      type="datetime-local"
+                      value={formData.interview_date || ''}
+                      onChange={(e) => setFormData({ ...formData, interview_date: e.target.value })}
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    {formData.interview_date && (
+                      <button
+                        type="button"
+                        onClick={() => setFormData({ ...formData, interview_date: null })}
+                        className="px-3 py-2 border border-gray-300 rounded-md text-gray-500 hover:bg-gray-50 text-sm font-medium transition-colors cursor-pointer"
+                      >
+                        Clear
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 <div>
