@@ -4,3 +4,4 @@ vendor/
 data/
 dist/
 tests/
+.claude/plans
