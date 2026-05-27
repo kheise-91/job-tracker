@@ -36,7 +36,7 @@ The database file and its parent directory are created automatically on startup 
 
 ### Valid `status` values
 
-`Wishlist`, `Applied`, `Interviewing`, `Offer`, `Rejected`, `Withdrawn`
+`Wishlist`, `Applied`, `Followed Up`, `Interviewing`, `Offer`, `Rejected`, `Withdrawn`
 
 ### Indexes
 

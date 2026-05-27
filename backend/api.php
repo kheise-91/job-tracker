@@ -9,6 +9,7 @@ header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $allowedStatuses = [
     'Wishlist',
     'Applied',
+    'Followed Up',
     'Interviewing',
     'Offer',
     'Rejected',
@@ -18,6 +19,7 @@ $allowedStatuses = [
 $statusMap = [
     'wishlist' => 'Wishlist',
     'applied' => 'Applied',
+    'followed-up' => 'Followed Up',
     'interviewing' => 'Interviewing',
     'offer' => 'Offer',
     'rejected' => 'Rejected',
@@ -50,10 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/api/jo
             CASE status
                 WHEN 'Wishlist' THEN 1
                 WHEN 'Applied' THEN 2
-                WHEN 'Interviewing' THEN 3
-                WHEN 'Offer' THEN 4
-                WHEN 'Rejected' THEN 5
-                WHEN 'Withdrawn' THEN 6
+                WHEN 'Followed Up' THEN 3
+                WHEN 'Interviewing' THEN 4
+                WHEN 'Offer' THEN 5
+                WHEN 'Rejected' THEN 6
+                WHEN 'Withdrawn' THEN 7
                 ELSE 99
             END,
             `order` ASC,

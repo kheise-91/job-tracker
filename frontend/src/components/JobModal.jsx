@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react'
 
-const STATUSES = ['Wishlist', 'Applied', 'Interviewing', 'Offer', 'Rejected', 'Withdrawn']
+const STATUSES = ['Wishlist', 'Applied', 'Followed Up', 'Interviewing', 'Offer', 'Rejected', 'Withdrawn']
 
 function JobModal({ isOpen, onClose, onSubmit, initialData }) {
   const [formData, setFormData] = useState({

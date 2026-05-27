@@ -53,8 +53,9 @@ svg {
   background-color: unset !important;
 }
 .rkk-column.wishlist-status     {background-color: #e6f0f0 !important;}
-.rkk-column.applied-status      {background-color: #e3f2fd !important;}
-.rkk-column.interviewing-status {background-color: #fff3e0 !important;}
+.rkk-column.applied-status       {background-color: #e3f2fd !important;}
+.rkk-column.followed-up-status   {background-color: #e8eaf6 !important;}
+.rkk-column.interviewing-status  {background-color: #fff3e0 !important;}
 .rkk-column.offer-status        {background-color: #e8f5e9 !important;}
 .rkk-column.rejected-status     {background-color: #ffebee !important;}
 
@@ -69,6 +70,7 @@ svg {
 }
 .rkk-column-header.wishlist-status     {background: #2f4f4f;}
 .rkk-column-header.applied-status      {background: #1976d2;}
+.rkk-column-header.followed-up-status  {background: #283593;}
 .rkk-column-header.interviewing-status {background: #f57c00;}
 .rkk-column-header.offer-status        {background: #388e3c;}
 .rkk-column-header.rejected-status     {background: #d32f2f;}
