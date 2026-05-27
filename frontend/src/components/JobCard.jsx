@@ -17,11 +17,13 @@ function formatInterviewDate(dateStr) {
 
 function formatFollowedUpDate(dateStr) {
   if (!dateStr) return ''
-  const date = new Date(dateStr)
+  // Parse as local date to avoid UTC timezone shift (date-only strings like "2026-05-27"
+  // are interpreted as UTC midnight, which shifts to the previous day in negative UTC timezones)
+  const [year, month, day] = dateStr.split('-').map(Number)
+  const date = new Date(year, month - 1, day)
   if (isNaN(date)) return ''
-  const month = date.toLocaleString('en-US', { month: 'short' })
-  const day = date.getDate()
-  return `${month} ${day}`
+  const m = date.toLocaleString('en-US', { month: 'short' })
+  return `${m} ${day}`
 }
 
 function JobCard({ job, status, onEdit, onDelete }) {
