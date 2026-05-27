@@ -12,14 +12,15 @@ All endpoints return JSON with `Content-Type: application/json`. CORS is enabled
 
 Valid status values across all endpoints:
 
-| Status     | Description                    |
-|------------|--------------------------------|
-| Wishlist   | Saved for later consideration  |
-| Applied    | Application submitted           |
+| Status       | Description                    |
+|--------------|--------------------------------|
+| Wishlist     | Saved for later consideration  |
+| Applied      | Application submitted          |
+| Followed Up  | Follow-up completed            |
 | Interviewing | Currently in interview process |
-| Offer      | Received an offer              |
-| Rejected   | Application rejected            |
-| Withdrawn  | Self-withdrawn                |
+| Offer        | Received an offer              |
+| Rejected     | Application rejected           |
+| Withdrawn    | Self-withdrawn                 |
 
 ---
 
@@ -185,7 +186,7 @@ Bulk-reorder jobs across columns. Accepts an object mapping column IDs (lowercas
 }
 ```
 
-Each key is a lowercase column ID (`wishlist`, `applied`, `interviewing`, `offer`, `rejected`, `withdrawn`). Each value is an ordered array of job IDs reflecting the desired column order (0-indexed). Unknown column keys are silently ignored.
+Each key is a lowercase column ID (`wishlist`, `applied`, `followed-up`, `interviewing`, `offer`, `rejected`, `withdrawn`). Each value is an ordered array of job IDs reflecting the desired column order (0-indexed). Unknown column keys are silently ignored.
 
 **Response** — `200 OK`
 
