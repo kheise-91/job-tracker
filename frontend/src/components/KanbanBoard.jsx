@@ -5,6 +5,7 @@ import JobCard from './JobCard'
 const columns = [
   { id: 'wishlist', title: 'Wishlist', type: 'status-wishlist' },
   { id: 'applied', title: 'Applied', type: 'status-applied' },
+  { id: 'followed-up', title: 'Followed Up', type: 'status-followed-up' },
   { id: 'interviewing', title: 'Interviewing', type: 'status-interviewing' },
   { id: 'offer', title: 'Offer', type: 'status-offer' },
   { id: 'rejected', title: 'Rejected', type: 'status-rejected' },

@@ -15,9 +15,23 @@ function formatInterviewDate(dateStr) {
   return `${month} ${day}, ${displayHours}:${minutes.toString().padStart(2, '0')} ${ampm}`
 }
 
+function formatFollowedUpDate(dateStr) {
+  if (!dateStr) return ''
+  // Parse as local date to avoid UTC timezone shift (date-only strings like "2026-05-27"
+  // are interpreted as UTC midnight, which shifts to the previous day in negative UTC timezones)
+  const [year, month, day] = dateStr.split('-').map(Number)
+  const date = new Date(year, month - 1, day)
+  if (isNaN(date)) return ''
+  const m = date.toLocaleString('en-US', { month: 'short' })
+  return `${m} ${day}`
+}
+
 function JobCard({ job, status, onEdit, onDelete }) {
   const interviewDate = status === 'Interviewing' && job.interview_date
     ? formatInterviewDate(job.interview_date)
+    : ''
+  const followedUpDate = status === 'Followed Up' && job.followed_up_date
+    ? formatFollowedUpDate(job.followed_up_date)
     : ''
   const [showNotes, setShowNotes] = useState(false)
   const buttonRef = useRef(null)
@@ -44,12 +58,17 @@ function JobCard({ job, status, onEdit, onDelete }) {
   return (
     <div className="group bg-white rounded-lg shadow-sm border border-gray-200 p-3 hover:shadow-md transition-shadow cursor-pointer relative">
       {interviewDate && (
-        <div className="absolute top-2 right-2 text-xs font-medium rounded text-interview-status bg-interview-status-light  px-1.5 py-0.5">
+        <div className="absolute top-2 right-2 text-xs font-medium rounded text-interview-status bg-interview-status-light px-1.5 py-0.5">
           {interviewDate}
         </div>
       )}
-      <div className={`font-semibold text-gray-800 text-sm ${interviewDate ? 'pr-16' : ''}`}>{job.company}</div>
-      <div className={`text-gray-500 text-xs mt-0.5 ${interviewDate ? 'pr-16' : ''}`}>{job.position}</div>
+      {followedUpDate && (
+        <div className="absolute top-2 right-2 text-xs font-medium rounded text-interview-status bg-interview-status-light px-1.5 py-0.5">
+          {followedUpDate}
+        </div>
+      )}
+      <div className={`font-semibold text-gray-800 text-sm ${interviewDate || followedUpDate ? 'pr-16' : ''}`}>{job.company}</div>
+      <div className={`text-gray-500 text-xs mt-0.5 ${interviewDate || followedUpDate ? 'pr-16' : ''}`}>{job.position}</div>
       <div className="mt-2 flex items-center justify-between">
         <div className="flex items-center">
           {job.notes && (

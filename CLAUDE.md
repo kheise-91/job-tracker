@@ -34,7 +34,8 @@ Serves on port 9000. Database stored in `data/jobs.db` (volume-mounted).
 - ALWAYS run sub-agents sequentially, never in parallel
 - Wait for each sub-agent to fully complete before spawning the next
 - This is a hard requirement due to local GPU memory constraints
-- All agents must read relevant docs from the `/docs` folder before starting work.
+- All agents must read relevant docs from the `docs/` folder before starting work
+- Make sure relevant docs are also updated when related changes have been made
 
 ## Architecture
 

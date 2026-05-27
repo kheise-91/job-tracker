@@ -9,6 +9,7 @@ header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $allowedStatuses = [
     'Wishlist',
     'Applied',
+    'Followed Up',
     'Interviewing',
     'Offer',
     'Rejected',
@@ -18,6 +19,7 @@ $allowedStatuses = [
 $statusMap = [
     'wishlist' => 'Wishlist',
     'applied' => 'Applied',
+    'followed-up' => 'Followed Up',
     'interviewing' => 'Interviewing',
     'offer' => 'Offer',
     'rejected' => 'Rejected',
@@ -45,15 +47,16 @@ function getJsonInput(): array {
 // =========================
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/api/jobs') {
     $stmt = $pdo->query("
-        SELECT id, company, position, status, date_applied, interview_date, `source`, hyperlink, notes, `order`, updated_at FROM jobs
+        SELECT id, company, position, status, date_applied, followed_up_date, follow_up_dismissed, interview_date, `source`, hyperlink, notes, `order`, updated_at FROM jobs
         ORDER BY
             CASE status
                 WHEN 'Wishlist' THEN 1
                 WHEN 'Applied' THEN 2
-                WHEN 'Interviewing' THEN 3
-                WHEN 'Offer' THEN 4
-                WHEN 'Rejected' THEN 5
-                WHEN 'Withdrawn' THEN 6
+                WHEN 'Followed Up' THEN 3
+                WHEN 'Interviewing' THEN 4
+                WHEN 'Offer' THEN 5
+                WHEN 'Rejected' THEN 6
+                WHEN 'Withdrawn' THEN 7
                 ELSE 99
             END,
             `order` ASC,
@@ -72,6 +75,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/j
     $company = trim($input['company'] ?? '');
     $position = trim($input['position'] ?? '');
     $status = $input['status'] ?? 'Applied';
+    $followedUpDate = $input['followed_up_date'] ?? null;
+    $followUpDismissed = $input['follow_up_dismissed'] ?? false;
+    // Ensure follow_up_dismissed is always 0 or 1 (integer)
+    // Handle empty string, null, boolean false, string "false", or integer 0
+    if ($followUpDismissed === '' || $followUpDismissed === null || $followUpDismissed === false || $followUpDismissed === 'false' || $followUpDismissed === '0') {
+        $followUpDismissed = 0;
+    } else {
+        $followUpDismissed = 1;
+    }
     $interviewDate = $input['interview_date'] ?? null;
     $source = $input['source'] ?? '';
     $hyperlink = $input['hyperlink'] ?? '';
@@ -98,18 +110,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/j
             company,
             position,
             status,
+            followed_up_date,
+            follow_up_dismissed,
             interview_date,
             `source`,
             hyperlink,
             notes,
             `order`
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ");
 
     $stmt->execute([
         $company,
         $position,
         $status,
+        $followedUpDate,
+        $followUpDismissed,
         $interviewDate,
         $source,
         $hyperlink,
@@ -219,9 +235,24 @@ if (
         $params[] = $input['status'];
     }
 
+    if (array_key_exists('followed_up_date', $input)) {
+        $updates[] = 'followed_up_date = ?';
+        $params[] = $input['followed_up_date'] === null || $input['followed_up_date'] === '' ? null : $input['followed_up_date'];
+    }
+
+    if (array_key_exists('follow_up_dismissed', $input)) {
+        $updates[] = 'follow_up_dismissed = ?';
+        $value = $input['follow_up_dismissed'];
+        // Normalize boolean/string values (true/false, 1/0, "true"/"false")
+        if (is_string($value)) {
+            $value = strtolower($value) === 'true' || $value === '1';
+        }
+        $params[] = $value ? 1 : 0;
+    }
+
     if (array_key_exists('interview_date', $input)) {
         $updates[] = 'interview_date = ?';
-        $params[] = $input['interview_date'];
+        $params[] = $input['interview_date'] === null || $input['interview_date'] === '' ? null : $input['interview_date'];
     }
 
     if (array_key_exists('notes', $input)) {
