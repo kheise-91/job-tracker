@@ -11,6 +11,8 @@
   --color-sidebar-muted: #7a8f9e; 
   --color-interview-status: #f57c00;
   --color-interview-status-light: #fff3e0;
+  --color-followed-up-status: #283593;
+  --color-followed-up-status-light: #e8eaf6;
 }
 
 :root {
