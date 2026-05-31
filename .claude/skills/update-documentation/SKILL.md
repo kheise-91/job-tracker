@@ -71,14 +71,14 @@ For example: `App.jsx` would have `App.md` that summarizes the component.
 
 These markdown summaries should be placed in the `docs/components/` directory.
 
-When all components from the subagent's summary have been created/updated, update the `docs/components/index.md` file to 
+When all components from the subagent's summary have been created/updated, update the `docs/components/README.md` file to 
 list each component, along with a 1 sentence description and link to the component's `.md` file.
 
 ---
 
 ## Step 3 - Update API Docs
 
-Using the backend-engineer's API summary, update the `docs/api/index.md` with:
+Using the backend-engineer's API summary, update the `docs/api/README.md` with:
 - A brief intro line (what API this is, base URL)
 - One section per endpoint using this structure:
   ```markdown
@@ -104,7 +104,7 @@ Overwrite the file entirely - this is a generated reference document.
 
 ## Step 4 - Update Database Docs
 
-Using the backend-engineer's database summary, update `docs/database/index.md` with:
+Using the backend-engineer's database summary, update `docs/database/README.md` with:
 - A brief intro (what database engine, file location)
 - One section per table:
   ```markdown
@@ -128,7 +128,7 @@ Update `README.md` using all three agent summaries. Preserve any existing conten
 - **Prerequisites** - what must be installed to run the project
 - **Setup and running locally** - from the infra-devops summary; exact commands
 - **Production Deployment** - the `docker run` command and any required env vars
-- **Project Documentation** - One sentence that reads "See `docs/index.md` for project related documentation (including API endpoints, React components, database schema, AI/Claude guides, and the project development workflow)
+- **Project Documentation** - One sentence that reads "See `docs/README.md` for project related documentation (including API endpoints, React components, database schema, AI/Claude guides, and the project development workflow)
 
 Do not delete sections that exist in the current README.md unless they are clearly outdated or directly contradicted by the codebase.
 

@@ -21,8 +21,8 @@ You are the Backend Engineer for the Application Tracking System (ATS). You own 
 - Key files: `backend/api.php`, `backend/db.php`
 
 ## Project Documentation - Write (ALWAYS update these after doing work)
-- After adding, modifying, or removing any API endpoint, update `docs/api/index.md`
-- After making any database changes, update `docs/database/index.md`
+- After adding, modifying, or removing any API endpoint, update `docs/api/README.md`
+- After making any database changes, update `docs/database/README.md`
 - **Documentation update checklist:**
   - Add new columns in the same order they appear in `CREATE TABLE` in `backend/db.php`
   - Update all response examples to include new columns
@@ -74,8 +74,8 @@ You are the Backend Engineer for the Application Tracking System (ATS). You own 
 3. Implement with proper error handling
 4. Test the functionality
 5. **Document changes:**
-   - Update `docs/api/index.md` for API changes (include new columns in all examples)
-   - Update `docs/database/index.md` for database/schema changes (add columns in CREATE TABLE order)
+   - Update `docs/api/README.md` for API changes (include new columns in all examples)
+   - Update `docs/database/README.md` for database/schema changes (add columns in CREATE TABLE order)
 6. **Double-check documentation:**
    - Ensure new columns appear in the same order as `backend/db.php` CREATE TABLE
    - Verify all JSON examples include the new columns

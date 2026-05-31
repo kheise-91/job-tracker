@@ -30,7 +30,7 @@ Develops and modifies all server-side functionality including API endpoints, dat
 - SQLite schema management in `backend/db.php`
 - Input validation, sanitization, and error handling
 - Status transition validation
-- Updates `docs/api/index.md` and `docs/database/index.md` after relevant changes
+- Updates `docs/api/README.md` and `docs/database/README.md` after relevant changes
 
 **Use when:** Adding or changing API endpoints, modifying the database schema, implementing business rules, optimizing queries, or any PHP/backend task.
 

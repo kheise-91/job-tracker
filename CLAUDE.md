@@ -51,9 +51,9 @@ When spawning subagents:
 - Wait for each subagent to fully complete before spawning the next
 - This is a hard requirement due to local GPU memory constraints
 - All agents must read the following relevant docs before starting work
-  - `docs/api/index.md`
-  - `docs/database/index.md`
-  - `docs/components/index.md`
+  - `docs/api/README.md`
+  - `docs/database/README.md`
+  - `docs/components/README.md`
 - Subagents MUST update the relevant docs listed above when related changes have been made
 
 ## Project Overview
@@ -101,13 +101,13 @@ Serves on port 5000. Database stored in `data/jobs.db` (volume-mounted).
 - **Components:** `Sidebar.jsx`, `Header.jsx`, `KanbanBoard.jsx`, `JobCard.jsx`, `JobModal.jsx`
 
 ### Database schema (`jobs` table)
-See `docs/database/index.md` for the full schema reference.
+See `docs/database/README.md` for the full schema reference.
 
 ### API
-See `docs/api/index.md` for a full list of API endpoints.
+See `docs/api/README.md` for a full list of API endpoints.
 
 ### Components
-See `docs/components/index.md` for a full list of React components.
+See `docs/components/README.md` for a full list of React components.
 
 ## Key files and directories to know
 

@@ -8,15 +8,15 @@ description: A list of files each documenting information about this web app, al
 
 ## API
 
-- [API Reference](api/index.md) - A list of API endpoints, including expected request examples and response examples.
+- [API Reference](api/README.md) - A list of API endpoints, including expected request examples and response examples.
 
 ## Components
 
-- [React Components](components/index.md) - A list of custom React components used in this app.
+- [React Components](components/README.md) - A list of custom React components used in this app.
 
 ## Database
 
-- [Database Schema](database/index.md) - A list of databases and their schemas used in this app.
+- [Database Schema](database/README.md) - A list of databases and their schemas used in this app.
 
 ## Guides
 
