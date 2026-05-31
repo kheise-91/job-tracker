@@ -1,4 +1,10 @@
-# Documentation Index
+---
+name: project-documentation
+title: Project Documentation
+description: A list of files each documenting information about this web app, along with how it was created and maintained.
+---
+
+# Project Documentation
 
 ## API
 
