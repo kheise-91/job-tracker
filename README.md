@@ -1,10 +1,13 @@
 # Application Tracking System
 
-A simple, self-hosted Job Application Tracker designed to replace spreadsheets. This Progressive Web App (PWA) was built with AI assistance and allows you to track your job applications, update statuses, and manage details across all your devices, including mobile.
+A simple, self-hosted Job Application Tracker designed to replace spreadsheets. Built with AI assistance, it lets you track job applications, update statuses, and manage application details.
+
+I built this app for two reasons: to keep track of the jobs I'm actively applying for, and to learn how to use Claude Code and other AI-assisted development tools.
+
+The original repository is on my self-host Gitea server. This repository is a mirror of that.
 
 ## Features
 - **Add/Update/Delete Jobs**: Track company, position, status, and more.
-- **Mobile Friendly**: Works as a PWA on iOS and Android.
 - **Simple Deployment**: Runs in a single Docker container for easy setup.
 - **Kanban Style**: After adding a job, simply drag it to the corresponding column whenever there are status updates.
 
@@ -20,6 +23,18 @@ A simple, self-hosted Job Application Tracker designed to replace spreadsheets. 
 - **Qwen3.6-35B-A3B** — Locally hosted model on RTX 5080 for complex reasoning and code review
 - **llama.cpp** — Inference engine for running local models
 - **llama-swap** — Model serving layer for swapping between local models on the fly
+
+## Claude Code Ecosystem
+
+This project was built using Claude Code with a few tools and plugins:
+
+- **[Gitea MCP Server](https://gitea.com/gitea/gitea-mcp)** — Gitea integration for issue tracking, PR management, and repository operations
+- **[Feature Dev Plugin](https://claude.com/plugins/feature-dev)** — Guided feature development with specialized agents for exploration, architecture, and review
+- **[Frontend Design Plugin](https://claude.com/plugins/frontend-design)** — Production-grade frontend design with distinctive visual output
+
+I've also built custom Claude Code skills and subagents specifically for this project. See the guides:
+- [Custom Skills Guide](/docs/guides/claude-skills.md)
+- [Custom Subagents Guide](/docs/guides/claude-subagents.md)
 
 ## Prerequisites
 - [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
