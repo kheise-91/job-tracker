@@ -1,6 +1,8 @@
 ---
 name: create-issue-plan
 description: Reads an issue from Gitea and creates a plan for implementation.
+disable-model-invocation: true
+effort: xhigh
 arguments: [issueNumber]
 ---
 

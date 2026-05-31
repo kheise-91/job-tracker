@@ -1,6 +1,8 @@
 ---
 name: update-documentation
 description: Updates project `README.md` and documentation based on current code base. Run this after each phase to keep documentation current.
+disable-model-invocation: true
+effort: xhigh
 ---
 
 You are the orchestrator for a documentation update. All development work is complete. Spawn three sub-agents to summarize each area of the codebase, then use their output to update the project documentation.

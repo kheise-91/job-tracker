@@ -1,8 +1,8 @@
 ---
 name: review-project-roadmap
 description: Critically reviews `ROADMAP.md` as an independent pass, flagging gaps, sequencing problems, and anything misscoped. Does not modify any files.
-effort: xhigh
 disable-model-invocation: true
+effort: xhigh
 ---
 
 ## Step 1 - Read the roadmap

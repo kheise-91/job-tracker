@@ -1,8 +1,8 @@
 ---
 name: expand-project-roadmap
 description: Reads `ROADMAP.md` and expands each phase into sub-phases with descriptions and done definitions.
-effort: max
 disable-model-invocation: true
+effort: max
 ---
 
 ## Step 1 - Read the roadmap

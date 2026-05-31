@@ -1,6 +1,8 @@
 ---
 name: execute-issue-plan
 description: Executes the saved plan for a Gitea issue.
+disable-model-invocation: true
+effort: xhigh
 arguments: [issueNumber]
 ---
 

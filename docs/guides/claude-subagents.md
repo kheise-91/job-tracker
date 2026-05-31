@@ -108,3 +108,9 @@ When working on a feature that touches multiple areas:
 3. **QA review last** - `qa-reviewer` reviews all changes
 
 Agents must always run **sequentially** - never in parallel - due to local GPU memory constraints.
+
+---
+
+## Resources
+
+- [AI Models Guide](/docs/guides/ai-models.md)

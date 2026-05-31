@@ -1,16 +1,18 @@
 ---
 name: create-issues
 description: Creates Gitea issues based on sub-phase in project roadmap.
-arguments: [phaseNumber]
+disable-model-invocation: true
+effort: xhigh
+arguments: [subPhase]
 ---
 
-The sub-phase number is: $phaseNumber.
+The sub-phase number is: $subPhase.
 
 ---
 
 ## Step 1 - Read the roadmap
 
-Read @ROADMAP.md. Find the sub-phase matching "$phaseNumber" (e.g. "3.9" matches "- [x] **3.9 ...**" or "**3.9**"). Extract:
+Read @ROADMAP.md. Find the sub-phase matching "$subPhase" (e.g. "3.9" matches "- [x] **3.9 ...**" or "**3.9**"). Extract:
 - The sub-phase title
 - The full description
 - The "Done when" definition

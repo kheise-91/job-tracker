@@ -64,7 +64,7 @@ Critically reviews `ROADMAP.md` as an independent pass, flagging gaps, sequencin
 
 ---
 
-### [`/create-sub-phase [phase]`](/.claude/skills/create-sub-phase/SKILL.md)
+### [`/create-sub-phase [subPhase]`](/.claude/skills/create-sub-phase/SKILL.md)
 
 Full sub-phase setup in one command. Reads the sub-phase from `ROADMAP.md`, creates the
 `phase-X-Y` branch off `master`, creates the `Phase X.Y` milestone in Gitea (with the
@@ -78,7 +78,7 @@ Returns a summary table of all issues and their branches when done.
 
 ---
 
-### [`/create-issues [phase]`](/.claude/skills/create-issues/SKILL.md)
+### [`/create-issues [subPhase]`](/.claude/skills/create-issues/SKILL.md)
 
 Creates issues only - no branch or milestone setup. Reads the sub-phase from `ROADMAP.md`
 and generates issues with the same rules as `/create-sub-phase`. Use when you want
@@ -180,6 +180,8 @@ Can also be run after any major phase to keep docs current.
     - Use `/complete-issue` to have Claude work an issue from start to finish and open a PR.
     - Use `/create-issue-plan` followed by `/execute-issue-plan` to work an issue in steps (for more complex tasks).
 4. **Document Changes:** use the `/update-documentation` after each phase or sub-phase to keep documentation files up-to-date.
+
+---
 
 ## Resources
 

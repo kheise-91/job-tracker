@@ -1,6 +1,8 @@
 ---
 name: complete-issue
 description: Fully autonomous mode. Works on a Gitea issue from start to finish without pausing for user confirmation. All work is isolated to a pre-created branch so it is safe to proceed without verification since nothing merges to master automatically.
+disable-model-invocation: true
+effort: xhigh
 arguments: [issueNumber]
 ---
 
