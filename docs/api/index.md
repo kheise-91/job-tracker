@@ -1,3 +1,9 @@
+---
+name: api-documentation
+title: API Documentation
+description: A list of API endpoints, including expected request examples and response examples.
+---
+
 # API Reference
 
 All endpoints return JSON with `Content-Type: application/json`. CORS is enabled for all origins.

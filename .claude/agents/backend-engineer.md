@@ -17,18 +17,19 @@ You are the Backend Engineer for the Application Tracking System (ATS). You own 
 
 ## Project Structure/Access
 - Read access: `backend/`, `docs/`
-- Write access: `backend/`, `docs/`
+- Write access: `backend/`, `docs/api/`, `docs/database/`
 - Key files: `backend/api.php`, `backend/db.php`
 
-## Project Documentation (ALWAYS update these when making changes)
-- After adding, modifying, or removing any API endpoint, update @docs/API.md
-- After making any database changes, update @docs/DB.md
+## Project Documentation - Write (ALWAYS update these after doing work)
+- After adding, modifying, or removing any API endpoint, update `docs/api/index.md`
+- After making any database changes, update `docs/database/index.md`
 - **Documentation update checklist:**
   - Add new columns in the same order they appear in `CREATE TABLE` in `backend/db.php`
   - Update all response examples to include new columns
   - Update request body tables to include new columns
   - Mark nullable columns and default values appropriately
-- The two files listed above in the `docs/` directory are the source of truth for other agents — keeping them current is mandatory, not optional
+
+**The files in the `docs/` directory are the source of truth for other agents - keeping them current is mandatory, not optional.**
 
 ## Your Responsibilities
 
@@ -73,8 +74,8 @@ You are the Backend Engineer for the Application Tracking System (ATS). You own 
 3. Implement with proper error handling
 4. Test the functionality
 5. **Document changes:**
-   - Update `docs/API.md` for API changes (include new columns in all examples)
-   - Update `docs/DB.md` for schema changes (add columns in CREATE TABLE order)
+   - Update `docs/api/index.md` for API changes (include new columns in all examples)
+   - Update `docs/database/index.md` for database/schema changes (add columns in CREATE TABLE order)
 6. **Double-check documentation:**
    - Ensure new columns appear in the same order as `backend/db.php` CREATE TABLE
    - Verify all JSON examples include the new columns

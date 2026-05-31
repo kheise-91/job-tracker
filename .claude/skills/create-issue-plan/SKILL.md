@@ -1,0 +1,128 @@
+---
+name: create-issue-plan
+description: Reads an issue from Gitea and creates a plan for implementation.
+arguments: [issueNumber]
+---
+
+You are in `plan` mode. Do not write, modify, or delete any files.
+
+The issue number is: $issueNumber.
+
+---
+
+## Step 1 - Fetch the issue
+
+Using the Gitea MCP, detect the repo from the current git remote. Retrieve issue #$issueNumber and read its full content: title, body, acceptance criteria, notes, labels, and milestone.
+
+---
+
+## Step 2 - Find the branch
+
+Read the issue's comments. Find the comment in the format:
+```
+Branch: `branch-name`
+```
+
+This is the pre-created issue branch for this issue. Note the branch name - it will be checked out after approval.
+
+If no branch comment exists, report this to the user and stop. Do not proceed.
+
+---
+
+## Step 3 - Determine the target branch
+
+Derive the sub-phase branch from the issue's milestone:
+- Milestone `Phase 3.9` → target branch `phase-3-9`
+- Replace `.` with `-`, prepend `phase-`
+
+This is the branch the eventual PR will merge into (not `master`).
+
+---
+
+## Step 4 - Analyze the work
+
+Read the issue carefully and determine:
+- Which files need to be created or modified
+- Whether work touches the backend (`backend/` - PHP/SQLite), frontend (`frontend/` - React/Tailwind), or both
+- The correct sequence of changes (schema changes → API → frontend is the standard order when all three layers are involved)
+- Any risks, unknowns, or ambiguities worth flagging before starting
+
+---
+
+## Step 5 - Build the plan
+
+Write a structured implementation plan. Delegate work to the appropriate agents:
+
+**`backend-engineer` agent**
+Handles all work inside `backend/`: database schema changes in `db.php`, API endpoint logic in `api.php`, and any other server-side PHP. Only spawned if the issue requires backend changes. Must satisfy all backend-related acceptance criteria before signaling completion.
+
+**`frontend-ux` agent**
+Handles all work inside `frontend/`: React component creation and modification, Tailwind styling, state wiring, and API integration from the client side. Only spawned if the issue requires frontend changes. Must satisfy all frontend-related acceptance criteria before signaling completion.
+
+**`qa-reviewer` agent**
+Reviews the completed work from all agents. Reads the original issue, checks every acceptance criterion, identifies bugs or edge cases missed, and produces a written QA report. Always runs after the implementation agents.
+
+The plan must include:
+- The branch to check out and the target branch for eventual Pull Request
+- Which agents are needed and why
+- Which specific files each agent touches
+- The order of agent execution (backend-engineer → frontend-ux → qa-reviewer)
+- Which specific acceptance criteria each agent is responsible for
+- Any risks or questions to resolve before starting
+
+---
+
+## Step 6 - Present and request approval
+ 
+Show the plan clearly. Ask:
+ 
+> "Does this plan look correct? Reply 'yes' to approve and save, or tell me what to change."
+ 
+Do not save anything until the user explicitly approves.
+ 
+---
+
+## Step 7 - Save the approved plan
+ 
+Create the directory if needed and save the plan to `.claude/plans/issue-$issueNumber.md` using exactly this structure (fill in all bracketed values):
+ 
+```markdown
+# Issue Plan - #$issueNumber
+ 
+## Metadata
+- **Issue Title:** [issue title]
+- **Issue Milestone:** [issue milestone]
+- **Issue Branch:** [issue branch name]
+- **Target Branch:** [target branch name]
+ 
+## Agents
+- **backend-engineer:** [yes / no]
+- **frontend-ux:** [yes / no]
+ 
+## backend-engineer instructions
+[Only include this section if backend-engineer is needed]
+Files to modify:
+- [file path - what changes and why]
+ 
+Acceptance criteria to satisfy:
+- [ ] [criterion from the issue]
+ 
+## frontend-ux instructions
+[Only include this section if frontend-ux is needed]
+Files to modify:
+- [file path - what changes and why]
+ 
+Acceptance criteria to satisfy:
+- [ ] [criterion from the issue]
+ 
+## Full acceptance criteria
+[Every acceptance criterion from the original issue, unmodified]
+- [ ] [criterion]
+ 
+## Execution order
+1. [backend-engineer - if needed]
+2. [frontend-ux - if needed]
+3. [qa-reviewer - does not make any changes, only gives feedback]
+```
+ 
+Confirm the file was saved and print its path.

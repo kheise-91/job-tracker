@@ -58,8 +58,8 @@ You are working on an Application Tracking System (ATS) — a self-hosted PWA de
 
 ## Project-Specific Conventions
 - The database file lives at `/var/www/html/data/jobs.db` inside the container, mounted from `./data/jobs.db` on the host
-- The frontend dev server proxies `/api` to `http://192.168.0.91:9000` during development
-- Port 9000 is the primary external-facing port
+- The frontend dev server proxies `/api` to `http://192.168.0.91:5000` during development
+- Port 80 is the primary external-facing port (mapped to port 5000 in `docker-compose.yml`)
 - All API routing is handled in a single `backend/api.php` file
 - Sub-agents must be run sequentially, never in parallel (due to local GPU memory constraints)
 

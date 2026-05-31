@@ -1,3 +1,9 @@
+---
+name: database-documentation
+title: Database Documentation
+description: A list of databases and their schemas used in this app.
+---
+
 # Database Schema
 
 The ATS uses a single SQLite database stored at `/var/www/html/data/jobs.db` (mounted from `./data/jobs.db` on the host).
@@ -27,11 +33,11 @@ The database file and its parent directory are created automatically on startup 
 | `date_applied`       | DATETIME     | —                                  | `CURRENT_TIMESTAMP`      | When the job was created    |
 | `followed_up_date`   | DATETIME     | —                                  | `NULL`                   | When user followed up       |
 | `follow_up_dismissed`| BOOLEAN      | —                                  | `0`                      | Reminder dismissed flag     |
-| `interview_date`     | DATETIME     | —                                  | `NULL`                   | Scheduled interview date     |
+| `interview_date`     | DATETIME     | —                                  | `NULL`                   | Scheduled interview date    |
 | `source`             | TEXT         | —                                  | `NULL`                   | Where job was found         |
 | `hyperlink`          | TEXT         | —                                  | `NULL`                   | Link to job posting         |
-| `notes`              | TEXT         | —                                  | `NULL`                   | Free-form notes              |
-| `order`              | INTEGER      | NOT NULL                           | `0`                     | Per-column display order     |
+| `notes`              | TEXT         | —                                  | `NULL`                   | Free-form notes             |
+| `order`              | INTEGER      | NOT NULL                           | `0`                      | Per-column display order    |
 | `updated_at`         | DATETIME     | —                                  | `CURRENT_TIMESTAMP`      | Last row update timestamp   |
 
 ### Valid `status` values
