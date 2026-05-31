@@ -4,7 +4,7 @@ A simple, self-hosted Job Application Tracker designed to replace spreadsheets. 
 
 I built this app for two reasons: to keep track of the jobs I'm actively applying for, and to learn how to use Claude Code and other AI-assisted development tools.
 
-The original repository is on my self-host Gitea server. This repository is a mirror of that.
+The original repository is on my self-hosted Gitea server. This repository is a mirror of that.
 
 ## Features
 - **Add/Update/Delete Jobs**: Track company, position, status, and more.
