@@ -122,16 +122,39 @@ working and dismissable, and PWA criteria met.
     > of the reminder query automatically. A separate `follow_up_reminders` table is not
     > needed.
 
-    In the frontend, fetch jobs matching the reminder criteria and render alert banners
-    above the kanban board. Cap visible alerts at 3; show a "+ N more" link that expands
-    to reveal the rest. Each alert shows the company name, position, and days since applied.
-    Each alert has a dismiss button that sends a PUT to `api.php` setting
+    In the frontend, create a sub-header bar in-between the header and the Kanban board.
+    Move the search bar to this header, position to the left. The search bar should take up no more
+    than 33% of the sub-header's width. Move the "Add Job" button to this sub-header also,
+    positioned all the way to the right.
+
+    Create a new button, with the same background as the sidebar component (dark-grey).
+    This button's text should read "Follow-up Reminders" with a badge container the number
+    of job entries with reminders. This badge should use the `primary` color of the theme.
+
+    Clicking on this button will make a new component, `ReminderPanel.jsx`, to slide down.
+    This panel will be an "overaly" so it doesn't push the kanban board down. 
+    
+    In this component, there should be a header that reads "Follow-up Reminders" position left
+    with a button that reads "Dismiss All" position to the right.
+
+    This component should fetch jobs matching the reminder criteria and render a list of reminderes. 
+    The list items should contain: `[HeroIcon] bold:[CompanyName - JobTitle]` on the left, a button with "X" to the right that
+    will dismiss the reminder, and a sub-text line underneath the company name and job title (also to the left) that
+    contains: `Applied [DateApplied dot N days ago]`.
+
+    Cap visible alerts at 10; show a "+ N more" link that expands the list
+    to reveal the rest. Set max-height and add scrollbar. 
+
+    Clicking the 'X' button sends a PUT to `api.php` setting
     `follow_up_dismissed = true` for that job, then removes the alert from the UI.
 
-    Done when: Alerts appear above the board for Applied jobs where `date_applied` was 7+
-    days ago and `follow_up_dismissed` is false. Only 3 show by default. Expanding reveals
-    the rest. Dismissing persists and the alert does not reappear on reload. Jobs moved to
-    "Followed Up" no longer appear in alerts.
+    Clicking the 'Dismiss All' button will do the same, but for all the jobs in the list.
+
+    Done when: Reminder indicator button appear above the board to the left of the "Add Job" button. 
+    Clicking the new button will show the panel and list of Applied jobs where `date_applied` was 7+
+    days ago and `follow_up_dismissed` is false. Only 10 show by default. Expanding reveals
+    the rest. Dismissing persists and the reminders do not reappear on reload. Jobs moved to
+    any other status than "Applied" do not show up in the list.
 
 - [ ] **3.11 - View-only job modal**
     
