@@ -243,5 +243,48 @@ runs cleanly with a single command.
 
 ## [ ] Phase 5 - Additional Features
 
-This phase introduces high-value updates to enrich user experience. It builds on core 
+This phase introduces high-value updates to enrich user experience. It builds on core
 functionality based on continuous user feedback.
+
+- [ ] **5.1 - Interview Prep: Backend**
+
+    Create a new `interview_prep` table in SQLite (`backend/db.php`) with columns:
+    `id`, `job_id` (FK to `jobs.id`), `prep_notes` (TEXT), `prep_questions` (TEXT,
+    stores JSON array of `{question, answer}` objects, defaults to `'[]'`), `created_at`,
+    `updated_at`.
+
+    Add CRUD endpoints in `backend/api.php`:
+    `GET /api/interview-prep` — list all prep entries with a JOIN on the jobs table to
+    include company, position, and status; `POST /api/interview-prep` — create entry
+    (validates `job_id` references an existing job and that `prep_questions` is valid JSON);
+    `PUT /api/interview-prep/{id}` — partial update; `DELETE /api/interview-prep/{id}`.
+
+    Done when: The `interview_prep` table is created on app startup. All 4 endpoints work
+    correctly via curl or browser dev tools. GET returns prep entries with linked job data.
+    POST validates that the referenced job exists and that `prep_questions` is valid JSON.
+
+- [ ] **5.2 - Interview Prep: Frontend**
+
+    Wire the existing "Interview Prep" sidebar link in `Sidebar.jsx` to be clickable with
+    active-state highlighting. Add a `currentPage` state (`'board'` or `'prep'`) to
+    `App.jsx` that conditionally renders the KanbanBoard or the Interview Prep page.
+
+    Create `InterviewPrep.jsx` — a page component that fetches prep entries from the API
+    and displays them as full-width accordion cards showing company + position in the
+    header. Expanding a card reveals a 3-column layout: **Col 1** — job info (company,
+    position, status, date applied, source, hyperlink); **Col 2** — notes from the linked
+    job (read-only display); **Col 3** — Q&A section with expand/collapse per question/answer
+    pair and an "Add Q&A" button. Empty state shows a message and "Add Prep" button when
+    no entries exist.
+
+    Create `InterviewPrepModal.jsx` — a modal for creating/editing prep entries. Contains
+    a dropdown to select a job, a textarea for prep notes, and a dynamic Q&A builder where
+    users can add/remove question-answer pairs. On submit, the Q&A array is JSON-serialized
+    into the `prep_questions` column.
+
+    Done when: Clicking "Interview Prep" in the sidebar loads the page. Prep entries display
+    as accordion cards with a 3-column expand view. Users can create, edit, and delete prep
+    entries via the modal. Q&A pairs are rendered as expandable items. Empty state displays
+    correctly when no entries exist. The "Resources" link remains a non-functional placeholder.
+
+- [ ] **5.2 - Resources Page**

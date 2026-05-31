@@ -23,6 +23,8 @@ Your feature list must exist before you run any prompts or use any skills. The r
 
 The model will distribute these across phases when you run Prompt 1. When you expand sub-phases in Prompt 2, each sub-phase already knows which features it's responsible for - you're drilling into the *how*, not deciding the *what*.
 
+For assistance create a list of features, the Anthropic [Feature Dev](https://claude.com/plugins/feature-dev) plugin can come in handy.
+
 ---
 
 ## Roadmap Structure
@@ -152,3 +154,4 @@ This makes the roadmap a living navigation document. You can jump from any sub-p
 ## Resources
 
 - [Claude Skills Guide](/docs/guides/claude-skills.md)
+- [Anthropic Feature Dev Plugin](https://claude.com/plugins/feature-dev)

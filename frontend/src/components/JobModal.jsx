@@ -38,7 +38,7 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
         status: 'Applied',
         followed_up_date: null,
         interview_date: null,
-        notes: '============= SALARY =============\n\n========== TECHNOLOGY ===========\n',
+        notes: '============= SALARY =============\n\n========== TECHNOLOGY ===========\n\n============ COMPANY ============\n',
         hyperlink: '',
         source: '',
       })
