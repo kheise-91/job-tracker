@@ -1,5 +1,5 @@
 ---
-name: project-roadmap-guide
+name: project-roadmap
 title: Project Roadmap Guide
 description: A guide to creating a project roadmap - split into phases and sub-phases. To streamline the process, Claude Code skills can be used.
 ---
@@ -99,7 +99,7 @@ Constraints: Solo developer, Docker deployment
 
 ### Prompt 2 - Sub-phase Expansion
 
-While in the same session, invoke the [`/expand-project-roadmmap`](/.claude/skills/expand-project-roadmap/SKILL.md) skill (no argments needed).
+While in the same session, invoke the [`/expand-project-roadmap`](/.claude/skills/expand-project-roadmap/SKILL.md) skill (no arguments   needed).
 
 This will build the second level of the project roadmap
 
@@ -150,4 +150,5 @@ This makes the roadmap a living navigation document. You can jump from any sub-p
 ---
 
 ## Resources
-- [Claude Skills Guide](./claude-skills.md)
+
+- [Claude Skills Guide](/docs/guides/claude-skills.md)

@@ -82,7 +82,7 @@ flowchart TD
         D3@{ shape: proc, label: " &emsp; /complete-issue &emsp; " }
     end
 
-    subgraph DOCUMENTATION["6 - Assemle Project"]
+    subgraph DOCUMENTATION["6 - Assemble Project"]
         DOC["/update-documentation"]
     end
 
@@ -108,15 +108,16 @@ flowchart TD
     classDef decision fill:#FAEEDA,stroke:#EF9F27,color:#412402
     classDef terminal fill:#F1EFE8,stroke:#888780,color:#2C2C2A
 
-    class S1,S2,S3,G1 sequential
-    class TC1,TC2,D1,D2,D3,DOC,C1,C2 choice
-    class TC,DEV decision
+    class S1,S2,S3,G1,DOC sequential
+    class TC1,TC2,D1,D2,D3 choice
+    class C1,C2 decision
     class Start,End terminal
 ```
 
 ---
 
 ## Resources
+
 - [AI Models Guide](/docs/guides/ai-models.md)
 - [Claude Skills Guide](/docs/guides/claude-skills.md) (Refer to this guide when using the custom Claude Code skills named above)
 - [Claude Subagents Guide](/docs/guides/claude-subagents.md)

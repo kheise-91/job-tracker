@@ -1,5 +1,5 @@
 ---
-name: claude-skills-guide
+name: claude-skills
 title: Claude Skills Guide
 description: A comprehensive list of custom skills used with Claude Code in this project, and how to use each skill.
 ---
@@ -8,7 +8,7 @@ description: A comprehensive list of custom skills used with Claude Code in this
 
 Custom Claude Code slash commands for Gitea-integrated development workflows.
 
-All skill files live in `./claude/skills/`. Clicking the skill name will take you to that skill file.
+All skill files live in `/.claude/skills/`. Clicking the skill name will take you to that skill file.
 
 ---
 
@@ -172,7 +172,7 @@ Can also be run after any major phase to keep docs current.
 
 ### Workflow
 
-1. **Scoping:** start with `/create-project-roadmp`, `/expand-project-roadmap`, and `/review-project-roadmap` to build ROADMAP.md. All development work will come from this file.
+1. **Scoping:** start with `/create-project-roadmap`, `/expand-project-roadmap`, and `/review-project-roadmap` to build ROADMAP.md. All development work will come from this file.
 2. **Task Creation:**
     - Use `/create-sub-phase` to create Gitea issues, branches, and milestones. 
     - Use `/create-issues` to only create the issues.
@@ -183,4 +183,6 @@ Can also be run after any major phase to keep docs current.
 
 ## Resources
 
+- [AI Models Guide](/docs/guides/ai-models.md)
+- [Claude Subagents Guide](/docs/guides/claude-subagents.md)
 - [Project Roadmap Guide](/docs/guides/project-roadmap.md)

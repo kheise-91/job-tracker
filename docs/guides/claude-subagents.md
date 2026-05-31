@@ -1,18 +1,18 @@
 ---
-name: claude-subagents-guide
+name: claude-subagents
 title: Claude Subagents Guide
 description: A comprehensive list of subagents used with Claude Code in this project, and the roles each agent plays.
 ---
 
 # Claude Subagents Guide
 
-Subagents are specialized instances of Claude Code configured with custom system prompts via `.claude/agents/*.md`. Each agent is tailored for a specific domain of work - backend development, frontend UX, QA review, or infrastructure.
+Subagents are specialized instances of Claude Code configured with custom system prompts via `/.claude/agents/*.md`. Each agent is tailored for a specific domain of work - backend development, frontend UX, QA review, or infrastructure.
 
 ---
 
 ## Prerequisites
 
-- Subagent files live in `./.claude/agents/`
+- Subagent files live in `/.claude/agents/`
 - All agents run sequentially (never in parallel) due to local GPU memory constraints
 - All agents must update relevant docs from the `docs/` folder after making changes
 - Agents inherit the parent model by default (`model: inherit`)
