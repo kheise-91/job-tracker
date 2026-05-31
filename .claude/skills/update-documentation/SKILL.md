@@ -104,7 +104,7 @@ Overwrite the file entirely - this is a generated reference document.
 
 ## Step 4 - Update Database Docs
 
-Using the backend-engineer's database summary, write `docs/database/index.md` with:
+Using the backend-engineer's database summary, update `docs/database/index.md` with:
 - A brief intro (what database engine, file location)
 - One section per table:
   ```markdown
