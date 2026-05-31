@@ -6,7 +6,7 @@ description: A list of API endpoints, including expected request examples and re
 
 # API Reference
 
-All endpoints return JSON with `Content-Type: application/json`. CORS is enabled for all origins.
+The ATS exposes a single JSON REST API for CRUD operations on the `jobs` resource. All endpoints return JSON with `Content-Type: application/json`. CORS is enabled for all origins (`Access-Control-Allow-Origin: *`).
 
 ## Base URL
 
@@ -34,6 +34,8 @@ Valid status values across all endpoints:
 
 Return all jobs, ordered by `status` then `order` ascending (per-column ordering).
 
+**Request:** No parameters or body.
+
 **Response** — `200 OK`
 
 ```json
@@ -41,22 +43,22 @@ Return all jobs, ordered by `status` then `order` ascending (per-column ordering
   {
     "id": 1,
     "company": "Acme Corp",
-    "position": "Senior Engineer",
+    "position": "Backend Engineer",
     "status": "Applied",
     "date_applied": "2026-05-15 10:30:00",
     "followed_up_date": null,
     "follow_up_dismissed": 0,
     "interview_date": null,
     "source": "LinkedIn",
-    "hyperlink": "https://linkedin.com/job/123",
-    "notes": "Referred by Jane",
-    "updated_at": "2026-05-15 10:30:00",
-    "order": 1
+    "hyperlink": "https://acme.com/jobs/123",
+    "notes": "Fast response time",
+    "order": 0,
+    "updated_at": "2026-05-15 10:30:00"
   }
 ]
 ```
 
-Each job object contains:
+**Response fields:**
 
 | Field                | Type     | Description                        |
 |----------------------|----------|------------------------------------|
@@ -74,26 +76,27 @@ Each job object contains:
 | order                | integer  | Per-column display order           |
 | updated_at           | datetime | Last update timestamp              |
 
+**Errors:** None expected. Always returns a JSON array (may be empty).
+
 ---
 
 ## POST /api/jobs
 
-Create a new job entry.
+Create a new job entry. Automatically assigns the next available `order` value within the given status bucket. Trims string fields before storage.
 
-**Request body**
+**Request body:**
 
-| Field                | Type    | Required | Default      | Description              |
-|----------------------|---------|----------|--------------|--------------------------|
-| company              | string  | Yes      | —            | Company name             |
-| position             | string  | Yes      | —            | Job title                |
-| status               | string  | No       | `"Applied"`  | Initial status           |
-| followed_up_date     | string  | No       | `null`       | ISO datetime string      |
-| follow_up_dismissed  | boolean | No       | `0`          | Reminder dismissed flag  |
-| interview_date       | string  | No       | `null`       | ISO datetime string      |
-| source               | string  | No       | `""`         | Where job was found      |
-| hyperlink            | string  | No       | `""`         | Link to job posting      |
-| notes                | string  | No       | `""`         | Free-form notes          |
-| order                | integer | No       | (auto: id)   | Per-column display order |
+| Field                | Type      | Required | Default     | Description                          |
+|----------------------|-----------|----------|-------------|--------------------------------------|
+| company              | string    | Yes      | —           | Company name (trimmed)               |
+| position             | string    | Yes      | —           | Job title/position (trimmed)         |
+| status               | string    | No       | `"Applied"` | One of the valid status values       |
+| followed_up_date     | string/null | No     | `null`      | ISO datetime or null                 |
+| follow_up_dismissed  | boolean   | No       | `false`     | Normalized to 0/1 integer in storage |
+| interview_date       | string/null | No     | `null`      | ISO datetime or null                 |
+| source               | string    | No       | `""`        | Where the job was found (trimmed)    |
+| hyperlink            | string    | No       | `""`        | URL to job posting (trimmed)         |
+| notes                | string    | No       | `""`        | Free-form notes (trimmed)            |
 
 **Response** — `201 Created`
 
@@ -101,52 +104,47 @@ Create a new job entry.
 {
   "id": 2,
   "company": "Acme Corp",
-  "position": "Staff Engineer",
-  "status": "Applied",
-  "date_applied": null,
+  "position": "Senior Developer",
+  "status": "Wishlist",
+  "date_applied": "2026-05-30 12:00:00",
   "followed_up_date": null,
   "follow_up_dismissed": 0,
   "interview_date": null,
-  "source": "LinkedIn",
-  "hyperlink": "https://linkedin.com/job/123",
+  "source": "",
+  "hyperlink": "",
   "notes": "",
-  "updated_at": "2026-05-21 12:00:00"
+  "order": 3,
+  "updated_at": "2026-05-30 12:00:00"
 }
 ```
 
-**Error responses**
+**Errors:**
 
-- `400` — Missing `company` or `position`:
-  ```json
-  { "error": "Company and position are required" }
-  ```
-- `400` — Invalid `status`:
-  ```json
-  { "error": "Invalid status" }
-  ```
+| Code | Meaning                                     |
+|------|---------------------------------------------|
+| 400  | `company` and/or `position` is missing or empty, or `status` is not in the allowed list |
 
 ---
 
 ## PUT /api/jobs/{id}
 
-Partially update an existing job. Only provided fields are updated; `updated_at` is set automatically.
+Partially update a single job. Only fields present in the request body are updated. The `updated_at` timestamp is always refreshed. Trims string fields before storage. Accepts flexible types for `follow_up_dismissed` (booleans, strings `"true"`/`"false"`, `"1"`/`"0"`).
 
-**Path parameter:** `id` (integer)
+**Path parameter:** `{id}` — integer job ID from path `/api/jobs/123`.
 
-**Request body** — any subset of:
+**Request body** — all fields optional, any combination:
 
-| Field                | Type    | Description              |
-|----------------------|---------|--------------------------|
-| company              | string  | New company name         |
-| position             | string  | New job title            |
-| status               | string  | New status               |
-| followed_up_date     | string  | New followed up date     |
-| follow_up_dismissed  | boolean | New dismissed flag       |
-| interview_date       | string  | New interview date       |
-| source               | string  | New source               |
-| hyperlink            | string  | New hyperlink            |
-| notes                | string  | New notes                |
-| order                | integer | New per-column order     |
+| Field                | Type      | Description                                |
+|----------------------|-----------|--------------------------------------------|
+| company              | string    | Trimmed before storage                     |
+| position             | string    | Trimmed before storage                     |
+| status               | string    | Must be one of the allowed statuses        |
+| followed_up_date     | string/null | Set to `null` if empty string or null    |
+| follow_up_dismissed  | boolean   | Normalized to 0/1                          |
+| interview_date       | string/null | Set to `null` if empty string or null    |
+| notes                | string    | Free-form notes                            |
+| source               | string    | Source of the job listing                  |
+| hyperlink            | string    | URL to job posting                         |
 
 **Response** — `200 OK` (full updated job object)
 
@@ -154,45 +152,44 @@ Partially update an existing job. Only provided fields are updated; `updated_at`
 {
   "id": 1,
   "company": "Acme Corp",
-  "position": "Senior Engineer",
+  "position": "Backend Engineer",
   "status": "Interviewing",
   "date_applied": "2026-05-15 10:30:00",
-  "followed_up_date": null,
+  "followed_up_date": "2026-05-22 09:00:00",
   "follow_up_dismissed": 0,
   "interview_date": "2026-05-28 14:00:00",
   "source": "LinkedIn",
-  "hyperlink": "https://linkedin.com/job/123",
-  "notes": "Referred by Jane",
-  "updated_at": "2026-05-21 12:00:00"
+  "hyperlink": "https://acme.com/jobs/123",
+  "notes": "Technical round next week",
+  "order": 0,
+  "updated_at": "2026-05-30 15:00:00"
 }
 ```
 
-**Error responses**
+**Errors:**
 
-- `400` — No fields provided:
-  ```json
-  { "error": "No fields to update" }
-  ```
+| Code | Meaning                                    |
+|------|--------------------------------------------|
+| 400  | No fields provided in body, or `status` is not in the allowed list |
 
 ---
 
 ## PUT /api/jobs/reorder
 
-Bulk-reorder jobs across columns. Accepts an object mapping column IDs (lowercase) to ordered arrays of job IDs.
+Bulk-update status and order for multiple jobs at once. Accepts a map of column IDs (lowercase kebab-case) to arrays of job IDs. Uses a database transaction — rolls back on failure.
 
-**Request body**
+**Request body:**
 
 ```json
 {
   "columns": {
-    "wishlist": [3, 7],
-    "applied": [5, 1, 9],
-    "interviewing": [2]
+    "applied": [5, 3, 7],
+    "interviewing": [12]
   }
 }
 ```
 
-Each key is a lowercase column ID (`wishlist`, `applied`, `followed-up`, `interviewing`, `offer`, `rejected`, `withdrawn`). Each value is an ordered array of job IDs reflecting the desired column order (0-indexed). Unknown column keys are silently ignored.
+Valid column keys: `wishlist`, `applied`, `followed-up`, `interviewing`, `offer`, `rejected`, `withdrawn`. Unknown keys are silently ignored.
 
 **Response** — `200 OK`
 
@@ -200,24 +197,20 @@ Each key is a lowercase column ID (`wishlist`, `applied`, `followed-up`, `interv
 { "success": true }
 ```
 
-**Error responses**
+**Errors:**
 
-- `400` — Missing or invalid `columns`:
-  ```json
-  { "error": "Invalid payload" }
-  ```
-- `500` — Database error (transaction rolled back):
-  ```json
-  { "error": "<message>" }
-  ```
+| Code | Meaning                                           |
+|------|---------------------------------------------------|
+| 400  | `columns` is missing or not an array              |
+| 500  | Database error (transaction rolled back); response body contains the exception message |
 
 ---
 
 ## DELETE /api/jobs/{id}
 
-Delete a job entry by ID.
+Permanently delete a job by its ID. No body required. If the job doesn't exist, DELETE still returns 200 with `success: true` (SQLite DELETE is silent on no-match).
 
-**Path parameter:** `id` (integer)
+**Path parameter:** `{id}` — integer job ID from path `/api/jobs/123`.
 
 **Response** — `200 OK`
 
@@ -225,14 +218,15 @@ Delete a job entry by ID.
 { "success": true }
 ```
 
+**Errors:** None explicitly handled.
+
 ---
 
-## Error Handling
+## Common behavior
 
-Unknown endpoints return `404`:
-
-```json
-{ "error": "Endpoint not found" }
-```
-
-All error responses use `Content-Type: application/json` and include an `error` key with a human-readable message.
+| Aspect       | Detail                                                        |
+|--------------|---------------------------------------------------------------|
+| CORS         | `Access-Control-Allow-Origin: *`; allows GET, POST, PUT, DELETE, OPTIONS |
+| Content-Type | `application/json` on all responses                           |
+| 404 fallback | Any unmatched route returns `{ "error": "Endpoint not found" }` with status 404 |
+| Auth         | None — no authentication or authorization is implemented      |

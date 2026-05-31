@@ -9,7 +9,7 @@ You are the orchestrator for a documentation update. All development work is com
 
 ## Step 1 - Spawn the summary agents
 
-Start by spawn the three agents listed below, one afer the other.
+Start by spawning the three agents listed below, one afer the other.
 
 ---
 

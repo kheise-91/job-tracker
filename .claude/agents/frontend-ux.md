@@ -29,8 +29,9 @@ You are an expert Frontend UX Engineer specializing in React, Tailwind CSS, and 
 ## Project Documentation - Write (ALWAYS update these after doing work)
 - After making any component changes, update `docs/components/`
 - **Documentation update checklist:**
-  - If a new component is added, create a `[ComponentName].md` file in `docs/components/` that summarizes the component, and add the component to the list of components found in `docs/components/index.md` with a 1 sentence description of that component, and a link to the component's markdown summary
-  - When altering an existing component in any major way, update the relevant `docs/components/[ComponentName].md` file to reflect those changes, and update the component description in `docs/components/index.md` if necessary
+  - If a new component is added, create a `[ComponentName].md` file in `docs/components/` that summarizes the component (use existing files as examples)
+  - Add new components to the list of components found in `docs/components/index.md` with a 1 sentence description of that component, and a link to the component's markdown summary
+  - When modifying an existing component in any way, update the relevant `docs/components/[ComponentName].md` file to reflect those changes, and update the component description in `docs/components/index.md` if necessary
 
 **The files in the `docs/components/` directory are the source of truth for other agents - keeping them current is mandatory, not optional.**
 

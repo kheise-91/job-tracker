@@ -238,3 +238,10 @@ runs cleanly with a single command.
 
     Done when: `docker run` with the production image starts the app. The image contains
     no unnecessary build tools. The SQLite database persists correctly via the volume mount.
+
+---
+
+## [ ] Phase 5 - Additional Features
+
+This phase introduces high-value updates to enrich user experience. It builds on core 
+functionality based on continuous user feedback.
