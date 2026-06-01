@@ -18,19 +18,20 @@ The original repository is on my self-hosted Gitea server. This repository is a 
 - **Infrastructure**: Docker & Docker Compose (single container with Nginx + PHP-FPM)
 
 ## AI Tools
-- **Claude Code** — Primary coding assistant for development, debugging, and architecture decisions
-- **Qwen3.6-27B** — Locally hosted model on RTX 5080 for rapid prototyping and code generation
-- **Qwen3.6-35B-A3B** — Locally hosted model on RTX 5080 for complex reasoning and code review
-- **llama.cpp** — Inference engine for running local models
-- **llama-swap** — Model serving layer for swapping between local models on the fly
+- **Claude Code** - Primary coding assistant for development, debugging, and architecture decisions
+- **Qwen3.6-27B** - Locally hosted model on RTX 5080 for rapid prototyping and code generation
+- **Qwen3.6-35B-A3B** - Locally hosted model on RTX 5080 for complex reasoning and code review
+- **llama.cpp** - Inference engine for running local models
+- **llama-swap** - Model serving layer for swapping between local models on the fly
+- **ComfyUI** - Node-based graphical user interface that allows users to generate images using advanced AI generation pipelines (used to create the logo for this app)
 
 ## Claude Code Ecosystem
 
 This project was built using Claude Code with a few tools and plugins:
 
-- **[Gitea MCP Server](https://gitea.com/gitea/gitea-mcp)** — Gitea integration for issue tracking, PR management, and repository operations
-- **[Feature Dev Plugin](https://claude.com/plugins/feature-dev)** — Guided feature development with specialized agents for exploration, architecture, and review
-- **[Frontend Design Plugin](https://claude.com/plugins/frontend-design)** — Production-grade frontend design with distinctive visual output
+- **[Gitea MCP Server](https://gitea.com/gitea/gitea-mcp)** - Gitea integration for issue tracking, PR management, and repository operations
+- **[Feature Dev Plugin](https://claude.com/plugins/feature-dev)** - Guided feature development with specialized agents for exploration, architecture, and review
+- **[Frontend Design Plugin](https://claude.com/plugins/frontend-design)** - Production-grade frontend design with distinctive visual output
 
 I've also built custom Claude Code skills and subagents specifically for this project. See the guides:
 - [Custom Skills Guide](/docs/guides/claude-skills.md)
@@ -75,7 +76,7 @@ docker run -d \
 **Volume mounts:**
 | Host Path | Container Path | Purpose |
 |---|---|---|
-| `./data` | `/var/www/html/data` | SQLite database (`jobs.db`) — the only persistent data |
+| `./data` | `/var/www/html/data` | SQLite database (`jobs.db`) - the only persistent data |
 | `./backend` | `/var/www/html/backend` | Application source code (hot-reload for PHP files) |
 
 **Environment variables:**
@@ -83,7 +84,7 @@ docker run -d \
 |---|---|---|---|
 | `APP_ENV` | No | *(none)* | Set to `production`. Currently only a marker; no conditional logic reads it. |
 
-The frontend is baked into the Docker image at build time — changes to the React frontend require rebuilding the image (`docker compose build ats`).
+The frontend is baked into the Docker image at build time - changes to the React frontend require rebuilding the image (`docker compose build ats`).
 
 ## Project Structure
 ```
