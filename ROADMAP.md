@@ -148,6 +148,9 @@ working and dismissable, and PWA criteria met.
     will dismiss the reminder, and a sub-text line underneath the company name and job title that
     contains: `Applied [DateApplied dot N days ago]`.
 
+    At the bottom of the drawer is a button that reads 'Close'. This will collapse the drawer, causing it to
+    slide to the right off the screen.
+
     Cap visible alerts at 5; show a "+ N more" link that expands the list
     to reveal the rest. Set max-height and add scrollbar. 
 
