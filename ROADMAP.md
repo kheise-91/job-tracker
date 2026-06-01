@@ -122,37 +122,43 @@ working and dismissable, and PWA criteria met.
     > of the reminder query automatically. A separate `follow_up_reminders` table is not
     > needed.
 
-    In the frontend, create a sub-header bar in-between the header and the Kanban board.
-    Move the search bar to this header, position to the left. The search bar should take up no more
-    than 33% of the sub-header's width. Move the "Add Job" button to this sub-header also,
-    positioned all the way to the right.
+    In the frontend, modify the header to have 3 flex items. The first will still contain the 
+    text "Job Tracking Board". The second section will contain the search bar. The third section 
+    will contain the  "Add Job" button. The first and third section will have 30% width. The 2nd (middle)
+    section will have 40% width. These will be separated by "justify-content: space-between" so they
+    are spaced nicely. Make sure the header also has "align-items: center" so they are centered vertically.
+    The search bar should take up the entire space of the middle section of the header.
 
-    Create a new button, with the same background as the sidebar component (dark-grey).
-    This button's text should read "Follow-up Reminders" with a badge container the number
-    of job entries with reminders. This badge should use the `primary` color of the theme.
+    Create a new button, with the primary background and white text, same as the "Add Job" button.
+    This button's text should read "Follow-up Reminders" with a heroicon (alert or notification icon)
+    before the text. Place this button in the third header section, to the left of the "Add Job" button. These
+    two buttons should be aligned to the end, so they appear all the way to the right inside the header.
 
-    Clicking on this button will make a new component, `ReminderPanel.jsx`, to slide down.
-    This panel will be an "overaly" so it doesn't push the kanban board down. 
+    Add a new component: `ReminderDrawer.jsx`. This is a fixed-width, full height drawer that slides in 
+    from the right edge of the screen. When this drawer slides over, make sure it overlays the current
+    elements. It should NOT move them in any way. 
     
-    In this component, there should be a header that reads "Follow-up Reminders" position left
-    with a button that reads "Dismiss All" position to the right.
+    In this component, there should be a header that reads "Follow-Up Reminders" positioned left, with a 
+    badge to the right of the text containing the total number of reminders in the list. This badge should have
+    the primary background color with white text. There should be a button that reads "Dismiss All" positioned all
+    the way to the right inside the drawer header, on the same line as the text and badge.
 
-    This component should fetch jobs matching the reminder criteria and render a list of reminderes. 
+    This component should fetch jobs matching the reminder criteria and render a list of reminders. 
     The list items should contain: `[HeroIcon] bold:[CompanyName - JobTitle]` on the left, a button with "X" to the right that
-    will dismiss the reminder, and a sub-text line underneath the company name and job title (also to the left) that
+    will dismiss the reminder, and a sub-text line underneath the company name and job title that
     contains: `Applied [DateApplied dot N days ago]`.
 
-    Cap visible alerts at 10; show a "+ N more" link that expands the list
+    Cap visible alerts at 5; show a "+ N more" link that expands the list
     to reveal the rest. Set max-height and add scrollbar. 
 
-    Clicking the 'X' button sends a PUT to `api.php` setting
-    `follow_up_dismissed = true` for that job, then removes the alert from the UI.
-
-    Clicking the 'Dismiss All' button will do the same, but for all the jobs in the list.
+    Clicking the 'X' button sends a PUT to `api.php` setting `follow_up_dismissed = true` for 
+    that job, then removes the alert from the UI. Clicking the 'Dismiss All' button will do the same, 
+    but for all the jobs in the list. When a job gets dismissed, the number in the header badge should
+    also update.
 
     Done when: Reminder indicator button appear above the board to the left of the "Add Job" button. 
-    Clicking the new button will show the panel and list of Applied jobs where `date_applied` was 7+
-    days ago and `follow_up_dismissed` is false. Only 10 show by default. Expanding reveals
+    Clicking the new button will show the drawer and list of Applied jobs where `date_applied` was 7+
+    days ago and `follow_up_dismissed` is false. Only 5 show by default. Expanding reveals
     the rest. Dismissing persists and the reminders do not reappear on reload. Jobs moved to
     any other status than "Applied" do not show up in the list.
 
@@ -162,9 +168,13 @@ working and dismissable, and PWA criteria met.
     in read-only mode. All fields render as plain text with the same layout and styling as
     the edit form. Edit/delete buttons are hidden. A close/dismiss button is the only action.
 
+    Clicking a reminder item from the list in the `ReminderDrawer.jsx` component should open
+    the job modal in this view only mode.
+
     Done when: Clicking a card body opens the modal in read-only mode with all fields
     visible as text. The close button dismisses without changes. Clicking action buttons
-    still triggers their respective actions, not the view modal.
+    still triggers their respective actions, not the view modal. Clicking an item from the 
+    reminder drawer will open that job in the view-only mode modal.
 
 - [ ] **3.12 - Search and filter**
     
