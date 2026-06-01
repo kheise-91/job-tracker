@@ -80,6 +80,7 @@ flowchart TD
     end
 
     subgraph DEVELOPMENT["5 - Complete Tasks"]
+        C3{"Choose One"}
         D1@{ shape: proc, label: "/create-issue-plan" }
         D2@{ shape: subproc, label: "/execute-issue-plan" }
         D3@{ shape: proc, label: " &emsp; /complete-issue &emsp; " }
@@ -97,7 +98,7 @@ flowchart TD
     C1 --> C2
     C2 -.-> TC1
     C2 -.-> TC2
-    TC1 --> C3{"Choose One"}
+    TC1 --> C3
     TC2 --> C3
     C3 -.-> D1
     C3 -.-> D3
