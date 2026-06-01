@@ -111,19 +111,19 @@ For each planned variant, produce a complete, self-contained HTML file:
 Create the `frontend/mockups/` directory if it does not exist. For the filename, replace
 the '.' character in the sub-phase number with '-'. Save each variant as:
 ```
-frontend/mockups/$subPhase-[variant-name].html
+frontend/mockups/phase-$subPhase-[variant-name].html
 ```
 
 Example for sub-phase 3.10 with 3 variants:
 ```
-frontend/mockups/3-10-slide-panel.html
-frontend/mockups/3-10-inline-list.html
-frontend/mockups/3-10-modal-drawer.html
+frontend/mockups/phase-3-10-slide-panel.html
+frontend/mockups/phase-3-10-inline-list.html
+frontend/mockups/phase-3-10-modal-drawer.html
 ```
 
 Print a summary table:
 
 | File | Approach | Best suited for |
 |---|---|---|
-| `frontend/mockups/3-10-slide-panel.html` | [description] | [when this wins] |
-| `frontend/mockups/3-10-inline-list.html` | [description] | [when this wins] |
+| `frontend/mockups/phase-3-10-slide-panel.html` | [description] | [when this wins] |
+| `frontend/mockups/phase-3-10-inline-list.html` | [description] | [when this wins] |

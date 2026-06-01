@@ -64,13 +64,27 @@ Critically reviews `ROADMAP.md` as an independent pass, flagging gaps, sequencin
 
 ---
 
+### [`/create-mockup [subPhase] [numberOfMockups]`](/.claude/skills/create-mockup/SKILL.md)
+
+Reads the description from a sub-phase in the roadmap, spawns the `frontend-ux` subagent
+to summarize the frontend code and styling conventions, creates the specified number of
+plans (defaults to 3), and utilizes the subagent's summary to generate mockups for
+implementing the sub-phase's UI changes.
+
+Returns a summary table of all mockup HTML files created, with a description of each variation.
+
+**Use when:** You need ideas of how to implement new, complex UI/UX changes (must run before creating Gitea issues)
+
+---
+
 ### [`/create-sub-phase [subPhase]`](/.claude/skills/create-sub-phase/SKILL.md)
 
 Full sub-phase setup in one command. Reads the sub-phase from `ROADMAP.md`, creates the
 `phase-X-Y` branch off `master`, creates the `Phase X.Y` milestone in Gitea (with the
 roadmap description as the milestone description), then generates 4–8 issues and a
 pre-created branch for each one. Posts a `Branch: 'name'` comment on every issue for
-downstream skills to reference.
+downstream skills to reference. If a mockup file exists from the `/create-mockup` skill,
+a second comment is added with the filename and path.
 
 Returns a summary table of all issues and their branches when done.
 
@@ -82,7 +96,8 @@ Returns a summary table of all issues and their branches when done.
 
 Creates issues only - no branch or milestone setup. Reads the sub-phase from `ROADMAP.md`
 and generates issues with the same rules as `/create-sub-phase`. Use when you want
-manual control over branch naming or need to add issues to an existing sub-phase.
+manual control over branch naming or need to add issues to an existing sub-phase. If a 
+mockup file exists from the `/create-mockup` skill, a comment is added with the filename and path.
 
 **Use when:** The sub-phase branch and milestone already exist and you need more issues,
 or you prefer to manage branches yourself.
@@ -97,8 +112,8 @@ Reads issue from Gitea, analyzes the required work, builds a multi-agent plan, a
 for approval. After approval, saves the plan to `.claude/plans/issue-N.md` - this file
 is the handoff to `/execute-issue-plan`.
 
-Plan includes: issue and target branch, which agents are needed, per-agent file list and
-acceptance criteria, execution order.
+Plan includes: issue and target branch, which agents are needed, mockup file if one exists, 
+per-agent file list and acceptance criteria, execution order.
 
 **Use when:** The issue is complex enough to warrant reviewing the plan before writing
 any code. Pair with `/execute-issue-plan` to switch to a faster model for execution.
@@ -153,6 +168,7 @@ Can also be run after any major phase to keep docs current.
 | `/create-project-roadmap` | Generates a high-level project roadmap from labeled input and saves it to `ROADMAP.md` | Deep-Reasoner | 
 | `/expand-project-roadmap` | Reads `ROADMAP.md` and expands each phase into sub-phases with descriptions and done definitions | Deep-Reasoner | 
 | `/review-project-roadmap` | Critically reviews `ROADMAP.md` as an independent pass, flagging gaps, sequencing problems, and anything misscoped. Does not modify any files | Swift-Reasoner | 
+| `/create-mockup` | Reads a sub-phase from ROADMAP.md, extracts frontend design requirements using the `frontend-ux` subagent, and generates HTML mockup variants for comparison before implementation | Swift-Reasoner/Precise-Coder/Coder-Agent |
 | `/create-sub-phase` | Sets up sub-phase - create Gitea issues and branches based on sub-phase in project roadmap | Swift-Reasoner/Deep-Reasoner/Precise-Coder | 
 | `/create-issues` | Creates Gitea issues based on sub-phase in project roadmap | Swift-Reasoner/Deep-Reasoner/Precise-Coder | 
 | `/create-issue-plan` | Reads an issue from Gitea and creates a plan for implementation | Coder-Agent/Swift-Reasoner/Deep-Reasoner | 
@@ -173,13 +189,14 @@ Can also be run after any major phase to keep docs current.
 ### Workflow
 
 1. **Scoping:** start with `/create-project-roadmap`, `/expand-project-roadmap`, and `/review-project-roadmap` to build ROADMAP.md. All development work will come from this file.
-2. **Task Creation:**
+2. **UI/UX Mockup (optional):** use `/create-mockup` to create one or more HTML mockups for ideas on implementing more complex UI features.
+3. **Task Creation:**
     - Use `/create-sub-phase` to create Gitea issues, branches, and milestones. 
     - Use `/create-issues` to only create the issues.
-3. **Development:**
+4. **Development:**
     - Use `/complete-issue` to have Claude work an issue from start to finish and open a PR.
     - Use `/create-issue-plan` followed by `/execute-issue-plan` to work an issue in steps (for more complex tasks).
-4. **Document Changes:** use the `/update-documentation` after each phase or sub-phase to keep documentation files up-to-date.
+5. **Document Changes:** use the `/update-documentation` after each phase or sub-phase to keep documentation files up-to-date.
 
 ---
 

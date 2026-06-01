@@ -20,9 +20,10 @@ Create project roadmap (see [Project Roadmap Guide](/docs/guides/project-roadmap
 Create project boards for each Phase in the Gitea repository.
 
 ### Step 4 - Scope Tasks
-*Custom Claude Code skills available: `/create-issues`, `/create-sub-phase`*
+*Custom Claude Code skills available: `/create-mockup`, `/create-issues`, `/create-sub-phase`*
 
 For each project sub-phase:
+- Create mockup of UI/UX changes (optional - mockups must be created before creating Gitea issues with custom skills)
 - Create `phase-X-Y` branch 
 - Create `phase-X-Y` milestone
 - Create issues and branches for required work
@@ -90,13 +91,14 @@ flowchart TD
     S1 --> S2
     S2 --> S3
     S3 --> G1
-    G1 --> C1{"Choose One"}
-    C1 -.-> TC1
-    C1 -.-> TC2
-    TC1 --> C2{"Choose One"}
-    TC2 --> C2
-    C2 -.-> D1
-    C2 -.-> D3
+    G1 -.-> C1{"/create-mockup"}
+    C1 --> C2{"Choose One"}
+    C2 -.-> TC1
+    C2 -.-> TC2
+    TC1 --> C3{"Choose One"}
+    TC2 --> C3
+    C3 -.-> D1
+    C3 -.-> D3
     D1 --> D2
     D2 --> DOCUMENTATION
     D3 --> DOCUMENTATION
@@ -110,7 +112,7 @@ flowchart TD
 
     class S1,S2,S3,G1,DOC sequential
     class TC1,TC2,D1,D2,D3 choice
-    class C1,C2 decision
+    class C1,C2,C3 decision
     class Start,End terminal
 ```
 

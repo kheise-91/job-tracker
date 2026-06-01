@@ -14,20 +14,31 @@ The issue number is: $issueNumber.
 
 ## Step 1 - Fetch the issue
 
-Using the Gitea MCP, detect the repo from the current git remote. Retrieve issue #$issueNumber and read its full content: title, body, acceptance criteria, notes, labels, and milestone.
+Using the Gitea MCP, detect the repo from the current git remote. Retrieve 
+issue #$issueNumber and read its full content: title, body, acceptance c
+riteria, notes, labels, and milestone.
 
 ---
 
-## Step 2 - Find the branch
+## Step 2 - Find the branch name and mockup file
 
-Read the issue's comments. Find the comment in the format:
+Read the issue's comments. 
+
+Find the branch comment in the format:
 ```
 Branch: `branch-name`
 ```
 
-This is the pre-created issue branch for this issue. Note the branch name - it will be checked out after approval.
+This is the pre-created issue branch for this issue. Note the branch name - it 
+will be checked out after approval. If no branch comment exists, report this to 
+the user and stop. Do not proceed.
 
-If no branch comment exists, report this to the user and stop. Do not proceed.
+Find the mockup comment (if present) in the format:
+```
+Mockup: `frontend/mockups/phase-[X-Y]-*.html`
+```
+
+Note any mockup `path/filename.html` found, it will be included in the plan.
 
 ---
 
@@ -111,6 +122,11 @@ Acceptance criteria to satisfy:
  
 ## frontend-ux instructions
 [Only include this section if frontend-ux is needed]
+Reference mockup: [mockup `path/filename.html` from comment, or "none"]
+
+If a mockup file was found in step 2, include this instruction in the frontend-ux section:
+"Read the mockup file before writing any code. Implement to match its layout, component structure, and interaction patterns."
+
 Files to modify:
 - [file path - what changes and why]
  

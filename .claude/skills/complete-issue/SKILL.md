@@ -18,16 +18,16 @@ Using the Gitea MCP, detect the repo from the current git remote. Retrieve issue
 
 ---
 
-## Step 2 - Find and checkout the branch
+## Step 2 - Find the branch name and mockup file
 
-Read the issue's comments. Find the comment in the format:
+Read the issue's comments. 
+
+Find the branch comment in the format:
 ```
 Branch: `branch-name`
 ```
 
-This is the pre-created issue branch for this issue.
-
-If no branch comment exists, stop and report the problem. Do not create a new branch.
+This is the pre-created issue branch for this issue. If no branch comment exists, stop and report the problem. Do not create a new branch.
 
 Check out the pre-created issue branch AND rebase on the sub-phase branch:
 ```bash
@@ -35,6 +35,13 @@ git fetch origin
 git checkout branch-name
 git rebase origin/phase-X-Y
 ```
+
+Find the mockup comment (if present) in the format:
+```
+Mockup: `frontend/mockups/phase-[X-Y]-*.html`
+```
+
+Note any mockup `path/filename.html` found, it will be included in the plan.
 
 ---
 
@@ -61,6 +68,8 @@ Instructions to pass: the full issue body, the specific backend-related acceptan
 Handles all work inside `frontend/`: React components, Tailwind styling, state management, and client-side API integration. Spawn after the backend-engineer if both layers are needed.
 
 Instructions to pass: the full issue body, the specific frontend-related acceptance criteria, the files expected to change, and the requirement to signal completion only when all frontend acceptance criteria pass.
+
+If a mockup file was found in Step 2, pass it to the `frontend-ux` agent with the instruction to read the file before writing any code and implement to match its layout, component structure, and interaction patterns.
 
 Spawn only the agents the issue actually requires. A frontend-only issue skips the backend-engineer. A backend-only issue skips frontend-ux.
 
