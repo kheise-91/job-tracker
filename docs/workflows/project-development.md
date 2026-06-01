@@ -73,6 +73,8 @@ flowchart TD
     G1@{ shape: trap-t, label: "3 - Create Project Boards <br> (Gitea)"}
 
     subgraph SCOPE_TASKS["4-  Scope Tasks"]
+        C1{"/create-mockup"}
+        C2{"Choose One"}
         TC1@{ shape: proc, label: "/create-sub-phase" }
         TC2@{ shape: proc, label: " &emsp; /create-issues &emsp; " }
     end
@@ -91,8 +93,8 @@ flowchart TD
     S1 --> S2
     S2 --> S3
     S3 --> G1
-    G1 -.-> C1{"/create-mockup"}
-    C1 --> C2{"Choose One"}
+    G1 -.-> SCOPE_TASKS
+    C1 --> C2
     C2 -.-> TC1
     C2 -.-> TC2
     TC1 --> C3{"Choose One"}
