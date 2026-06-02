@@ -83,8 +83,7 @@ Full sub-phase setup in one command. Reads the sub-phase from `ROADMAP.md`, crea
 `phase-X-Y` branch off `master`, creates the `Phase X.Y` milestone in Gitea (with the
 roadmap description as the milestone description), then generates 4–8 issues and a
 pre-created branch for each one. Posts a `Branch: 'name'` comment on every issue for
-downstream skills to reference. If a mockup file exists from the `/create-mockup` skill,
-a second comment is added with the filename and path.
+downstream skills to reference.
 
 Returns a summary table of all issues and their branches when done.
 
@@ -96,8 +95,7 @@ Returns a summary table of all issues and their branches when done.
 
 Creates issues only - no branch or milestone setup. Reads the sub-phase from `ROADMAP.md`
 and generates issues with the same rules as `/create-sub-phase`. Use when you want
-manual control over branch naming or need to add issues to an existing sub-phase. If a 
-mockup file exists from the `/create-mockup` skill, a comment is added with the filename and path.
+manual control over branch naming or need to add issues to an existing sub-phase. 
 
 **Use when:** The sub-phase branch and milestone already exist and you need more issues,
 or you prefer to manage branches yourself.

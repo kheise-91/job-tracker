@@ -30,13 +30,7 @@ If the milestone already exists, skip creation and use the existing one.
 
 ---
 
-## Step 3 - Check for mockup
- 
-Check for a file matching `frontend/mockups/phase-[X-Y]-*.html` (where `[X-Y]` is the sub-phase number with `.` replaced by `-`, e.g. `phase-3-10`). Note the filename if one is found - it will be added as a comment on every frontend related issue. If no files are found, skip silently.
- 
----
-
-## Step 4 - Plan the tasks
+## Step 3 - Plan the tasks
 
 Break the sub-phase into 4–8 discrete tasks (more if the scope genuinely requires it, less is okay too if not that many are needed). Each task must be completable in a single focused session - roughly half a day to two days of work.
 
@@ -69,24 +63,19 @@ For each task, determine:
 
 ---
 
-## Step 5 - Create issues
+## Step 4 - Create issues
 
 Detect the repo from the current git remote. For each task in sequence:
 
-**5a.** Create any missing labels via the Gitea MCP.
+**4a.** Create any missing labels via the Gitea MCP.
 
-**5b.** Create the issue via the Gitea MCP with: title, body, label(s), and milestone as planned in Step 3.
+**4b.** Create the issue via the Gitea MCP with: title, body, label(s), and milestone as planned in Step 3.
 
-**5c.** If a mockup file was found in step 3, and the task contains any frontend/UI/UX work, add a comment to the issue immediately after creation:
-```
-Mockup: `frontend/mockups/phase-[X-Y]-*.html`
-```
-
-**5d.** Confirm the issue number, and title before moving to the next task.
+**4c.** Confirm the issue number, and title before moving to the next task.
 
 ---
 
-## Step 6 - Return and summarize
+## Step 5 - Return and summarize
 
 Print a summary table:
 
