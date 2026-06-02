@@ -124,19 +124,20 @@ working and dismissable, and PWA criteria met.
 
     In the frontend, modify the header to have 3 flex items. The first will still contain the 
     text "Job Tracking Board". The second section will contain the search bar. The third section 
-    will contain the  "Add Job" button. The first and third section will have 30% width. The 2nd (middle)
-    section will have 40% width. These will be separated by "justify-content: space-between" so they
-    are spaced nicely. Make sure the header also has "align-items: center" so they are centered vertically.
+    will contain the  "Add Job" button, positioned at the end of the container (right-side). 
+    The first and third section will have 30% width. The 2nd (middle) section will have 40% width. 
+    These will be separated by "justify-content: space-between" so they are spaced nicely. Make 
+    sure the header also has "align-items: center" so they are centered vertically. 
     The search bar should take up the entire space of the middle section of the header.
 
     Create a new button, with the primary background and white text, same as the "Add Job" button.
-    This button's text should read "Follow-up Reminders" with a heroicon (alert or notification icon)
-    before the text. Place this button in the third header section, to the left of the "Add Job" button. These
-    two buttons should be aligned to the end, so they appear all the way to the right inside the header.
+    This button's text should read "Follow-up Reminders" with a heroicon (alert or notification icon - outline style)
+    before the text. Place this button in the third header section, to the left. of the "Add Job" button. Clicking
+    this button will open the Reminder Drawer. If the drawer is already open, clicking this button will cause the
+    drawer to slide off the screen.
 
     Add a new component: `ReminderDrawer.jsx`. This is a fixed-width, full height drawer that slides in 
-    from the right edge of the screen. When this drawer slides over, make sure it overlays the current
-    elements. It should NOT move them in any way. 
+    from the right edge of the screen. It should overlap the existing element, and NOT move them in any way. 
     
     In this component, there should be a header that reads "Follow-Up Reminders" positioned left, with a 
     badge to the right of the text containing the total number of reminders in the list. This badge should have
@@ -149,10 +150,9 @@ working and dismissable, and PWA criteria met.
     contains: `Applied [DateApplied dot N days ago]`.
 
     At the bottom of the drawer is a button that reads 'Close'. This will collapse the drawer, causing it to
-    slide to the right off the screen.
+    slide to the right off the screen. The button should always be positioned at the bottom of the drawer.
 
-    Cap visible alerts at 5; show a "+ N more" link that expands the list
-    to reveal the rest. Set max-height and add scrollbar. 
+    Cap visible alerts at 5; show a "+ N more" link that expands the list to reveal the rest.
 
     Clicking the 'X' button sends a PUT to `api.php` setting `follow_up_dismissed = true` for 
     that job, then removes the alert from the UI. Clicking the 'Dismiss All' button will do the same, 
