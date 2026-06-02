@@ -20,7 +20,7 @@ Using the Gitea MCP, detect the repo from the current git remote. Retrieve issue
 
 ## Step 2 - Find the branch name
 
-Read the issue's comments and find the branch comment in the format:
+Read the branch name from the issue. If none was found, read the issue's comments and find the branch comment in the format:
 ```
 Branch: `branch-name`
 ```
