@@ -13,6 +13,7 @@ The sub-phase number is: $subPhase.
 ## Step 1 - Read the roadmap
 
 Read @ROADMAP.md. Find the sub-phase matching "$subPhase" (e.g. "3.9" matches "- [x] **3.9 ...**" or "**3.9**"). Extract:
+- The parent phase and title
 - The sub-phase title
 - The full description
 - The "Done when" definition
@@ -36,6 +37,9 @@ Break the sub-phase into 4–8 discrete tasks (more if the scope genuinely requi
 
 For each task, determine:
 - **title:** Short imperative phrase (e.g. "Add followed_up_date column to jobs schema")
+- **project:** `Phase X - Parent Phase Title`
+- **milestone:** `Phase X.Y`
+- **labels:** `Task`
 - **body:** Markdown with these sections:
   ```
   ## What
@@ -51,8 +55,6 @@ For each task, determine:
   ## Notes
   [Implementation hints, dependencies on other tasks in this set, files to touch]
   ```
-- **labels:** `Task`
-- **milestone:** `Phase X.Y`
 
 **Rules:**
 - Sequence tasks so earlier ones don't depend on later ones
@@ -69,7 +71,7 @@ Detect the repo from the current git remote. For each task in sequence:
 
 **4a.** Create any missing labels via the Gitea MCP.
 
-**4b.** Create the issue via the Gitea MCP with: title, body, label(s), and milestone as planned in Step 3.
+**4b.** Create the issue via the Gitea MCP with: title, project, milestone, label(s), and body as planned in Step 3.
 
 **4c.** Confirm the issue number, and title before moving to the next task.
 
