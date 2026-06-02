@@ -87,6 +87,14 @@ Do not start writing HTML until all $numberOfMockups variants are planned.
 
 For each planned variant, produce a complete, self-contained HTML file:
 
+**Reference Warning**
+- The first two lines of the HTML file should contain a warning to any model reading
+  the mockup that let's it know not to just blindly copy the classes or inline styles:
+  ```HTML
+  <!-- VISUAL REFERENCE ONLY -->
+  <!-- Do NOT blindly copy class names or styles from this file. Use this mockup for layout, structure, and interaction intent only. -->
+  ```
+
 **Structure requirements:**
 - Use Tailwind CSS via CDN: `<script src="https://cdn.tailwindcss.com"></script>`
 - Include a reference bar at the top showing:

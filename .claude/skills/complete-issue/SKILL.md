@@ -18,11 +18,9 @@ Using the Gitea MCP, detect the repo from the current git remote. Retrieve issue
 
 ---
 
-## Step 2 - Find the branch name and mockup file
+## Step 2 - Find the branch name
 
-Read the issue's comments. 
-
-Find the branch comment in the format:
+Read the issue's comments and find the branch comment in the format:
 ```
 Branch: `branch-name`
 ```
@@ -35,13 +33,6 @@ git fetch origin
 git checkout branch-name
 git rebase origin/phase-X-Y
 ```
-
-Find the mockup comment (if present) in the format:
-```
-Mockup: `frontend/mockups/phase-[X-Y]-*.html`
-```
-
-Note any mockup `path/filename.html` found, it will be included in the plan.
 
 ---
 
@@ -69,7 +60,8 @@ Handles all work inside `frontend/`: React components, Tailwind styling, state m
 
 Instructions to pass: the full issue body, the specific frontend-related acceptance criteria, the files expected to change, and the requirement to signal completion only when all frontend acceptance criteria pass.
 
-If a mockup file was found in Step 2, pass it to the `frontend-ux` agent with the instruction to read the file before writing any code and implement to match its layout, component structure, and interaction patterns.
+Derive the mockup pattern from the issue milestone: replace `.` with `-`, prepend `phase-`, append `-*.html`. Check `frontend/mockups/` for a matching file. If a mockup file is found, treat it as the visual reference for frontend work. Pass the file name and path to the `frontend-ux` agent with the following instructions:
+"A reference mockup exists at [path]. Use it for visual and structural reference only - do not blindly copy its class names, inline styles, or CSS from the mockup into the implementation. Before writing any code, read the project's global stylesheet (`frontend/src/index.css`) to understand the available CSS custom properties, utility classes, and component patterns. This takes precedence over the mockup's use of styling, followed by Tailwind CSS. The mockup communicates layout, hierarchy, and interaction intent. Your code communicates it using the project's own design system."
 
 Spawn only the agents the issue actually requires. A frontend-only issue skips the backend-engineer. A backend-only issue skips frontend-ux.
 

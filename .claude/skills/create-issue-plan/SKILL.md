@@ -20,11 +20,9 @@ riteria, notes, labels, and milestone.
 
 ---
 
-## Step 2 - Find the branch name and mockup file
+## Step 2 - Find the branch name
 
-Read the issue's comments. 
-
-Find the branch comment in the format:
+Read the issue's comments and find the branch comment in the format:
 ```
 Branch: `branch-name`
 ```
@@ -32,13 +30,6 @@ Branch: `branch-name`
 This is the pre-created issue branch for this issue. Note the branch name - it 
 will be checked out after approval. If no branch comment exists, report this to 
 the user and stop. Do not proceed.
-
-Find the mockup comment (if present) in the format:
-```
-Mockup: `frontend/mockups/phase-[X-Y]-*.html`
-```
-
-Note any mockup `path/filename.html` found, it will be included in the plan.
 
 ---
 
@@ -114,6 +105,7 @@ Create the directory if needed and save the plan to `.claude/plans/issue-$issueN
  
 ## backend-engineer instructions
 [Only include this section if backend-engineer is needed]
+
 Files to modify:
 - [file path - what changes and why]
  
@@ -122,10 +114,9 @@ Acceptance criteria to satisfy:
  
 ## frontend-ux instructions
 [Only include this section if frontend-ux is needed]
-Reference mockup: [mockup `path/filename.html` from comment, or "none"]
 
-If a mockup file was found in step 2, include this instruction in the frontend-ux section:
-"Read the mockup file before writing any code. Implement to match its layout, component structure, and interaction patterns."
+Derive the mockup pattern from the issue milestone: replace `.` with `-`, prepend `phase-`, append `-*.html`. Check `frontend/mockups/` for a matching file. If a mockup file is found, treat it as the visual reference for frontend work. Pass the file name and path to the `frontend-ux` agent with the following instructions:
+"A reference mockup exists at [path]. Use it for visual and structural reference only - do not blindly copy its class names, inline styles, or CSS from the mockup into the implementation. Before writing any code, read the project's global stylesheet (`frontend/src/index.css`) to understand the available CSS custom properties, utility classes, and component patterns. This takes precedence over the mockup's use of styling, followed by Tailwind CSS. The mockup communicates layout, hierarchy, and interaction intent. Your code communicates it using the project's own design system."
 
 Files to modify:
 - [file path - what changes and why]
