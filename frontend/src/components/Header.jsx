@@ -1,6 +1,6 @@
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { MagnifyingGlassIcon, BellIcon } from '@heroicons/react/24/outline'
 
-function Header({ searchValue, onSearchChange, onAddJob }) {
+function Header({ searchValue, onSearchChange, onAddJob, onToggleReminderDrawer }) {
   return (
     <header className="bg-white border-b border-gray-200 mb-2 px-6 py-4 flex items-center justify-between">
       <div className="w-[30%]">
@@ -18,7 +18,14 @@ function Header({ searchValue, onSearchChange, onAddJob }) {
           />
         </div>
       </div>
-      <div className="w-[30%] flex justify-end">
+      <div className="w-[30%] flex justify-end gap-2">
+        <button
+          onClick={onToggleReminderDrawer}
+          className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark font-medium transition-colors cursor-pointer text-sm flex items-center gap-1"
+        >
+          <BellIcon className="w-5 h-5" />
+          Follow-up Reminders
+        </button>
         <button
           onClick={onAddJob}
           className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark font-medium transition-colors cursor-pointer text-sm"
