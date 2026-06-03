@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import KanbanBoard from './components/KanbanBoard'
 import JobModal from './components/JobModal'
+import ReminderDrawer from './components/ReminderDrawer'
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -11,6 +12,8 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [modalOpen, setModalOpen] = useState(false)
   const [editingJob, setEditingJob] = useState(null)
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [reminders, setReminders] = useState([])
 
   useEffect(() => {
     fetchJobs()
@@ -95,6 +98,18 @@ function App() {
     setJobs(updatedJobs)
   }
 
+  const handleToggleReminderDrawer = () => {
+    setDrawerOpen(prev => !prev)
+  }
+
+  const handleDismissReminder = (id) => {
+    setReminders(prev => prev.filter(r => r.id !== id))
+  }
+
+  const handleDismissAllReminders = () => {
+    setReminders([])
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -117,7 +132,7 @@ function App() {
           searchValue={searchQuery}
           onSearchChange={setSearchQuery}
           onAddJob={handleAddJob}
-          onToggleReminderDrawer={() => {}}
+          onToggleReminderDrawer={handleToggleReminderDrawer}
         />
 
         <main className="flex-1 flex flex-col overflow-hidden">
@@ -138,6 +153,14 @@ function App() {
             }}
             onSubmit={handleModalSubmit}
             initialData={editingJob}
+          />
+
+          <ReminderDrawer
+            isOpen={drawerOpen}
+            onClose={() => setDrawerOpen(false)}
+            reminders={reminders}
+            onDismiss={handleDismissReminder}
+            onDismissAll={handleDismissAllReminders}
           />
         </main>
       </div>
