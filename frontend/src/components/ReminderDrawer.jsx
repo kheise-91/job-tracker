@@ -38,17 +38,12 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
             <BellIcon className="w-5 h-5 text-primary flex-shrink-0" />
             <h2 className="text-base font-semibold text-gray-800 truncate">
               Follow-up Reminders
-              {reminderCount > 0 && (
-                <span className="ml-2 bg-primary text-white text-xs rounded-full px-2 py-0.5">
-                  {reminderCount}
-                </span>
-              )}
             </h2>
           </div>
           <button
-            className="px-4 py-1.5 bg-primary text-white text-sm font-medium rounded-md hover:bg-primary-dark transition-colors flex-shrink-0"
+            className="px-4 py-1.5 bg-primary text-white text-sm font-medium rounded-md hover:bg-primary-dark transition-colors flex-shrink-0 cursor-pointer"
             onClick={onDismissAll}
-            disabled={reminderList.length === 0}
+            disabled={reminderCount === 0}
           >
             Dismiss All
           </button>
@@ -96,7 +91,7 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
         {/* Footer */}
         <div className="px-5 py-3 border-t border-gray-200 flex-shrink-0">
           <button
-            className="w-full px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors"
+            className="w-full px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors cursor-pointer"
             onClick={onClose}
           >
             Close
