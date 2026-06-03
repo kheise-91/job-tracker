@@ -15,7 +15,7 @@ A fixed-position, full-height drawer that slides in from the right edge of the s
 
 | Prop | Type | Purpose |
 |---|---|---|
-| `isOpen` | `boolean` | Drawer visibility — when `false`, component returns `null` |
+| `isOpen` | `boolean` | Drawer visibility — when `false`, component stays in DOM with `translateX(100%)` for closing animation |
 | `onClose` | `() => void` | Close callback (called by backdrop click, footer Close button, and Escape key press) |
 | `reminders` | `Array<{ id: number, company: string, position: string, daysAgo: number }>` | List of reminder items to display |
 | `onDismiss` | `(id: number) => void` | Dismiss a single reminder (called by X button on each item) |
@@ -31,7 +31,7 @@ A fixed-position, full-height drawer that slides in from the right edge of the s
 
 ## Animation
 
-Uses inline `style={{ transform: isOpen ? 'translateX(0)' : 'translateX(100%)' }}` with `transition-transform duration-200 ease-out` on the drawer panel. When `isOpen` is `false`, the component returns `null` (not rendered in DOM).
+Uses inline `style={{ transform: isOpen ? 'translateX(0)' : 'translateX(100%)' }}` with `transition-transform duration-200 ease-out` on the drawer panel. When `isOpen` is `false`, the drawer panel animates out via `translateX(100%)` rather than being removed from the DOM.
 
 ## Keyboard interactions
 

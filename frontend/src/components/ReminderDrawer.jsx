@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react';
 import { BellIcon, XMarkIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 
-function ReminderDrawer({ isOpen, onClose, reminders, onDismiss, onDismissAll }) {
+function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, onDismissAll }) {
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'Escape' && isOpen) onClose();
   }, [isOpen, onClose]);
@@ -11,18 +11,18 @@ function ReminderDrawer({ isOpen, onClose, reminders, onDismiss, onDismissAll })
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
 
-  if (!isOpen) return null;
-
   const reminderList = reminders ?? [];
 
   return (
     <>
       {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/20 z-[100] transition-opacity duration-200"
-        onClick={onClose}
-        aria-hidden="true"
-      />
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/20 z-[100] transition-opacity duration-200"
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
 
       {/* Drawer Panel */}
       <div
@@ -38,6 +38,11 @@ function ReminderDrawer({ isOpen, onClose, reminders, onDismiss, onDismissAll })
             <BellIcon className="w-5 h-5 text-primary flex-shrink-0" />
             <h2 className="text-base font-semibold text-gray-800 truncate">
               Follow-up Reminders
+              {reminderCount > 0 && (
+                <span className="ml-2 bg-primary text-white text-xs rounded-full px-2 py-0.5">
+                  {reminderCount}
+                </span>
+              )}
             </h2>
           </div>
           <button

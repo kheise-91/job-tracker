@@ -11,7 +11,7 @@ description: A white top bar with app title, search input, "Follow-up Reminders"
 
 - Section 1 (30% width): Title text "Job Tracking Board"
 - Section 2 (40% width): Search input with magnifying glass icon, spans full section width
-- Section 3 (30% width, right-aligned): "Follow-up Reminders" button (with BellIcon) and "Add Job" button, spaced with `gap-2`
+- Section 3 (30% width, right-aligned): "Follow-up Reminders" button with a badge pill showing `reminderCount`, and "Add Job" button, spaced with `gap-2`
 
 ## Props
 
@@ -20,7 +20,8 @@ description: A white top bar with app title, search input, "Follow-up Reminders"
 | `searchValue` | `string` | Current search text (controlled by App) |
 | `onSearchChange` | `(val: string) => void` | Setter for search text (App's `setSearchQuery`) |
 | `onAddJob` | `() => void` | Opens the modal in create mode (App's `handleAddJob`) |
-| `onToggleReminderDrawer` | `() => void` | Toggles the reminder drawer open/close state (currently a no-op stub in App) |
+| `onToggleReminderDrawer` | `() => void` | Toggles the reminder drawer open/close state (App's `handleToggleReminderDrawer`) |
+| `reminderCount` | `number` | Number of pending follow-up reminders, shown as a badge pill on the reminders button |
 
 ## State managed
 
@@ -32,4 +33,4 @@ None.
 
 ## Notes
 
-The search state is passed from App but not yet consumed by any downstream component (KanbanBoard, JobCard). The search input is currently cosmetic. The `onToggleReminderDrawer` callback is a no-op stub until the reminder drawer component is implemented.
+The search state is passed from App but not yet consumed by any downstream component (KanbanBoard, JobCard). The search input is currently cosmetic.
