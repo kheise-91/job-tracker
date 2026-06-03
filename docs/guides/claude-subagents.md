@@ -36,6 +36,19 @@ Develops and modifies all server-side functionality including API endpoints, dat
 
 ---
 
+### [`code-reviewer`](/.claude/agents/code-reviewer.md)
+
+Performs a code review of change implemented by upstream agents. Reads changed files and verifies acceptance criteria have been met. Utilizes Playwright MCP for end-to-end testing of new features.
+
+**Key Responsibilities:**
+- Catch obvious problems, logical errors, or any inconsistencies with code base
+- Review visual and interaction changes introduced in frontend code changes
+- Ensure documentation is kept up-to-date whenever backend or frontend changes are made 
+
+**Use when:** Anytime implementation agents change code, before merging issue branches into sub-phase branches, or validating complex UI/UX changes directly in the browser.
+
+---
+
 ### [`frontend-ux`](/.claude/agents/frontend-ux.md)
 
 Implements, modifies, and debugs all frontend UI components, styling, state management, and client-side logic. Owns the React frontend built with Vite and Tailwind CSS v4.
@@ -70,7 +83,7 @@ Works on infrastructure, deployment, and DevOps-related tasks including Docker, 
 
 ### [`qa-reviewer`](/.claude/agents/qa-reviewer.md)
 
-Performs comprehensive PR-like code reviews, security audits, test generation, lint/type validation, and architectural drift detection. Acts as a senior QA engineer - never writes code, only reviews and reports.
+Performs comprehensive PR-like code reviews, security audits, test generation, lint/type validation, and architectural drift detection. Acts as a senior QA engineer - never writes code, only reviews and reports. Optionally tests in browser if Playwright MCP is available.
 
 **Key Responsibilities:**
 - Code correctness, readability, and maintainability review
@@ -90,6 +103,7 @@ Performs comprehensive PR-like code reviews, security audits, test generation, l
 | Agent Name | Description |
 | ---------- | ----------- |
 | `backend-engineer` | Develops and modifies all server-side functionality including API endpoints, database schema, business logic, and data integrity. Owns `backend/api.php` and `backend/db.php`. |
+| `code-reviewer` | Performs a code review of change implemented by upstream agents. Reads changed files and verifies acceptance criteria have been met. Utilizes Playwright MCP for end-to-end testing of new features. |
 | `frontend-ux` | Implements, modifies, and debugs all frontend UI components, styling, state management, and client-side logic. Owns the React frontend built with Vite and Tailwind CSS v4. |
 | `infra-devops` | Works on infrastructure, deployment, and DevOps-related tasks including Docker, NGINX, CI/CD pipelines, secrets management, monitoring, and backup strategies. |
 | `qa-reviewer` | Performs comprehensive PR-like code reviews, security audits, test generation, lint/type validation, and architectural drift detection. Acts as a senior QA engineer - never writes code, only reviews and reports. |
@@ -105,7 +119,8 @@ When working on a feature that touches multiple areas:
 
 1. **Backend changes first** - `backend-engineer` runs to completion
 2. **Frontend changes next** - `frontend-ux` runs to completion
-3. **QA review last** - `qa-reviewer` reviews all changes
+3. **Code review** - `code-reviewer` reviews all changes in issue branch before merging to sub-phase branch
+4. **QA review last** - `qa-reviewer` reviews all changes in sub-phase branch before merging to master branch
 
 Agents must always run **sequentially** - never in parallel - due to local GPU memory constraints.
 

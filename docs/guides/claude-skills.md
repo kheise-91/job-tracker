@@ -134,12 +134,24 @@ use a different model for execution than for planning.
 ### [`/complete-issue [issue]`](/.claude/skills/complete-issue/SKILL.md)
 
 Fully autonomous. Reads the issue from Gitea, checks out and rebases the pre-created
-branch, spawns agents, runs QA, commits, and opens a PR into the sub-phase branch -
+branch, spawns agents, performs code review, commits, and opens a PR into the sub-phase branch -
 all without user input. Safe because all work stays in the issue's isolated branch.
 
 Stops with an error if no pre-created branch comment is found on the issue.
 
 **Use when:** The issue is straightforward and you want zero interruptions.
+
+---
+
+### [`/qa-review`](/.claude/skills/qa-review/SKILL.md)
+
+Runs a comprehensive read-only QA review of all changes in the current sub-phase branch 
+compared to master. Verifies all acceptance criteria across every issue in the milestone. 
+Optionally tests in browser if Playwright MCP is available.
+
+Returns a summary report of the review.
+
+**Use when:** Completing a sub-phase implementation before opening a pull request.
 
 ---
 
@@ -169,9 +181,10 @@ Can also be run after any major phase to keep docs current.
 | `/create-mockup` | Reads a sub-phase from ROADMAP.md, extracts frontend design requirements using the `frontend-ux` subagent, and generates HTML mockup variants for comparison before implementation | **Precise-Coder** / Swift-Reasoner |
 | `/create-sub-phase` | Sets up sub-phase - create Gitea issues and branches based on sub-phase in project roadmap | **Deep-Reasoner** / Swift-Reasoner | 
 | `/create-issues` | Creates Gitea issues based on sub-phase in project roadmap | **Deep-Reasoner** / Swift-Reasoner | 
-| `/create-issue-plan` | Reads an issue from Gitea and creates a plan for implementation | **Swift-Reasoner** / Coder-Agent | 
+| `/create-issue-plan` | Reads an issue from Gitea and creates a plan for implementation | **Swift-Reasoner** / Precise-Coder | 
 | `/execute-issue-plan` | Executes the saved plan for a Gitea issue | **Quick-Coder** / Coder-Agent | 
 | `/complete-issue` | Fully autonomous mode - works on a Gitea issue from start to finish without pausing for user confirmation | **Coder-Agent** / Precise-Coder | 
+| `/qa-review` | Runs a comprehensive read-only QA review of all changes in the current sub-phase branch compared to master | **Precise-Coder** / Deep-Reasoner |
 | `/update-documentation` | Updates project `README.md` and documentation based on current code base | **Quick-Coder** / Coder-Agent | 
 
 ### Naming Conventions
@@ -194,6 +207,7 @@ Can also be run after any major phase to keep docs current.
 4. **Development:**
     - Use `/complete-issue` to have Claude work an issue from start to finish and open a PR.
     - Use `/create-issue-plan` followed by `/execute-issue-plan` to work an issue in steps (for more complex tasks).
+    - Use `/qa-review` in the sub-phase branch when all issues have been completed and merged.
 5. **Document Changes:** use the `/update-documentation` after each phase or sub-phase to keep documentation files up-to-date.
 
 ---

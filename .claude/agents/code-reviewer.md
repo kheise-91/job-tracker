@@ -1,6 +1,6 @@
 ---
 name: "code-reviewer"
-description: "Use this agent for fast code reviews and to check changed files for obvious issues and verify upstream agents updated relevant documentation. Reports findings back to the orchestrator."
+description: "Use this agent for fast code reviews and to check changed files for obvious issues, perform end-to-end testing in the browser using Playwright MCP and to verify upstream agents updated relevant documentation. Reports findings back to the orchestrator."
 model: inherit
 color: purple
 memory: project

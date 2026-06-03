@@ -40,9 +40,10 @@ For each issue:
 - Open pull request for `Y-m-d-short-task-summary` branch into `phase-X-Y` branch
 
 ### Step 6 - Assemble Project
-*Custom Claude Code skills available: `/update-documentation`*
+*Custom Claude Code skills available: `/qa-review`, `/update-documentation`*
 
-When all issues for sub-phase/milestone have been completed:
+When all issues for sub-phase/milestone have been completed and merged:
+- Perform a QA review of sub-phase branch
 - Update documentation with changes implemented in this sub-phase (inside sub-phase branch)
 - Mark sub-phase as "Complete" in project roadmap (inside sub-phase branch)
 - Open pull request for `phase-X-Y` branch into `master` branch
@@ -86,7 +87,8 @@ flowchart TD
         D3@{ shape: proc, label: " &emsp; /complete-issue &emsp; " }
     end
 
-    subgraph DOCUMENTATION["6 - Assemble Project"]
+    subgraph ASSEMBLE["6 - Assemble Project"]
+        QA["/qa-review"]
         DOC["/update-documentation"]
     end
 
@@ -103,17 +105,17 @@ flowchart TD
     C3 -.-> D1
     C3 -.-> D3
     D1 --> D2
-    D2 --> DOCUMENTATION
-    D3 --> DOCUMENTATION
-
-    DOCUMENTATION --> End
+    D2 --> ASSEMBLE
+    D3 --> ASSEMBLE
+    QA --> DOC
+    DOC --> End
 
     classDef sequential fill:#E1F5EE,stroke:#1D9E75,color:#085041
     classDef choice fill:#EEEDFE,stroke:#7F77DD,color:#26215C
     classDef decision fill:#FAEEDA,stroke:#EF9F27,color:#412402
     classDef terminal fill:#F1EFE8,stroke:#888780,color:#2C2C2A
 
-    class S1,S2,S3,G1,DOC sequential
+    class S1,S2,S3,G1,QA,DOC sequential
     class TC1,TC2,D1,D2,D3 choice
     class C1,C2,C3 decision
     class Start,End terminal

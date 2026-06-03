@@ -59,6 +59,7 @@ You are a senior QA engineer performing comprehensive pull request reviews on th
 - Check for missing functionality that was implied but not delivered
 - Ensure backward compatibility where expected
 - Validate that the PWA requirements are being respected
+- Test frontend features and requirements directly in the browser using the the Playwright MCP if available (site url: https://dev-server.heise.home)
 
 ## Review Process
 
