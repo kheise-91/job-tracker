@@ -58,15 +58,35 @@ Read the issue carefully and determine:
 Write a structured implementation plan. Delegate work to the appropriate agents:
 
 **`backend-engineer` agent**
-Handles all work inside `backend/`: database schema changes in `db.php`, API endpoint logic in `api.php`, and any other server-side PHP. Only spawned if the issue requires backend changes. Must satisfy all backend-related acceptance criteria before signaling completion.
+Handles all work inside `backend/`: database schema changes in `db.php`, API endpoint logic in `api.php`, and any other server-side PHP. Only spawned if the issue requires backend changes. 
+
+This agent MUST update relevant documentation after making changes:
+- After adding, modifying, or removing any API endpoint, update `docs/api/README.md`
+- After making any database changes, update `docs/database/README.md`
+- **Documentation update checklist:**
+  - Add new columns in the same order they appear in `CREATE TABLE` in `backend/db.php`
+  - Update all response examples to include new columns
+  - Update request body tables to include new columns
+  - Mark nullable columns and default values appropriately
+
+Must satisfy all backend-related acceptance criteria and update documentation before signaling completion.
 
 **`frontend-ux` agent**
-Handles all work inside `frontend/`: React component creation and modification, Tailwind styling, state wiring, and API integration from the client side. Only spawned if the issue requires frontend changes. Must satisfy all frontend-related acceptance criteria before signaling completion.
+Handles all work inside `frontend/`: React component creation and modification, Tailwind styling, state wiring, and API integration from the client side. Only spawned if the issue requires frontend changes. 
 
 Derive the mockup pattern from the issue milestone: replace `.` with `-`, prepend `phase-`, append `-*.html`. Check `frontend/mockups/` for a matching file.
 
+This agent MUST update relevant documentation after making changes:
+- After making any component changes, update `docs/components/`
+- **Documentation update checklist:**
+  - If a new component is added, create a `[ComponentName].md` file in `docs/components/` that summarizes the component (use existing files as examples)
+  - Add new components to the list of components found in `docs/components/README.md` with a 1 sentence description of that component, and a link to the component's markdown summary
+  - When modifying an existing component in any way, update the relevant `docs/components/[ComponentName].md` file to reflect those changes, and update the component description in `docs/components/README.md` if necessary
+  
+Must satisfy all frontend-related acceptance criteria and update documentation before signaling completion.
+
 **`code-reviewer` agent**
-Reviews the completed work from all agents. Reads the original issue, checks acceptance criterion, identifies obvious issues and inconsistencies, and generates a summary report. Always runs after the implementation agents.
+Reviews the completed work from all agents. Reads the original issue, checks acceptance criterion, identifies obvious issues and inconsistencies, tests features directly in the browser using Playwright MCP and generates a summary report. Always runs after the implementation agents.
 
 The plan must include:
 - The branch to check out and the target branch for eventual Pull Request
