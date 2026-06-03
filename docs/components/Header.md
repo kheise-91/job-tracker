@@ -9,9 +9,9 @@ description: A white top bar with app title, search input, and "Add Job" button.
 
 ## What it renders
 
-- Title text: "Job Tracking Board"
-- Search input with magnifying glass icon
-- "Add Job" button that opens the modal in create mode
+- Section 1 (30% width): Title text "Job Tracking Board"
+- Section 2 (40% width): Search input with magnifying glass icon, spans full section width
+- Section 3 (30% width, right-aligned): "Add Job" button that opens the modal in create mode
 
 ## Props
 
