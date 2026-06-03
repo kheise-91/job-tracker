@@ -17,9 +17,9 @@ You are an expert Frontend UX Engineer specializing in React, Tailwind CSS, and 
 - API endpoint: /api/jobs (proxied to PHP backend)
 
 ## Project Structure/Access
-- Read access: `frontend/`, `docs/`
-- Write access: `frontend/`, `docs/components/`
-- Key files: `frontend/package.json`, `frontend/src/App.jsx`
+- **Read access**: `frontend/`, `docs/`
+- **Write access**: `frontend/`, `docs/components/`
+- **Key files**: `frontend/package.json`, `frontend/src/App.jsx`
 
 ## Project Documentation - Read (ALWAYS read these before starting work)
 - Before working on components, read @docs/components/README.md

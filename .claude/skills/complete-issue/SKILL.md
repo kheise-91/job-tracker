@@ -58,25 +58,42 @@ Instructions to pass: the full issue body, the specific backend-related acceptan
 **`frontend-ux` agent**
 Handles all work inside `frontend/`: React components, Tailwind styling, state management, and client-side API integration. Spawn after the backend-engineer if both layers are needed.
 
-Instructions to pass: the full issue body, the specific frontend-related acceptance criteria, the files expected to change, and the requirement to signal completion only when all frontend acceptance criteria pass.
+Derive the mockup pattern from the issue milestone: replace `.` with `-`, prepend `phase-`, append `-*.html`. Check `frontend/mockups/` for a matching file.
 
-Derive the mockup pattern from the issue milestone: replace `.` with `-`, prepend `phase-`, append `-*.html`. Check `frontend/mockups/` for a matching file. If a mockup file is found, treat it as the visual reference for frontend work. Pass the file name and path to the `frontend-ux` agent with the following instructions:
-"A reference mockup exists at [path]. Use it for visual and structural reference only - do not blindly copy its class names, inline styles, or CSS from the mockup into the implementation. Before writing any code, read the project's global stylesheet (`frontend/src/index.css`) to understand the available CSS custom properties, utility classes, and component patterns. This takes precedence over the mockup's use of styling, followed by Tailwind CSS. The mockup communicates layout, hierarchy, and interaction intent. Your code communicates it using the project's own design system."
+Instructions to pass: the full issue body, the specific frontend-related acceptance criteria, the files expected to change, and the requirement to signal completion only when all frontend acceptance criteria pass. If a mockup file is found, treat it as the visual reference for frontend work. Pass the file name and path to the `frontend-ux` agent with the following instructions:
+> A reference mockup exists at [path]. Use it for visual and structural reference only - do not blindly copy its class names, inline styles, or CSS from the mockup into the implementation. Before writing any code, read the project's global stylesheet (`frontend/src/index.css`) to understand the available CSS custom properties, utility classes, and component patterns. This takes precedence over the mockup's use of styling, followed by Tailwind CSS. The mockup communicates layout, hierarchy, and interaction intent. Your code communicates it using the project's own design system.
 
 Spawn only the agents the issue actually requires. A frontend-only issue skips the backend-engineer. A backend-only issue skips frontend-ux.
 
 ---
 
-## Step 5 - QA review
+## Step 5 - Spawn code reviewer agent
 
-After all implementation agents complete, spawn the **`qa-reviewer` agent**:
+Spawn a **`code-reviewer`** agent with the following context and instructions:
+ 
+**Context to pass:**
+- The list of all files changed during implementation
+- The issue title and acceptance criteria
 
-Instructions to pass:
-- The original issue (title, body, full acceptance criteria)
-- The list of all files changed
-- Task: read each changed file, verify every acceptance criterion is met, identify any bugs, missed edge cases, or inconsistencies, and produce a written QA report with a clear pass/fail status per criterion
+**Instructions:** 
+You are doing a code review on the changed files:
+- Read only the changed files
+- Perform code checks
+- Perform visual and interaction review (if Playwright MCP is available and frontend code changes were made)
+- Perform documentation checks
+- Return a short report, maximum 8 bullet points.
+- Be direct and specific
 
-If the qa-reviewer flags blocking issues, address them before proceeding to Step 6. Non-blocking observations can be noted in the PR body.
+**Report format:**
+```
+## Code review
+ 
+- [ISSUE] [filename]: [specific problem]
+- [ISSUE] [filename]: [specific problem]
+- PASS - no issues found
+```
+ 
+If no issues are found, return "PASS - no issues found" and nothing else. If issues are found, list them. If the code-reviewer flags blocking issues, address them before proceeding to Step 6. Non-blocking observations can be noted in the PR body.
 
 ---
 
@@ -109,8 +126,8 @@ Open a pull request via the Gitea MCP:
   ```
   Closes #$issueNumber
 
-  ## QA summary
-  [Pass/fail status per acceptance criterion from the qa-reviewer report]
+  ## Code review summary
+  [report generated from code-reviewer agent]
 
   ## Files changed
   - [list]

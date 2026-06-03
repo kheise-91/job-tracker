@@ -36,7 +36,7 @@ the user and stop. Do not proceed.
 ## Step 3 - Determine the target branch
 
 Derive the sub-phase branch from the issue's milestone:
-- Milestone `Phase 3.9` → target branch `phase-3-9`
+- Milestone `Phase 3.9` -> target branch `phase-3-9`
 - Replace `.` with `-`, prepend `phase-`
 
 This is the branch the eventual PR will merge into (not `master`).
@@ -48,7 +48,7 @@ This is the branch the eventual PR will merge into (not `master`).
 Read the issue carefully and determine:
 - Which files need to be created or modified
 - Whether work touches the backend (`backend/` - PHP/SQLite), frontend (`frontend/` - React/Tailwind), or both
-- The correct sequence of changes (schema changes → API → frontend is the standard order when all three layers are involved)
+- The correct sequence of changes (schema changes -> API -> frontend is the standard order when all three layers are involved)
 - Any risks, unknowns, or ambiguities worth flagging before starting
 
 ---
@@ -63,14 +63,16 @@ Handles all work inside `backend/`: database schema changes in `db.php`, API end
 **`frontend-ux` agent**
 Handles all work inside `frontend/`: React component creation and modification, Tailwind styling, state wiring, and API integration from the client side. Only spawned if the issue requires frontend changes. Must satisfy all frontend-related acceptance criteria before signaling completion.
 
-**`qa-reviewer` agent**
-Reviews the completed work from all agents. Reads the original issue, checks every acceptance criterion, identifies bugs or edge cases missed, and produces a written QA report. Always runs after the implementation agents.
+Derive the mockup pattern from the issue milestone: replace `.` with `-`, prepend `phase-`, append `-*.html`. Check `frontend/mockups/` for a matching file.
+
+**`code-reviewer` agent**
+Reviews the completed work from all agents. Reads the original issue, checks acceptance criterion, identifies obvious issues and inconsistencies, and generates a summary report. Always runs after the implementation agents.
 
 The plan must include:
 - The branch to check out and the target branch for eventual Pull Request
 - Which agents are needed and why
 - Which specific files each agent touches
-- The order of agent execution (backend-engineer → frontend-ux → qa-reviewer)
+- The order of agent execution (backend-engineer -> frontend-ux -> code-reviewer)
 - Which specific acceptance criteria each agent is responsible for
 - Any risks or questions to resolve before starting
 
@@ -102,6 +104,7 @@ Create the directory if needed and save the plan to `.claude/plans/issue-$issueN
 ## Agents
 - **backend-engineer:** [yes / no]
 - **frontend-ux:** [yes / no]
+- **code-reviewer:** yes
  
 ## backend-engineer instructions
 [Only include this section if backend-engineer is needed]
@@ -115,14 +118,14 @@ Acceptance criteria to satisfy:
 ## frontend-ux instructions
 [Only include this section if frontend-ux is needed]
 
-Derive the mockup pattern from the issue milestone: replace `.` with `-`, prepend `phase-`, append `-*.html`. Check `frontend/mockups/` for a matching file. If a mockup file is found, treat it as the visual reference for frontend work. Pass the file name and path to the `frontend-ux` agent with the following instructions:
-"A reference mockup exists at [path]. Use it for visual and structural reference only - do not blindly copy its class names, inline styles, or CSS from the mockup into the implementation. Before writing any code, read the project's global stylesheet (`frontend/src/index.css`) to understand the available CSS custom properties, utility classes, and component patterns. This takes precedence over the mockup's use of styling, followed by Tailwind CSS. The mockup communicates layout, hierarchy, and interaction intent. Your code communicates it using the project's own design system."
-
 Files to modify:
 - [file path - what changes and why]
  
 Acceptance criteria to satisfy:
 - [ ] [criterion from the issue]
+
+If a mockup file is found, treat it as the visual reference for frontend work. Pass the file name and path to the `frontend-ux` agent with the following instructions:
+> A reference mockup exists at [path]. Use it for visual and structural reference only - do not blindly copy its class names, inline styles, or CSS from the mockup into the implementation. Before writing any code, read the project's global stylesheet (`frontend/src/index.css`) to understand the available CSS custom properties, utility classes, and component patterns. This takes precedence over the mockup's use of styling, followed by Tailwind CSS. The mockup communicates layout, hierarchy, and interaction intent. Your code communicates it using the project's own design system.
  
 ## Full acceptance criteria
 [Every acceptance criterion from the original issue, unmodified]
@@ -131,7 +134,7 @@ Acceptance criteria to satisfy:
 ## Execution order
 1. [backend-engineer - if needed]
 2. [frontend-ux - if needed]
-3. [qa-reviewer - does not make any changes, only gives feedback]
+3. [code-reviewer - does not make any changes, only gives feedback]
 ```
  
 Confirm the file was saved and print its path.
