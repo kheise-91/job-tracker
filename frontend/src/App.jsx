@@ -133,6 +133,7 @@ function App() {
           onSearchChange={setSearchQuery}
           onAddJob={handleAddJob}
           onToggleReminderDrawer={handleToggleReminderDrawer}
+          reminderCount={reminders.length}
         />
 
         <main className="flex-1 flex flex-col overflow-hidden">
@@ -159,6 +160,7 @@ function App() {
             isOpen={drawerOpen}
             onClose={() => setDrawerOpen(false)}
             reminders={reminders}
+            reminderCount={reminders.length}
             onDismiss={handleDismissReminder}
             onDismissAll={handleDismissAllReminders}
           />
