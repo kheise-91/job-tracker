@@ -3,10 +3,13 @@
 @theme {
   --color-primary: #cc583a;
   --color-primary-dark: #b54d34;
+  --color-primary-darkest: #a7412a;
   --color-secondary: #ce3a50;
   --color-secondary-dark: #ad2647;
+  --color-secondary-darkest: #9a1e33;
   --color-accent: #5ba1ad;
   --color-accent-dark: #4a8a96;
+  --color-accent-darkest: #417a86;
   --color-sidebar: #242e37;
   --color-sidebar-muted: #7a8f9e; 
   --color-interview-status: #f57c00;
@@ -36,6 +39,14 @@ svg {
 
 .nav-logo {
   margin: -2px -8px;
+}
+
+
+button.bg-primary:disabled,
+button.bg-primary-dark:disabled,
+button.bg-primary-darkest:disabled {
+  background: #a7412abf !important;
+  pointer-events: none !important;
 }
 
 
