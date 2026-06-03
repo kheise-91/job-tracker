@@ -23,7 +23,7 @@ Create project boards for each Phase in the Gitea repository.
 *Custom Claude Code skills available: `/create-mockup`, `/create-issues`, `/create-sub-phase`*
 
 For each project sub-phase:
-- Create mockup of UI/UX changes (optional - mockups must be created before creating Gitea issues with custom skills)
+- Create mockups of UI/UX changes (optional - update sub-phase description in roadmap if needed to summarize chosen mockup)
 - Create `phase-X-Y` branch 
 - Create `phase-X-Y` milestone
 - Create issues and branches for required work
