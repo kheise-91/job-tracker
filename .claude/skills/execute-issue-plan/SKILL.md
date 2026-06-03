@@ -10,7 +10,7 @@ Execute the saved plan for issue #$issueNumber. Read the plan file, check out th
 
 ---
 
-## Step 1 — Read the plan
+## Step 1 - Read the plan
  
 Read `.claude/plans/issue-$issueNumber.md`. Extract:
 - All metadata fields and values
@@ -19,12 +19,12 @@ Read `.claude/plans/issue-$issueNumber.md`. Extract:
 - Full acceptance criteria list
 
 If the file does not exist, stop and report:
-> "No plan found at .claude/plans/issue-$issueNumber.md — run `/create-issue-plan $issueNumber` first."
+> "No plan found at .claude/plans/issue-$issueNumber.md - run `/create-issue-plan $issueNumber` first."
  
 ---
 
 
-## Step 2 — Check out and rebase the branch
+## Step 2 - Check out and rebase the branch
  
 ```bash
 git fetch origin
@@ -36,17 +36,17 @@ If the rebase has conflicts, stop and report them. Do not attempt to resolve con
  
 ---
 
-## Step 3 — Spawn implementation agents
+## Step 3 - Spawn implementation agents
  
 Spawn only the agents listed as "yes" in the plan. Pass each agent its specific instructions and file list from the plan file.
  
-**`backend-engineer`** — spawn first if needed. Handles all `backend/` work. Must satisfy its listed acceptance criteria before signaling completion.
+**`backend-engineer`** - spawn first if needed. Handles all `backend/` work. Must satisfy its listed acceptance criteria and update documentation before signaling completion.
  
-**`frontend-ux`** — spawn after backend-engineer if needed. Handles all `frontend/` work. Must satisfy its listed acceptance criteria before signaling completion.
+**`frontend-ux`** - spawn after backend-engineer if needed. Handles all `frontend/` work. Must satisfy its listed acceptance criteria and update documentation before signaling completion.
  
 ---
 
-## Step 4 — Spawn code reviewer agent
+## Step 4 - Spawn code reviewer agent
  
 Spawn a **`code-reviewer`** agent with the following context and instructions:
  
@@ -55,12 +55,26 @@ Spawn a **`code-reviewer`** agent with the following context and instructions:
 - The issue title and acceptance criteria
 
 **Instructions:** 
-You are doing a code review on the changed files:
+You are doing a code review on the changed files.
 - Read only the changed files
-- Perform code checks
-- Perform visual and interaction review (if Playwright MCP is available and frontend code changes were made)
-- Perform documentation checks
-- Return a short report, maximum 8 bullet points. 
+- Perform code checks:
+  - Logic errors or off-by-one mistakes
+  - Unhandled null, undefined, or empty states for data the component receives
+  - Console.log statements or debug code left in
+  - Values that are hardcoded but should reference a CSS variable, constant, or config value
+  - Imports that are unused or incorrectly referenced
+  - Style inconsistencies with surrounding code in the same file (naming conventions, spacing patterns, component structure)
+- Perform visual and interaction review (if Playwright MCP is available and changes affect frontend/UI/UX):
+  - Navigate to the app at https://dev-server.heise.home
+  - For each UI-related acceptance criterion, test it directly in the browser: navigate to the relevant page, interact with the component, verify the behavior
+  - Take a screenshot for any criterion that fails or looks visually incorrect
+- Perform documentation checks - cross-reference the changed files against the project documentation. For each of the following conditions, read the relevant doc file and verify it reflects the changes made:
+  - `backend/db.php` was modified - check `docs/database/README.md` reflects any schema changes (new columns, new tables, altered types or constraints, etc.)
+  - `backend/api.php` was modified - check `docs/api/README.md` reflects any endpoint changes (new routes, changed request/response shapes, new error codes, etc.)
+  - A new component was created - check `docs/components/[ComponentName].md` was created and the component was added to `docs/components/README.md` with short description and link to the `[ComponentName].md` file.
+  - An existing component was modified - check `docs/components/[ComponentName].md` was updated to reflect these changes.
+  - A component was removed - check `docs/component/[ComponentName].md` was also removed and the component reference in `docs/components/README.md` was removed.
+- Return a short report, maximum 8 bullet points.
 - Be direct and specific
 
 **Report format:**
@@ -76,7 +90,7 @@ If no issues are found, return "PASS - no issues found" and nothing else. If iss
  
 ---
 
-## Step 5 — Commit and push
+## Step 5 - Commit and push
 
 *Do NOT proceed to this step until the user confirms the task has been completed successfully and requests a PR.*
  
@@ -96,7 +110,7 @@ git push origin [issue branch]
  
 ---
 
-## Step 6 — Open pull request
+## Step 6 - Open pull request
  
 Open a PR via the Gitea MCP:
 - **From:** issue branch
