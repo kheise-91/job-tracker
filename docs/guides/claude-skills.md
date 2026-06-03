@@ -181,9 +181,9 @@ Can also be run after any major phase to keep docs current.
 | `/create-mockup` | Reads a sub-phase from ROADMAP.md, extracts frontend design requirements using the `frontend-ux` subagent, and generates HTML mockup variants for comparison before implementation | **Precise-Coder** / Swift-Reasoner |
 | `/create-sub-phase` | Sets up sub-phase - create Gitea issues and branches based on sub-phase in project roadmap | **Deep-Reasoner** / Swift-Reasoner | 
 | `/create-issues` | Creates Gitea issues based on sub-phase in project roadmap | **Deep-Reasoner** / Swift-Reasoner | 
-| `/create-issue-plan` | Reads an issue from Gitea and creates a plan for implementation | **Swift-Reasoner** / Precise-Coder | 
-| `/execute-issue-plan` | Executes the saved plan for a Gitea issue | **Quick-Coder** / Coder-Agent | 
-| `/complete-issue` | Fully autonomous mode - works on a Gitea issue from start to finish without pausing for user confirmation | **Coder-Agent** / Precise-Coder | 
+| `/create-issue-plan` | Reads an issue from Gitea and creates a plan for implementation | **Swift-Reasoner** / Deep-Reasoner | 
+| `/execute-issue-plan` | Executes the saved plan for a Gitea issue | **Quick-Coder** / Precise-Coder | 
+| `/complete-issue` | Fully autonomous mode - works on a Gitea issue from start to finish without pausing for user confirmation | **Quick-Coder** / Precise-Coder | 
 | `/qa-review` | Runs a comprehensive read-only QA review of all changes in the current sub-phase branch compared to master | **Precise-Coder** / Deep-Reasoner |
 | `/update-documentation` | Updates project `README.md` and documentation based on current code base | **Quick-Coder** / Coder-Agent | 
 
