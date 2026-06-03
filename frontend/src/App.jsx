@@ -117,6 +117,7 @@ function App() {
           searchValue={searchQuery}
           onSearchChange={setSearchQuery}
           onAddJob={handleAddJob}
+          onToggleReminderDrawer={() => {}}
         />
 
         <main className="flex-1 flex flex-col overflow-hidden">
