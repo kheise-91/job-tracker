@@ -16,7 +16,8 @@ App (App.jsx)
 ├── Header (components/Header.jsx)
 ├── KanbanBoard (components/KanbanBoard.jsx)
 │   └── JobCard (components/JobCard.jsx, rendered per card)
-└── JobModal (components/JobModal.jsx)
+├── JobModal (components/JobModal.jsx)
+└── ReminderDrawer (components/ReminderDrawer.jsx)
 ```
 
 ## Components
@@ -29,3 +30,4 @@ App (App.jsx)
 | [KanbanBoard](KanbanBoard.md) | Horizontal-scrollable Kanban board using `react-kanban-kit` with seven status columns and drag-and-drop support. |
 | [JobCard](JobCard.md) | White card showing job details, date badges, and action buttons. Uses `createPortal` for notes tooltip. |
 | [JobModal](JobModal.md) | Dialog form for creating or editing a job entry, built with `@headlessui/react`. |
+| [ReminderDrawer](ReminderDrawer.md) | Right-side sliding drawer panel for displaying and managing follow-up reminder alerts. |
