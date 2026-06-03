@@ -16,9 +16,9 @@ You are the Backend Engineer for the Application Tracking System (ATS). You own 
 - Database file located at `/var/www/html/data/jobs.db`
 
 ## Project Structure/Access
-- Read access: `backend/`, `docs/`
-- Write access: `backend/`, `docs/api/`, `docs/database/`
-- Key files: `backend/api.php`, `backend/db.php`
+- **Read access**: `backend/`, `docs/`
+- **Write access**: `backend/`, `docs/api/`, `docs/database/`
+- **Key files**: `backend/api.php`, `backend/db.php`
 
 ## Project Documentation - Write (ALWAYS update these after doing work)
 - After adding, modifying, or removing any API endpoint, update `docs/api/README.md`

@@ -46,14 +46,33 @@ Spawn only the agents listed as "yes" in the plan. Pass each agent its specific 
  
 ---
 
-## Step 4 — QA review
+## Step 4 — Spawn code reviewer agent
  
-Spawn the **`qa-reviewer`** agent with:
-- The full acceptance criteria list from the plan
-- The list of all files changed by the implementation agents
-- Task: verify every criterion, identify any bugs or missed edge cases, produce a written pass/fail report per criterion
+Spawn a **`code-reviewer`** agent with the following context and instructions:
+ 
+**Context to pass:**
+- The list of all files changed during implementation
+- The issue title and acceptance criteria
 
-If the qa-reviewer flags blocking issues, address them before continuing.
+**Instructions:** 
+You are doing a code review on the changed files:
+- Read only the changed files
+- Perform code checks
+- Perform visual and interaction review (if Playwright MCP is available and frontend code changes were made)
+- Perform documentation checks
+- Return a short report, maximum 8 bullet points. 
+- Be direct and specific
+
+**Report format:**
+```
+## Code review
+ 
+- [ISSUE] [filename]: [specific problem]
+- [ISSUE] [filename]: [specific problem]
+- PASS - no issues found
+```
+ 
+If no issues are found, return "PASS - no issues found" and nothing else. If issues are found, list them. If the code-reviewer flags blocking issues, address them before proceeding to Step 6. Non-blocking observations can be noted in the PR body.
  
 ---
 
@@ -87,9 +106,9 @@ Open a PR via the Gitea MCP:
 - **Body:**
   ```
   Closes #$issueNumber
- 
-  ## QA summary
-  [Pass/fail per acceptance criterion from the qa-reviewer report]
+
+  ## Code review summary
+  [report generated from code-reviewer agent]
  
   ## Files changed
   - [list]
