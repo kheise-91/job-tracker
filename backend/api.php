@@ -49,33 +49,8 @@ $requestPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 // GET ALL JOBS
 // =========================
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $requestPath === '/api/jobs') {
-    $whereClauses = [];
-    $params = [];
-
-    // Filter by status
-    if (isset($_GET['status']) && $_GET['status'] !== '') {
-        $whereClauses[] = 'status = ?';
-        $params[] = $_GET['status'];
-    }
-
-    // Filter by follow_up_dismissed
-    if (isset($_GET['follow_up_dismissed']) && $_GET['follow_up_dismissed'] !== '') {
-        $value = $_GET['follow_up_dismissed'];
-        if (is_string($value)) {
-            $value = strtolower($value) === 'true' || $value === '1';
-        }
-        $whereClauses[] = 'follow_up_dismissed = ?';
-        $params[] = $value ? 1 : 0;
-    }
-
-    $whereSql = '';
-    if (!empty($whereClauses)) {
-        $whereSql = 'WHERE ' . implode(' AND ', $whereClauses);
-    }
-
     $sql = "
         SELECT id, company, position, status, date_applied, followed_up_date, follow_up_dismissed, interview_date, `source`, hyperlink, notes, `order`, updated_at FROM jobs
-        {$whereSql}
         ORDER BY
             CASE status
                 WHEN 'Wishlist' THEN 1
@@ -92,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $requestPath === '/api/jobs') {
     ";
 
     $stmt = $pdo->prepare($sql);
-    $stmt->execute($params);
+    $stmt->execute([]);
 
     sendJson($stmt->fetchAll());
 }

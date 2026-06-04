@@ -25,6 +25,9 @@ None — this is the top-level component.
 | `loading` | `boolean` | Loading indicator shown on initial fetch |
 | `modalOpen` | `boolean` | JobModal open/close toggle |
 | `editingJob` | `Job \| null` | The job being edited, or `null` for create mode |
+| `drawerOpen` | `boolean` | ReminderDrawer open/close toggle |
+
+Reminders are derived state — computed from `jobs` on every render via the `computeReminders(jobs, today)` helper function above the `App` component. This ensures reminders always stay in sync with job data regardless of how jobs are modified (modal edit, drag-and-drop, delete, or dismiss).
 
 ## Side effects
 
@@ -34,21 +37,24 @@ None — this is the top-level component.
 
 | Handler | Purpose |
 |---|---|
-| `fetchJobs()` | GET `/api/jobs`, sets `jobs` and `loading` |
+| `fetchJobs()` | GET `/api/jobs`, sets `jobs` and `loading` (no longer computes reminders — that is handled by the derived `computeReminders()` helper) |
 | `handleModalSubmit(data)` | POST or PUT `/api/jobs/{id}`, refreshes job list on success |
-| `handleDeleteJob(id)` | DELETE `/api/jobs/{id}`, removes from local state on success |
+| `handleDeleteJob(id)` | DELETE `/api/jobs/{id}`, removes from local state on success (reminders recompute automatically from updated `jobs`) |
 | `handleBoardUpdate(updatedJobs)` | Optimistic update of `jobs` array after drag-reorder |
 | `handleAddJob()` | Opens modal in create mode (`editingJob = null`) |
 | `handleEditJob(job)` | Opens modal in edit mode with job data pre-filled |
+| `handleDismissReminder(id)` | PUT `/api/jobs/{id}` with `follow_up_dismissed: true`, updates local `jobs` state optimistically |
+| `handleDismissAllReminders()` | PUTs `follow_up_dismissed: true` for all current reminders via API, updates local `jobs` state |
 
 ## Component tree
 
 ```
 App
 ├── Sidebar (isOpen, onToggle)
-├── Header (searchValue, onSearchChange, onAddJob)
+├── Header (searchValue, onSearchChange, onAddJob, onToggleReminderDrawer, reminderCount)
 ├── KanbanBoard (jobs, onBoardUpdate, onDeleteJob, onEditJob)
-└── JobModal (isOpen, onClose, onSubmit, initialData)
+├── JobModal (isOpen, onClose, onSubmit, initialData)
+└── ReminderDrawer (isOpen, onClose, reminders, reminderCount, onDismiss, onDismissAll)
 ```
 
 ## State management pattern
