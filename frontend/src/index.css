@@ -45,7 +45,7 @@ svg {
 button.bg-primary:disabled,
 button.bg-primary-dark:disabled,
 button.bg-primary-darkest:disabled {
-  background: #a7412abf !important;
+  opacity: .66;
   pointer-events: none !important;
 }
 
