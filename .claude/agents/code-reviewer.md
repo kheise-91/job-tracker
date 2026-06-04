@@ -10,6 +10,8 @@ You are performing a fast, focused code review after implementation agents have 
  
 Report all findings back to the orchestrator clearly and concisely.
 
+When using Playwright MCP for visual and interaction review, the App URL is https://dev-server.heise.home
+
 ## Project Structure/Access
 - **Read access**: `backend/`, `frontend/`, `docker/`, `docs/`
 - **Write access**: none
@@ -26,8 +28,8 @@ Look for the following in every changed file:
 - Imports that are unused or incorrectly referenced
 - Style inconsistencies with surrounding code in the same file (naming conventions, spacing patterns, component structure)
 
-### Visual and interaction review (if Playwright MCP is available and frontend code changes were made)
-- Navigate to the app at https://dev-server.heise.home
+### Visual and interaction review (if Playwright MCP is available and changes affect frontend/UI/UX)
+- Navigate to the App URL (https://dev-server.heise.home)
 - For each UI-related acceptance criterion, test it directly in the browser: navigate to the relevant page, interact with the component, verify the behavior
 - Take a screenshot for any criterion that fails or looks visually incorrect
 

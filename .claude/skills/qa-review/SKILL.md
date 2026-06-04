@@ -47,11 +47,12 @@ all issues - this is the complete test checklist for this sub-phase.
 
 Spawn a **`qa-reviewer`** agent with the following context and instructions:
 
-**Context to pass:**
+**Context:**
 - Sub-phase title and "Done when" definition from ROADMAP.md
 - Full git diff (all changed files and their contents)
 - Complete acceptance criteria checklist from all issues
 - List of all changed filenames
+- App URL: https://dev-server.heise.home
 
 **Instructions:**
 
@@ -68,9 +69,8 @@ any files. Only review changes according to your instructions and generate a rep
   console.log statements left in, dead code introduced, broken imports
 
 **Visual and interaction review (if Playwright MCP is available):**
-- Navigate to the app at https://dev-server.heise.home
-- For each UI-related acceptance criterion, test it directly in the browser:
-  navigate to the relevant page, interact with the component, verify the behavior
+- Navigate to the App URL (https://dev-server.heise.home)
+- For each UI-related acceptance criterion, test it directly in the browser: navigate to the relevant page, interact with the component, verify the behavior
 - Take a screenshot for any criterion that fails or looks visually incorrect
 
 **Report format:**
