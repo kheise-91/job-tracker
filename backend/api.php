@@ -42,10 +42,13 @@ function getJsonInput(): array {
     return is_array($input) ? $input : [];
 }
 
+// Parse the request path (without query string) for route matching
+$requestPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
 // =========================
 // GET ALL JOBS
 // =========================
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/api/jobs') {
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && $requestPath === '/api/jobs') {
     $whereClauses = [];
     $params = [];
 
@@ -104,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/api/jo
 // =========================
 // CREATE JOB
 // =========================
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/jobs') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $requestPath === '/api/jobs') {
     $input = getJsonInput();
 
     $company = trim($input['company'] ?? '');
@@ -179,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/j
 // =========================
 // REORDER JOBS
 // =========================
-if ($_SERVER['REQUEST_METHOD'] === 'PUT' && $_SERVER['REQUEST_URI'] === '/api/jobs/reorder') {
+if ($_SERVER['REQUEST_METHOD'] === 'PUT' && $requestPath === '/api/jobs/reorder') {
     $input = getJsonInput();
 
     $columns = $input['columns'] ?? null;
