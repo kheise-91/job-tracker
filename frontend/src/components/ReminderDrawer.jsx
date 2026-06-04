@@ -1,10 +1,17 @@
-import { useEffect, useCallback } from 'react';
-import { BellIcon, XMarkIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+import { useEffect, useState, useCallback } from 'react';
+import { BellIcon, XMarkIcon, CheckCircleIcon, BriefcaseIcon } from '@heroicons/react/24/outline';
 
 function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, onDismissAll }) {
+  const [expanded, setExpanded] = useState(false);
+
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'Escape' && isOpen) onClose();
   }, [isOpen, onClose]);
+
+  useEffect(() => {
+    // Reset expand state when drawer opens
+    setExpanded(false);
+  }, [isOpen]);
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
@@ -12,6 +19,20 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
   }, [handleKeyDown]);
 
   const reminderList = reminders ?? [];
+  const MAX_VISIBLE = 5;
+  const visibleReminders = expanded ? reminderList : reminderList.slice(0, MAX_VISIBLE);
+  const hasMore = reminderList.length > MAX_VISIBLE;
+  const remainingCount = reminderList.length - MAX_VISIBLE;
+
+  // Format date using the project's existing pattern (see JobCard.jsx formatFollowedUpDate)
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const [year, month, day] = dateStr.split(' ')[0].split('-').map(Number);
+    const date = new Date(year, month - 1, day);
+    if (isNaN(date)) return '';
+    const m = date.toLocaleString('en-US', { month: 'short' });
+    return `${m} ${day}`;
+  }
 
   return (
     <>
@@ -59,39 +80,60 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
               </p>
             </div>
           ) : (
-            reminderList.map((reminder) => (
-              <div
-                key={reminder.id}
-                className="flex items-start gap-3 p-3 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all group"
-              >
-                <BellIcon className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="font-semibold text-gray-800 text-sm truncate">
-                      {reminder.company} – {reminder.position}
-                    </span>
-                    <button
-                      className="flex-shrink-0 p-1 rounded text-gray-300 hover:text-[#ce3a50] hover:bg-red-50 transition-colors"
-                      onClick={() => onDismiss(reminder.id)}
-                      title="Dismiss reminder"
-                      aria-label={`Dismiss reminder for ${reminder.company} - ${reminder.position}`}
-                    >
-                      <XMarkIcon className="w-4 h-4" />
-                    </button>
+            <>
+              {visibleReminders.map((reminder) => (
+                <div
+                  key={reminder.id}
+                  className="flex items-start gap-3 p-3 rounded-lg border border-gray-200 hover:border-gray-400 hover:shadow-sm transition-all group"
+                >
+                  <BriefcaseIcon className="w-5 h-5 text-primary-dark flex-shrink-0 mt-0.5" />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="font-semibold text-gray-800 text-sm truncate">
+                        {reminder.company} - {reminder.position}
+                      </span>
+                      <button
+                        className="flex-shrink-0 p-1 rounded text-gray-300 hover:text-secondary hover:bg-red-50 transition-colors cursor-pointer"
+                        onClick={() => onDismiss(reminder.id)}
+                        title="Dismiss reminder"
+                        aria-label={`Dismiss reminder for ${reminder.company} - ${reminder.position}`}
+                      >
+                        <XMarkIcon className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-1.5">
+                      Applied {formatDate(reminder.date_applied)} &middot; {reminder.daysAgo} days ago
+                    </p>
                   </div>
-                  <p className="text-xs text-gray-500 mt-1.5">
-                    Applied {reminder.daysAgo} days ago
-                  </p>
                 </div>
-              </div>
-            ))
+              ))}
+              {hasMore && (
+                <div className="text-center pt-1 pb-1">
+                  {!expanded ? (
+                    <button
+                      className="text-sm font-medium text-primary hover:text-primary-dark cursor-pointer transition-colors"
+                      onClick={() => setExpanded(true)}
+                    >
+                      + {remainingCount} more
+                    </button>
+                  ) : (
+                    <button
+                      className="text-sm font-medium text-primary hover:text-primary-dark cursor-pointer transition-colors"
+                      onClick={() => setExpanded(false)}
+                    >
+                      Show less
+                    </button>
+                  )}
+                </div>
+              )}
+            </>
           )}
         </div>
 
         {/* Footer */}
         <div className="px-5 py-3 border-t border-gray-200 flex-shrink-0">
           <button
-            className="w-full px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors cursor-pointer"
+            className="w-full px-4 py-2 text-sm font-medium text-gray-700 bg-secondary text-white rounded-md hover:bg-secondary-dark transition-colors cursor-pointer"
             onClick={onClose}
           >
             Close
