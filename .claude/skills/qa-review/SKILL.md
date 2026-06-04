@@ -11,15 +11,14 @@ Read the current branch name:
 ```bash
 git branch --show-current
 ```
-Derive the sub-phase number: `phase-3-10` → `3.10`. If not on a sub-phase branch,
-stop and report: "Checkout the sub-phase branch before running /qa-review."
+
+Derive the sub-phase number: `phase-3-10` → `3.10`. If not on a sub-phase branch, stop and report: "Checkout the sub-phase branch before running /qa-review."
 
 ---
 
 ## Step 2 - Read the sub-phase context
 
-Read @ROADMAP.md. Find the sub-phase matching the derived number. Extract the full
-description and "Done when" definition - this is the acceptance bar for the whole review.
+Read @ROADMAP.md. Find the sub-phase matching the derived number. Extract the full description and "Done when" definition - this is the acceptance bar for the whole review.
 
 ---
 
@@ -36,10 +35,7 @@ Note every file changed, added, or deleted.
 
 ## Step 4 - Gather all issue acceptance criteria
 
-Using the Gitea MCP, detect the repo from the current git remote. List all issues
-in the milestone `Phase X.Y`. For each issue, read the full body and extract every
-acceptance criterion checkbox. Compile a single flat list of all criteria across
-all issues - this is the complete test checklist for this sub-phase.
+Using the Gitea MCP, detect the repo from the current git remote. List all issues in the milestone `Phase X.Y`. For each issue, read the full body and extract every acceptance criterion checkbox. Compile a single flat list of all criteria across all issues - this is the complete test checklist for this sub-phase.
 
 ---
 
@@ -56,9 +52,9 @@ Spawn a **`qa-reviewer`** agent with the following context and instructions:
 
 **Instructions:**
 
-You are a senior QA engineer reviewing a completed sub-phase of development.
-Your job is to find problems, not to validate. Be direct and specific. Do not change
-any files. Only review changes according to your instructions and generate a report.
+You are a senior QA engineer reviewing a completed sub-phase of development. Your job is to find problems, not to validate. Be direct and specific. Do not change any files. Only review changes according to your instructions and generate a report.
+
+If you an acceptance criteria has not been met, but the overall feature works, make note of that and move on. There's a chance the feature was modified during development. For example: if an acceptance criteria states and an API call must be made to fill a list of items, but the list is still getting filled by other means, do not flag this as a problem as long as the end product is operating as expected.
 
 **Code review:**
 - Read every changed file in the diff
