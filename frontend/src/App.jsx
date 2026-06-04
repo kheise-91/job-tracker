@@ -5,6 +5,19 @@ import KanbanBoard from './components/KanbanBoard'
 import JobModal from './components/JobModal'
 import ReminderDrawer from './components/ReminderDrawer'
 
+function computeReminders(jobs, today) {
+  return jobs
+    .filter(job => {
+      const appliedDate = new Date(job.date_applied.replace(' ', 'T'))
+      const diffDays = Math.floor((today - appliedDate) / (1000 * 60 * 60 * 24))
+      return job.status === 'Applied' && diffDays >= 7 && diffDays <= 14 && !job.followed_up_date && !job.follow_up_dismissed
+    })
+    .map(job => ({
+      ...job,
+      daysAgo: Math.floor((today - new Date(job.date_applied.replace(' ', 'T'))) / (1000 * 60 * 60 * 24)),
+    }))
+}
+
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
@@ -13,39 +26,12 @@ function App() {
   const [modalOpen, setModalOpen] = useState(false)
   const [editingJob, setEditingJob] = useState(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const [reminders, setReminders] = useState([])
+  const today = new Date()
+  const reminders = computeReminders(jobs, today)
 
   useEffect(() => {
     fetchJobs()
   }, [])
-
-  useEffect(() => {
-    if (!drawerOpen) return
-
-    const fetchReminders = async () => {
-      try {
-        const res = await fetch('/api/jobs?status=Applied&follow_up_dismissed=false')
-        const data = await res.json()
-        const today = new Date()
-        const reminders = data
-          .filter(job => {
-            const appliedDate = new Date(job.date_applied.replace(' ', 'T'))
-            const diffDays = Math.floor((today - appliedDate) / (1000 * 60 * 60 * 24))
-            return diffDays >= 7 && diffDays <= 14
-          })
-          .map(job => ({
-            ...job,
-            daysAgo: Math.floor((today - new Date(job.date_applied.replace(' ', 'T'))) / (1000 * 60 * 60 * 24)),
-          }))
-        setReminders(reminders)
-      } catch (err) {
-        console.error('Error fetching reminders:', err)
-        setReminders([])
-      }
-    }
-
-    fetchReminders()
-  }, [drawerOpen])
 
   const fetchJobs = async () => {
     try {
@@ -130,12 +116,39 @@ function App() {
     setDrawerOpen(prev => !prev)
   }
 
-  const handleDismissReminder = (id) => {
-    setReminders(prev => prev.filter(r => r.id !== id))
+  const handleDismissReminder = async (id) => {
+    try {
+      await fetch(`/api/jobs/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ follow_up_dismissed: true }),
+      })
+      setJobs(prev => prev.map(job =>
+        job.id === id ? { ...job, follow_up_dismissed: 1 } : job
+      ))
+    } catch (err) {
+      console.error('Error dismissing reminder:', err)
+    }
   }
 
-  const handleDismissAllReminders = () => {
-    setReminders([])
+  const handleDismissAllReminders = async () => {
+    const reminderIds = reminders.map(r => r.id)
+    try {
+      await Promise.all(
+        reminderIds.map(id =>
+          fetch(`/api/jobs/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ follow_up_dismissed: true }),
+          })
+        )
+      )
+      setJobs(prev => prev.map(job =>
+        reminderIds.includes(job.id) ? { ...job, follow_up_dismissed: 1 } : job
+      ))
+    } catch (err) {
+      console.error('Error dismissing all reminders:', err)
+    }
   }
 
   if (loading) {

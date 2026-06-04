@@ -17,10 +17,10 @@ A fixed-position, full-height drawer that slides in from the right edge of the s
 |---|---|---|
 | `isOpen` | `boolean` | Drawer visibility — when `false`, component stays in DOM with `translateX(100%)` for closing animation |
 | `onClose` | `() => void` | Close callback (called by backdrop click, footer Close button, and Escape key press) |
-| `reminders` | `Array<{ id: number, company: string, position: string, daysAgo: number, date_applied: string }>` | List of reminder items to display (fetched by App.jsx via `/api/jobs?status=Applied&follow_up_dismissed=false`) |
+| `reminders` | `Array<{ id: number, company: string, position: string, daysAgo: number, date_applied: string }>` | List of reminder items to display (derived from jobs state in App.jsx via `computeReminders()`) |
 | `reminderCount` | `number` | Total count of reminders (used to disable "Dismiss All" when zero) |
-| `onDismiss` | `(id: number) => void` | Dismiss a single reminder (local-only, no API call yet — called by X button on each item) |
-| `onDismissAll` | `() => void` | Dismiss all reminders at once (local-only, no API call yet — called by Dismiss All button) |
+| `onDismiss` | `(id: number) => void` | Dismiss a single reminder — App.jsx handler makes a PUT call to set `follow_up_dismissed: true` (called by X button on each item) |
+| `onDismissAll` | `() => void` | Dismiss all reminders at once — App.jsx handler makes PUT calls to set `follow_up_dismissed: true` on each (called by Dismiss All button) |
 
 ## Layout
 
@@ -46,13 +46,12 @@ Each reminder displays `"Applied {formattedDate} · N days ago"` where:
 - `formattedDate` uses the project's existing date formatting pattern from `JobCard.jsx` (`formatFollowedUpDate`): parses the `date_applied` string as a local date and formats as `toLocaleString('en-US', { month: 'short' })` + day number (e.g., "May 24")
 - `daysAgo` is pre-computed in `App.jsx` by subtracting `date_applied` from today
 
-## Data Fetching (App.jsx)
+## Derived State (App.jsx)
 
-`App.jsx` owns the `reminders` state and fetches data when the drawer opens:
-- Fetches `/api/jobs?status=Applied&follow_up_dismissed=false`
-- Filters to jobs applied 7-14 days ago
-- Computes `daysAgo` for each result
-- Stores in `reminders` state and passes to `ReminderDrawer`
+Reminders are computed on every render as derived state, not fetched independently:
+- `computeReminders(jobs, today)` filters the `jobs` array for Applied-status jobs where `follow_up_dismissed` is false and the application date falls within the 7–14 day window
+- Computes `daysAgo` for each matching job
+- Returns the array directly to `ReminderDrawer` — no separate state variable or API call
 
 ## Animation
 

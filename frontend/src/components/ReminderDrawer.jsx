@@ -84,7 +84,7 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
               {visibleReminders.map((reminder) => (
                 <div
                   key={reminder.id}
-                  className="flex items-start gap-3 p-3 rounded-lg border border-gray-200 hover:border-gray-400 hover:shadow-sm transition-all group"
+                  className="flex items-start gap-3 p-3 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all group"
                 >
                   <BriefcaseIcon className="w-5 h-5 text-primary-dark flex-shrink-0 mt-0.5" />
                   <div className="flex-1 min-w-0">
