@@ -38,7 +38,7 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
         status: 'Applied',
         followed_up_date: null,
         interview_date: null,
-        notes: '============= SALARY =============\n\n========== TECHNOLOGY ===========\n\n============ COMPANY ============\n',
+        notes: '============= SALARY =============\n\n\n========== TECHNOLOGY ===========\n\n\n============ COMPANY ============\n',
         hyperlink: '',
         source: '',
       })
@@ -194,7 +194,7 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                     placeholder="Any additional notes..."
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none h-[145px]"
                   />
                 </div>
 
