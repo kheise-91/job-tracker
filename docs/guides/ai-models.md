@@ -158,10 +158,33 @@ Coder-Next leads on Terminal-Bench due to its agentic training focus. The 27B de
 > - email_address
 > - phone_number
 
-| Model          | Prompt (new prompt tokens processed) | Generated | Prompt Speed | Gen Speed | Duration |
-| -------------- | ------------------------------------ | --------- | ------------ | --------- | -------- |
-| Coder-Agent    | 83	                                |   467     | 57.07 t/s    | 46.60 t/s |  31.84s  | 
-| Precise-Coder  | 92	                                |   455     | 82.01 t/s    |  8.04 t/s |  76.76s  | 
-| Deep-Reasoner  | 90	                                | 2,333     | 84.37 t/s    |  7.36 t/s | 335.00s  | 
-| Quick-Coder    | 89	                                |   191     | 30.93 t/s    | 49.30 t/s |  28.67s  | 
-| Swift-Reasoner | 87	                                | 1,959     | 48.94 t/s    | 45.27 t/s |  63.35s  | 
+### Coder-Agent
+| Model          | Base Model       | Quant  | MTP | Prompt (new prompt tokens processed) | Generated | Prompt Speed | Gen Speed | Duration |
+| -------------- | -----------------| ------ | --- | ------------------------------------ | --------- | ------------ | --------- | -------- |
+| Coder-Agent    | Qwen3-Coder-Next | Q4_K_M | No  | 83	                                  |   467     | 57.07 t/s    | 46.60 t/s |  31.84s  | 
+
+### Precise-Coder
+| Model                 | Base Model       | Quant  | MTP | Prompt (new prompt tokens processed) | Generated | Prompt Speed | Gen Speed | Duration |
+| --------------------- | -----------------| ------ | --- | ------------------------------------ | --------- | ------------ | --------- | -------- |
+| Precise-Coder         | Qwen3.6-27B      | Q4_K_M | No  | 92	                                 |   455     | 82.01 t/s    |  8.04 t/s |  76.76s  | 
+| Precise-Coder-MTP     | Qwen3.6-27B      | Q4_K_M | Yes | 99	                                 |   430     | 57.98 t/s    | 11.18 t/s |  40.28s  |
+| Precise-Coder-IQ-MTP  | Qwen3.6-27B      | IQ4_XS | Yes | 99                                   |   441     | 52.19 t/s    | 10.16 t/s |  45.44s  |
+
+### Deep-Reasoner
+| Model                 | Base Model       | Quant  | MTP | Prompt (new prompt tokens processed) | Generated | Prompt Speed | Gen Speed | Duration |
+| --------------------- | -----------------| ------ | --- | ------------------------------------ | --------- | ------------ | --------- | -------- |
+| Deep-Reasoner         | Qwen3.6-27B      | Q4_K_M | No  | 90	                                 | 2,333     | 84.37 t/s    |  7.36 t/s | 335.00s  | 
+| Deep-Reasoner-MTP     | Qwen3.6-27B      | Q4_K_M | Yes | 90                                   | 2,206     | 57.09 t/s    |  9.76 t/s | 227.79s  |
+| Deep-Reasoner-IQ-MTP  | Qwen3.6-27B      | IQ4_XS | Yes | 92                                   | 1,646     | 51.44 t/s    |  8.85 t/s | 187.95s  |
+
+### Quick-Coder
+| Model           | Base Model       | Quant  | MTP | Prompt (new prompt tokens processed) | Generated | Prompt Speed | Gen Speed | Duration |
+| --------------- | -----------------| ------ | --- | ------------------------------------ | --------- | ------------ | --------- | -------- |
+| Quick-Coder     | Qwen3.6-35B-A3B  | Q8_0   | No  | 89	                               |   191     | 30.93 t/s    | 49.30 t/s |  28.67s  | 
+| Quick-Coder-MTP | Qwen3.6-35B-A3B  | Q8_0   | Yes | 99                                   |   457     | 27.59 t/s    | 53.79 t/s |  12.15s  |
+
+### Swift-Reasoner
+| Model              | Base Model       | Quant  | MTP | Prompt (new prompt tokens processed) | Generated | Prompt Speed | Gen Speed | Duration |
+| ------------------ | -----------------| ------ | --- | ------------------------------------ | --------- | ------------ | --------- | -------- |
+| Swift-Reasoner     | Qwen3.6-35B-A3B  | Q8_0   | No  | 87	                                  | 1,959     | 48.94 t/s    | 45.27 t/s |  63.35s  | 
+| Swift-Reasoner-MTP | Qwen3.6-35B-A3B  | Q8_0   | Yes | 92                                   | 1,898     | 38.81 t/s    | 56.30 t/s |  36.14s  | 
