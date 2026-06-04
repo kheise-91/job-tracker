@@ -323,4 +323,6 @@ functionality based on continuous user feedback.
     entries via the modal. Q&A pairs are rendered as expandable items. Empty state displays
     correctly when no entries exist. The "Resources" link remains a non-functional placeholder.
 
-- [ ] **5.2 - Resources Page**
+- [ ] **5.3 - Resources Page**
+
+- [ ] **5.4 - Database Admin Page**
