@@ -84,16 +84,16 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
               {visibleReminders.map((reminder) => (
                 <div
                   key={reminder.id}
-                  className="flex items-start gap-3 p-3 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all group"
+                  className="flex items-start gap-3 p-3 rounded-lg border border-gray-200 hover:border-gray-400 hover:shadow-sm transition-all group"
                 >
-                  <BriefcaseIcon className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <BriefcaseIcon className="w-5 h-5 text-primary-dark flex-shrink-0 mt-0.5" />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2">
                       <span className="font-semibold text-gray-800 text-sm truncate">
                         {reminder.company} - {reminder.position}
                       </span>
                       <button
-                        className="flex-shrink-0 p-1 rounded text-gray-300 hover:text-[#ce3a50] hover:bg-red-50 transition-colors"
+                        className="flex-shrink-0 p-1 rounded text-gray-300 hover:text-secondary hover:bg-red-50 transition-colors cursor-pointer"
                         onClick={() => onDismiss(reminder.id)}
                         title="Dismiss reminder"
                         aria-label={`Dismiss reminder for ${reminder.company} - ${reminder.position}`}
@@ -133,7 +133,7 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
         {/* Footer */}
         <div className="px-5 py-3 border-t border-gray-200 flex-shrink-0">
           <button
-            className="w-full px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors cursor-pointer"
+            className="w-full px-4 py-2 text-sm font-medium text-gray-700 bg-secondary text-white rounded-md hover:bg-secondary-dark transition-colors cursor-pointer"
             onClick={onClose}
           >
             Close
