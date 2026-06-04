@@ -68,13 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $requestPath === '/api/jobs') {
         $params[] = $value ? 1 : 0;
     }
 
-    // Filter by days_ago (date_applied threshold)
-    if (isset($_GET['days_ago']) && $_GET['days_ago'] !== '') {
-        $days = (int)$_GET['days_ago'];
-        $whereClauses[] = "date_applied >= date('now', '-" . $days . " days')";
-        // Note: $days is cast to int, making SQL injection impossible
-    }
-
     $whereSql = '';
     if (!empty($whereClauses)) {
         $whereSql = 'WHERE ' . implode(' AND ', $whereClauses);
