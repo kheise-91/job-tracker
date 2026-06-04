@@ -81,13 +81,26 @@ You are doing a code review on the changed files.
 ```
 ## Code review
  
-- [ISSUE] [filename]: [specific problem]
-- [ISSUE] [filename]: [specific problem]
-- PASS - no issues found
-```
+### Code issues
+- [ISSUE] filename - specific problem
+- [PASS] No code issues found
  
-If no issues are found, return "PASS - no issues found" and nothing else. If issues are found, list them. If the code-reviewer flags blocking issues, address them before proceeding to Step 6. Non-blocking observations can be noted in the PR body.
- 
+### Documentation gaps
+- [GAP] docs/api/README.md - missing: [what endpoint or change is not reflected]
+- [GAP] docs/database/README.md - missing: [what schema change is not reflected]
+- [GAP] ComponentName.jsx - missing update (or entire file/reference) in `docs/components/[ComponentName].md` and `docs/components/README.md`
+- [PASS] Documentation is current
+
+### Verdict
+PASS / NEEDS FIXES
+``` 
+
+If verdict is **NEEDS FIXES** and/or the code-reviewer flags blocking issues, address them before proceeding to Step 5. Specify which upstream agent is responsible for each issue and spawn that agent to make the necessary corrections:
+- **`backend-engineer` agent**: code changes to `backend/` directory and documentation from `docs/api/` and `docs/database/`
+- **`frontend-ux` agent**: code changes to `frontend/` directory and documentation from `docs/components/`
+
+Non-blocking observations can be noted in the PR body.
+
 ---
 
 ## Step 5 - Commit and push
