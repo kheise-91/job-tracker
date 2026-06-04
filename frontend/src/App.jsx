@@ -19,6 +19,34 @@ function App() {
     fetchJobs()
   }, [])
 
+  useEffect(() => {
+    if (!drawerOpen) return
+
+    const fetchReminders = async () => {
+      try {
+        const res = await fetch('/api/jobs?status=Applied&follow_up_dismissed=false')
+        const data = await res.json()
+        const today = new Date()
+        const reminders = data
+          .filter(job => {
+            const appliedDate = new Date(job.date_applied.replace(' ', 'T'))
+            const diffDays = Math.floor((today - appliedDate) / (1000 * 60 * 60 * 24))
+            return diffDays >= 7 && diffDays <= 14
+          })
+          .map(job => ({
+            ...job,
+            daysAgo: Math.floor((today - new Date(job.date_applied.replace(' ', 'T'))) / (1000 * 60 * 60 * 24)),
+          }))
+        setReminders(reminders)
+      } catch (err) {
+        console.error('Error fetching reminders:', err)
+        setReminders([])
+      }
+    }
+
+    fetchReminders()
+  }, [drawerOpen])
+
   const fetchJobs = async () => {
     try {
       const res = await fetch('/api/jobs')
