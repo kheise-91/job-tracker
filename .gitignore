@@ -6,3 +6,4 @@ dist/
 tests/
 mockups/
 .claude/plans
+.playwright-mcp/
