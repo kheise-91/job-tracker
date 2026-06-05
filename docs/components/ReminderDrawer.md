@@ -19,8 +19,8 @@ A fixed-position, full-height drawer that slides in from the right edge of the s
 | `onClose` | `() => void` | Close callback (called by backdrop click, footer Close button, and Escape key press) |
 | `reminders` | `Array<{ id: number, company: string, position: string, daysAgo: number, date_applied: string }>` | List of reminder items to display (derived from jobs state in App.jsx via `computeReminders()`) |
 | `reminderCount` | `number` | Total count of reminders (used to disable "Dismiss All" when zero) |
-| `onDismiss` | `(id: number) => void` | Dismiss a single reminder — App.jsx handler makes a PUT call to set `follow_up_dismissed: true` (called by X button on each item) |
-| `onDismissAll` | `() => void` | Dismiss all reminders at once — App.jsx handler makes PUT calls to set `follow_up_dismissed: true` on each (called by Dismiss All button) |
+| `onDismiss` | `(id: number) => void` | Dismiss a single reminder — App.jsx handler makes a PUT call to set `follow_up_dismissed: true` (called by X button on each item, wrapped in `handleDismiss` which triggers a 200ms slide-out animation before the API call) |
+| `onDismissAll` | `() => void` | Dismiss all reminders at once — App.jsx handler makes PUT calls to set `follow_up_dismissed: true` on each (called by Dismiss All button via `handleDismissAll`, which animates all items first then calls this after 200ms) |
 
 ## Layout
 
@@ -55,7 +55,9 @@ Reminders are computed on every render as derived state, not fetched independent
 
 ## Animation
 
-Uses inline `style={{ transform: isOpen ? 'translateX(0)' : 'translateX(100%)' }}` with `transition-transform duration-200 ease-out` on the drawer panel. When `isOpen` is `false`, the drawer panel animates out via `translateX(100%)` rather than being removed from the DOM.
+**Drawer panel**: Uses inline `style={{ transform: isOpen ? 'translateX(0)' : 'translateX(100%)' }}` with `transition-transform duration-200 ease-out`. When `isOpen` is `false`, the drawer panel animates out via `translateX(100%)` rather than being removed from the DOM.
+
+**Reminder item dismiss**: When a single reminder is dismissed via its X button, the item animates out with `opacity → 0` and `translateX(20px)` over 200ms before being removed from the DOM. This is handled by a `useState(new Set())` (`animatingIds`) that triggers a re-render when an ID is added, causing the `.animate-exit` CSS class to be applied. The `handleDismiss` function adds the ID to the set via `setAnimatingIds`, and after a 200ms `setTimeout` calls `onDismiss`. IDs are not removed from the set after dismissal — once added they stay, since the element is removed from the DOM by the parent's state update anyway. "Dismiss All" uses `handleDismissAll`, which adds all reminder IDs to the set in a single state update (all items animate simultaneously), then calls `onDismissAll` after 200ms. The `.animate-exit` class and `@keyframes slideOutRight` are defined in `index.css`.
 
 ## Keyboard interactions
 

@@ -109,3 +109,15 @@ button.bg-primary-darkest:disabled {
 .rkk-column-content-list {
   padding-right: 5px;
 }
+
+/* ========================================= */
+/* ANIMATIONS                                */
+/* ========================================= */
+@keyframes slideOutRight {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(20px); }
+}
+
+.animate-exit {
+  animation: slideOutRight 0.2s ease forwards;
+}
