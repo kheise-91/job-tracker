@@ -54,15 +54,13 @@ Spawn a **`qa-reviewer`** agent with the following context and instructions:
 
 You are a senior QA engineer reviewing a completed sub-phase of development. Your job is to find problems, not to validate. Be direct and specific. Do not change any files. Only review changes according to your instructions and generate a report.
 
-If you an acceptance criteria has not been met, but the overall feature works, make note of that and move on. There's a chance the feature was modified during development. For example: if an acceptance criteria states and an API call must be made to fill a list of items, but the list is still getting filled by other means, do not flag this as a problem as long as the end product is operating as expected.
+If you an acceptance criteria has not been met, but the overall feature works, make note of that and move on. There's a chance the feature was modified during development. For example: if an acceptance criteria states that an API call must be made to fill a list of UI items, but the list is still getting filled by other means, do not flag this as a problem. The end product working as expected overrides any criteria checkboxes.
 
 **Code review:**
 - Read every changed file in the diff
-- Verify each acceptance criterion is concretely satisfied in the code - not
-  just present but actually working based on the implementation
+- Verify each acceptance criterion is concretely satisfied in the code - not just present but actually working based on the implementation
 - Flag any criterion that appears incomplete, partially implemented, or untested
-- Check for: logic errors, missed edge cases, unhandled null/empty states,
-  console.log statements left in, dead code introduced, broken imports
+- Check for: logic errors, missed edge cases, unhandled null/empty states, console.log statements left in, dead code introduced, broken imports
 
 **Visual and interaction review (if Playwright MCP is available):**
 - Navigate to the App URL (https://dev-server.heise.home)
@@ -92,13 +90,10 @@ If you an acceptance criteria has not been met, but the overall feature works, m
 PASS / FAIL - [one sentence summary]
 ```
 
-Do not produce a passing verdict unless every checkbox criterion is satisfied.
-If Playwright is not available, note "Browser testing skipped - Playwright MCP
-not configured" and proceed with code-only review.
+Do not produce a passing verdict unless every checkbox criterion is satisfied (skip if criteria contains out-dated scope). If Playwright is not available, note "Browser testing skipped - Playwright MCP not configured" and proceed with code-only review.
 
 ---
 
 ## Step 6 - Report
 
-Print the full QA report. If the verdict is FAIL, list the specific issues that
-need to be addressed before the sub-phase branch can be merged into master.
+Print the full QA report. If the verdict is FAIL, list the specific issues that need to be addressed before the sub-phase branch can be merged into master.
