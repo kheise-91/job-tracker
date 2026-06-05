@@ -33,11 +33,19 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
   };
 
   const handleDismissAll = () => {
-    const allIds = new Set(reminderList.map(r => r.id));
-    setAnimatingIds(allIds);
+    reminderList.forEach((reminder, index) => {
+      setTimeout(() => {
+        setAnimatingIds(prev => {
+          const next = new Set(prev);
+          next.add(reminder.id);
+          return next;
+        });
+      }, index * 50);
+    });
+    const lastDelay = (reminderList.length - 1) * 50 + 200;
     setTimeout(() => {
       onDismissAll();
-    }, 200);
+    }, lastDelay);
   };
   const MAX_VISIBLE = 5;
   const visibleReminders = expanded ? reminderList : reminderList.slice(0, MAX_VISIBLE);
