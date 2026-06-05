@@ -117,22 +117,31 @@ function App() {
   }
 
   const handleDismissReminder = async (id) => {
+    // Optimistic update — immediately mark dismissed so UI responds instantly
+    setJobs(prev => prev.map(job =>
+      job.id === id ? { ...job, follow_up_dismissed: 1 } : job
+    ))
     try {
       await fetch(`/api/jobs/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ follow_up_dismissed: true }),
       })
-      setJobs(prev => prev.map(job =>
-        job.id === id ? { ...job, follow_up_dismissed: 1 } : job
-      ))
     } catch (err) {
+      // Revert on failure so the reminder reappears
+      setJobs(prev => prev.map(job =>
+        job.id === id ? { ...job, follow_up_dismissed: 0 } : job
+      ))
       console.error('Error dismissing reminder:', err)
     }
   }
 
   const handleDismissAllReminders = async () => {
     const reminderIds = reminders.map(r => r.id)
+    // Optimistic update — immediately mark all dismissed so UI responds instantly
+    setJobs(prev => prev.map(job =>
+      reminderIds.includes(job.id) ? { ...job, follow_up_dismissed: 1 } : job
+    ))
     try {
       await Promise.all(
         reminderIds.map(id =>
@@ -143,10 +152,11 @@ function App() {
           })
         )
       )
-      setJobs(prev => prev.map(job =>
-        reminderIds.includes(job.id) ? { ...job, follow_up_dismissed: 1 } : job
-      ))
     } catch (err) {
+      // Revert on failure so the reminders reappear
+      setJobs(prev => prev.map(job =>
+        reminderIds.includes(job.id) ? { ...job, follow_up_dismissed: 0 } : job
+      ))
       console.error('Error dismissing all reminders:', err)
     }
   }
