@@ -3,6 +3,7 @@ import { BellIcon, XMarkIcon, CheckCircleIcon, BriefcaseIcon } from '@heroicons/
 
 function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, onDismissAll }) {
   const [expanded, setExpanded] = useState(false);
+  const [animatingIds, setAnimatingIds] = useState(new Set());
 
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'Escape' && isOpen) onClose();
@@ -19,6 +20,33 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
   }, [handleKeyDown]);
 
   const reminderList = reminders ?? [];
+
+  const handleDismiss = (id) => {
+    setAnimatingIds(prev => {
+      const next = new Set(prev);
+      next.add(id);
+      return next;
+    });
+    setTimeout(() => {
+      onDismiss(id);
+    }, 200);
+  };
+
+  const handleDismissAll = () => {
+    reminderList.forEach((reminder, index) => {
+      setTimeout(() => {
+        setAnimatingIds(prev => {
+          const next = new Set(prev);
+          next.add(reminder.id);
+          return next;
+        });
+      }, index * 50);
+    });
+    const lastDelay = (reminderList.length - 1) * 50 + 200;
+    setTimeout(() => {
+      onDismissAll();
+    }, lastDelay);
+  };
   const MAX_VISIBLE = 5;
   const visibleReminders = expanded ? reminderList : reminderList.slice(0, MAX_VISIBLE);
   const hasMore = reminderList.length > MAX_VISIBLE;
@@ -63,7 +91,7 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
           </div>
           <button
             className="px-4 py-1.5 bg-primary text-white text-sm font-medium rounded-md hover:bg-primary-dark transition-colors flex-shrink-0 cursor-pointer"
-            onClick={onDismissAll}
+            onClick={handleDismissAll}
             disabled={reminderCount === 0}
           >
             Dismiss All
@@ -71,7 +99,7 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
         </div>
 
         {/* Reminder List */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-2">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 space-y-2">
           {reminderList.length === 0 ? (
             <div className="p-10 text-center">
               <CheckCircleIcon className="w-12 h-12 mx-auto text-gray-300 mb-3" />
@@ -84,7 +112,7 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
               {visibleReminders.map((reminder) => (
                 <div
                   key={reminder.id}
-                  className="flex items-start gap-3 p-3 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all group"
+                  className={`flex items-start gap-3 p-3 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all group ${animatingIds.has(reminder.id) ? 'animate-exit' : ''}`}
                 >
                   <BriefcaseIcon className="w-5 h-5 text-primary-dark flex-shrink-0 mt-0.5" />
                   <div className="flex-1 min-w-0">
@@ -94,7 +122,7 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
                       </span>
                       <button
                         className="flex-shrink-0 p-1 rounded text-gray-300 hover:text-secondary hover:bg-red-50 transition-colors cursor-pointer"
-                        onClick={() => onDismiss(reminder.id)}
+                        onClick={() => handleDismiss(reminder.id)}
                         title="Dismiss reminder"
                         aria-label={`Dismiss reminder for ${reminder.company} - ${reminder.position}`}
                       >
