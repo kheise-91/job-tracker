@@ -2,14 +2,14 @@
 name: KanbanBoard
 title: Kanban Board Component
 file: `frontend/src/components/KanbanBoard.jsx`
-description: A horizontal-scrollable Kanban board using the `react-kanban-kit` library with seven status columns and drag-and-drop support.
+description: A horizontal-scrollable Kanban board using the `react-kanban-kit` library with six status columns and drag-and-drop support.
 ---
 
 # KanbanBoard
 
 ## What it renders
 
-Seven status columns (Wishlist, Applied, Followed Up, Interviewing, Offer, Rejected, Withdrawn) with draggable job cards. Built on top of `react-kanban-kit`.
+Six status columns (Wishlist, Applied, Followed Up, Interviewing, Offer, Rejected) with draggable job cards. Built on top of `react-kanban-kit`.
 
 ## Props
 

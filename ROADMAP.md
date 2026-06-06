@@ -113,7 +113,7 @@ working and dismissable, and PWA criteria met.
     into it. `followed_up_date` stores and retrieves correctly via the API. The date input
     works in the modal. `follow_up_dismissed` is stored and returned by the API.
 
-- [ ] **3.10 - Follow-up reminder alerts**
+- [-] **[3.10 - Follow-up reminder alerts](https://gitea.heise.home/kheise/ats/milestone/5)**
     
     > **Implementation note:** Reminders require no new table. The query driving them is:
     > `status = 'Applied' AND date_applied <= today - 7 days AND follow_up_dismissed = false`.

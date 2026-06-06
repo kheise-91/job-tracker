@@ -42,11 +42,14 @@ function getJsonInput(): array {
     return is_array($input) ? $input : [];
 }
 
+// Parse the request path (without query string) for route matching
+$requestPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
 // =========================
 // GET ALL JOBS
 // =========================
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/api/jobs') {
-    $stmt = $pdo->query("
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && $requestPath === '/api/jobs') {
+    $sql = "
         SELECT id, company, position, status, date_applied, followed_up_date, follow_up_dismissed, interview_date, `source`, hyperlink, notes, `order`, updated_at FROM jobs
         ORDER BY
             CASE status
@@ -61,7 +64,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/api/jo
             END,
             `order` ASC,
             id ASC
-    ");
+    ";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([]);
 
     sendJson($stmt->fetchAll());
 }
@@ -69,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/api/jo
 // =========================
 // CREATE JOB
 // =========================
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/jobs') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $requestPath === '/api/jobs') {
     $input = getJsonInput();
 
     $company = trim($input['company'] ?? '');
@@ -144,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/api/j
 // =========================
 // REORDER JOBS
 // =========================
-if ($_SERVER['REQUEST_METHOD'] === 'PUT' && $_SERVER['REQUEST_URI'] === '/api/jobs/reorder') {
+if ($_SERVER['REQUEST_METHOD'] === 'PUT' && $requestPath === '/api/jobs/reorder') {
     $input = getJsonInput();
 
     $columns = $input['columns'] ?? null;

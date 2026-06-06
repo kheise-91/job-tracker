@@ -2,16 +2,16 @@
 name: Header
 title: Header Component
 file: `frontend/src/components/Header.jsx`
-description: A white top bar with app title, search input, and "Add Job" button. Fully controlled by parent state.
+description: A white top bar with app title, search input, "Follow-up Reminders" button, and "Add Job" button. Fully controlled by parent state.
 ---
 
 # Header
 
 ## What it renders
 
-- Title text: "Job Tracking Board"
-- Search input with magnifying glass icon
-- "Add Job" button that opens the modal in create mode
+- Section 1 (30% width): Title text "Job Tracking Board"
+- Section 2 (40% width): Search input with magnifying glass icon, spans full section width
+- Section 3 (30% width, right-aligned): "Follow-up Reminders" button with a badge pill showing `reminderCount`, and "Add Job" button, spaced with `gap-2`
 
 ## Props
 
@@ -20,6 +20,8 @@ description: A white top bar with app title, search input, and "Add Job" button.
 | `searchValue` | `string` | Current search text (controlled by App) |
 | `onSearchChange` | `(val: string) => void` | Setter for search text (App's `setSearchQuery`) |
 | `onAddJob` | `() => void` | Opens the modal in create mode (App's `handleAddJob`) |
+| `onToggleReminderDrawer` | `() => void` | Toggles the reminder drawer open/close state (App's `handleToggleReminderDrawer`) |
+| `reminderCount` | `number` | Number of pending follow-up reminders, shown as a badge pill on the reminders button |
 
 ## State managed
 

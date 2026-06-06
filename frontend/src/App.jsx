@@ -3,6 +3,20 @@ import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import KanbanBoard from './components/KanbanBoard'
 import JobModal from './components/JobModal'
+import ReminderDrawer from './components/ReminderDrawer'
+
+function computeReminders(jobs, today) {
+  return jobs
+    .filter(job => {
+      const appliedDate = new Date(job.date_applied.replace(' ', 'T'))
+      const diffDays = Math.floor((today - appliedDate) / (1000 * 60 * 60 * 24))
+      return job.status === 'Applied' && diffDays >= 7 && diffDays <= 14 && !job.followed_up_date && !job.follow_up_dismissed
+    })
+    .map(job => ({
+      ...job,
+      daysAgo: Math.floor((today - new Date(job.date_applied.replace(' ', 'T'))) / (1000 * 60 * 60 * 24)),
+    }))
+}
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -11,6 +25,9 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [modalOpen, setModalOpen] = useState(false)
   const [editingJob, setEditingJob] = useState(null)
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const today = new Date()
+  const reminders = computeReminders(jobs, today)
 
   useEffect(() => {
     fetchJobs()
@@ -95,6 +112,55 @@ function App() {
     setJobs(updatedJobs)
   }
 
+  const handleToggleReminderDrawer = () => {
+    setDrawerOpen(prev => !prev)
+  }
+
+  const handleDismissReminder = async (id) => {
+    // Optimistic update — immediately mark dismissed so UI responds instantly
+    setJobs(prev => prev.map(job =>
+      job.id === id ? { ...job, follow_up_dismissed: 1 } : job
+    ))
+    try {
+      await fetch(`/api/jobs/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ follow_up_dismissed: true }),
+      })
+    } catch (err) {
+      // Revert on failure so the reminder reappears
+      setJobs(prev => prev.map(job =>
+        job.id === id ? { ...job, follow_up_dismissed: 0 } : job
+      ))
+      console.error('Error dismissing reminder:', err)
+    }
+  }
+
+  const handleDismissAllReminders = async () => {
+    const reminderIds = reminders.map(r => r.id)
+    // Optimistic update — immediately mark all dismissed so UI responds instantly
+    setJobs(prev => prev.map(job =>
+      reminderIds.includes(job.id) ? { ...job, follow_up_dismissed: 1 } : job
+    ))
+    try {
+      await Promise.all(
+        reminderIds.map(id =>
+          fetch(`/api/jobs/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ follow_up_dismissed: true }),
+          })
+        )
+      )
+    } catch (err) {
+      // Revert on failure so the reminders reappear
+      setJobs(prev => prev.map(job =>
+        reminderIds.includes(job.id) ? { ...job, follow_up_dismissed: 0 } : job
+      ))
+      console.error('Error dismissing all reminders:', err)
+    }
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -117,6 +183,8 @@ function App() {
           searchValue={searchQuery}
           onSearchChange={setSearchQuery}
           onAddJob={handleAddJob}
+          onToggleReminderDrawer={handleToggleReminderDrawer}
+          reminderCount={reminders.length}
         />
 
         <main className="flex-1 flex flex-col overflow-hidden">
@@ -137,6 +205,15 @@ function App() {
             }}
             onSubmit={handleModalSubmit}
             initialData={editingJob}
+          />
+
+          <ReminderDrawer
+            isOpen={drawerOpen}
+            onClose={() => setDrawerOpen(false)}
+            reminders={reminders}
+            reminderCount={reminders.length}
+            onDismiss={handleDismissReminder}
+            onDismissAll={handleDismissAllReminders}
           />
         </main>
       </div>
