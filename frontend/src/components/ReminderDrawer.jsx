@@ -161,7 +161,7 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
         {/* Footer */}
         <div className="px-5 py-3 border-t border-gray-200 flex-shrink-0">
           <button
-            className="w-full px-4 py-2 text-sm font-medium text-gray-700 bg-secondary text-white rounded-md hover:bg-secondary-dark transition-colors cursor-pointer"
+            className="w-full px-4 py-2 text-sm font-medium bg-secondary text-white rounded-md hover:bg-secondary-dark transition-colors cursor-pointer"
             onClick={onClose}
           >
             Close
