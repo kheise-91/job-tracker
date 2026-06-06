@@ -48,7 +48,9 @@ If the milestone already exists, skip creation and use the existing one.
 
 ## Step 4 - Plan the tasks
 
-Break the sub-phase into 4–8 discrete tasks (more if the scope genuinely requires it, less is okay too if not that many are needed). Each task must be completable in a single focused session - roughly half a day to two days of work.
+Break the sub-phase into 4–8 discrete tasks (more if the scope genuinely requires it, less is okay too if not that many are needed). Each task must be completable in a single focused session - roughly half a day to two days of work. 
+
+Derive the mockup pattern from the $subPhase number: replace `.` with `-`, prepend `phase-`, append `-*.html`. Check `frontend/mockups/` for a matching file. If a mockup file is found, treat it as the visual reference for frontend work. Find which parts of the mockup file are related to the sub-phase, and use them for visual and structural reference only - do not blindly copy its class names, inline styles, or CSS from the mockup into the tasks created. For styling: the project's existing stylesheets and components take precedence, followed by Tailwind CSS, and finally the mockup file. For structure: the sub-phase description in the project roadmap takes precedence over the mockup if they conflict.
 
 For each task, determine:
 - **title:** Short imperative phrase (e.g. "Add followed_up_date column to jobs schema")
