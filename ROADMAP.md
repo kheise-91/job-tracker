@@ -167,12 +167,32 @@ working and dismissable, and PWA criteria met.
 
 - [ ] **3.11 - View-only job modal**
     
-    When clicking anywhere on a `JobCard` (excluding action buttons), open `JobModal.jsx`
-    in read-only mode. All fields render as plain text with the same layout and styling as
-    the edit form. Edit/delete buttons are hidden. A close/dismiss button is the only action.
+    Create a new component, `JobProfileCard`, that opens when clicking anywhere on a `JobCard` (excluding action buttons).
+    This component will contain all the information from the `JobModal` form. A close/dismiss button is the only action.
 
-    Clicking a reminder item from the list in the `ReminderDrawer.jsx` component should open
-    the job modal in this view only mode.
+    Component layout:
+    - A header section with a gradient background using the primary theme color
+        - A header on the left with the company name
+        - A subheader underneath the company name with the position 
+        - A badge in the upper right corner with the status of the job
+    - A row with two columns:
+        - First column: calendar heroicon with the text "Date Applied" and the actual date applied directly underneath
+        - Second column: notification icon (same icon as follow-up reminder button) with the text "Followed Up" and the actualy followed up date underneath
+    - A second row with two columns:
+        - First column: a user heroicon with the text "Interview Date" and the actual interview date underneath
+        - Second column: a newspaper heroicon with the text "Source' and the actual source underneath
+    - A third row with only one full-width column:
+        - A link heroicon with the text "Hyperlink" and the actual hyperlink underneath that takes the user to the URL
+    - A light grey divider
+    - A fourth row with only one full-width column:
+        - A notes heroicon with the text "Notes", with the job's notes underneath. These notes should have a light grey background.
+    - A light grey divider
+    - A close button, position to the bottom right corner
+
+    If any value for the job is null/empty/not set - print the text "Not Set" in italic
+
+    Clicking a reminder item from the list in the `ReminderDrawer.jsx` component should also open the `JobProfileCard`
+    component for that job id.
 
     Done when: Clicking a card body opens the modal in read-only mode with all fields
     visible as text. The close button dismisses without changes. Clicking action buttons
