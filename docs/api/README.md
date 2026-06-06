@@ -34,17 +34,7 @@ Valid status values across all endpoints:
 
 Return all jobs, ordered by `status` then `order` ascending (per-column ordering).
 
-Supports optional query parameters for filtering. Multiple filters are combined with AND logic.
-
-**Query parameters:**
-
-| Parameter           | Type    | Description                                    |
-|---------------------|---------|------------------------------------------------|
-| `status`            | string  | Filter by job status (e.g., `Applied`)         |
-| `follow_up_dismissed` | boolean-like (`true`/`false`/`1`/`0`) | Filter by reminder dismissed flag |
-| `days_ago`          | integer | Only return jobs applied within the last N days |
-
-**Request:** No body. Optional query parameters listed above.
+**Request:** No parameters or body.
 
 **Response** — `200 OK`
 
