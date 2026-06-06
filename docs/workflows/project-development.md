@@ -28,8 +28,7 @@ For each project sub-phase:
 - Create `phase-X-Y` milestone
 - Create issues and branches for required work
 - For each issue: link to new branch, link to project board, move to "To Do" list (only one sub-phase/milestone in "To Do" at a time)
-- Update project roadmap: link milestone to sub-phase title
-- Update project roadmap: mark sub-phase as "In progress"
+- Update project roadmap: mark sub-phase as "In progress" and link title to Gitea milestone
 
 ### Step 5 - Complete Tasks
 *Custom Claude Code skills available: `/create-issue-plan`, `/execute-issue-plan`, `/complete-issue`*
