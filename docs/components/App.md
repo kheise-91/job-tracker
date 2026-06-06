@@ -43,8 +43,8 @@ Reminders are derived state — computed from `jobs` on every render via the `co
 | `handleBoardUpdate(updatedJobs)` | Optimistic update of `jobs` array after drag-reorder |
 | `handleAddJob()` | Opens modal in create mode (`editingJob = null`) |
 | `handleEditJob(job)` | Opens modal in edit mode with job data pre-filled |
-| `handleDismissReminder(id)` | PUT `/api/jobs/{id}` with `follow_up_dismissed: true`, updates local `jobs` state optimistically |
-| `handleDismissAllReminders()` | PUTs `follow_up_dismissed: true` for all current reminders via API, updates local `jobs` state |
+| `handleDismissReminder(id)` | Optimistically updates local `jobs` state (sets `follow_up_dismissed: 1`), then PUTs `/api/jobs/{id}` with `follow_up_dismissed: true`. Reverts optimistic update on API failure. |
+| `handleDismissAllReminders()` | Optimistically updates local `jobs` state for all current reminders (sets `follow_up_dismissed: 1`), then PUTs each via API. Reverts all on API failure. |
 
 ## Component tree
 
