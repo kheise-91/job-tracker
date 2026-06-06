@@ -32,6 +32,7 @@ This project was built using Claude Code with a few tools and plugins:
 - **[Gitea MCP Server](https://gitea.com/gitea/gitea-mcp)** - Gitea integration for issue tracking, PR management, and repository operations
 - **[Feature Dev Plugin](https://claude.com/plugins/feature-dev)** - Guided feature development with specialized agents for exploration, architecture, and review
 - **[Frontend Design Plugin](https://claude.com/plugins/frontend-design)** - Production-grade frontend design with distinctive visual output
+- **[Playwright MCP Plugin](https://claude.com/plugins/playwright)** - Browser automation and end-to-end testing MCP server by Microsoft
 
 I've also built custom Claude Code skills and subagents specifically for this project. See the guides:
 - [Custom Skills Guide](/docs/guides/claude-skills.md)

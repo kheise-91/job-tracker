@@ -5,5 +5,6 @@ data/
 dist/
 tests/
 mockups/
+.claude/agent-memory
 .claude/plans
 .playwright-mcp/
