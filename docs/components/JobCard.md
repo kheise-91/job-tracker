@@ -12,6 +12,7 @@ description: A white card displaying job details (company, position) with action
 - Company name and position
 - Date badge in top-right corner (interview date or followed-up date, depending on status)
 - Action buttons: notes tooltip, hyperlink, edit, delete
+- Card body is clickable (calls `onView` prop) — button clicks use `stopPropagation` to prevent triggering the card click
 
 ## Props
 
@@ -21,6 +22,7 @@ description: A white card displaying job details (company, position) with action
 | `status` | `string` | Current column/status of the job |
 | `onEdit` | `(job: Job) => void` | Edit callback (from parent via KanbanBoard configMap) |
 | `onDelete` | `(id: number) => void` | Delete callback (from parent via KanbanBoard configMap) |
+| `onView` | `(job: Job) => void` | View callback — opens the profile card modal when the card body is clicked |
 
 ## State
 

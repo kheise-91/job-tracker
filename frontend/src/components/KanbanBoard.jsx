@@ -106,6 +106,7 @@ export default function KanbanBoard({
   onBoardUpdate,
   onDeleteJob,
   onEditJob,
+  onViewJob,
 }) {
   const dataSource = useMemo(() => {
     return buildDataSource(jobs)
@@ -136,12 +137,13 @@ export default function KanbanBoard({
             status={job.status}
             onEdit={onEditJob}
             onDelete={onDeleteJob}
+            onView={onViewJob}
           />
         )
       },
       isDraggable: true,
     },
-  }), [onDeleteJob, onEditJob])
+  }), [onDeleteJob, onEditJob, onViewJob])
 
   const persistBoardState = async (updatedJobs) => {
     const payload = {
