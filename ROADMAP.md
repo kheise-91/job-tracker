@@ -165,7 +165,7 @@ working and dismissable, and PWA criteria met.
     the rest. Dismissing persists and the reminders do not reappear on reload. Jobs moved to
     any other status than "Applied" do not show up in the list.
 
-- [ ] **3.11 - View-only job modal**
+- [-] **[3.11 - View-only job modal](https://gitea.heise.home/kheise/ats/milestone/6)**
     
     Create a new component, `JobProfileCard`, that opens when clicking anywhere on a `JobCard` (excluding action buttons).
     This component will contain all the information from the `JobModal` form. A close/dismiss button is the only action.
