@@ -19,6 +19,7 @@ Six status columns (Wishlist, Applied, Followed Up, Interviewing, Offer, Rejecte
 | `onBoardUpdate` | `(updatedJobs: Job[]) => void` | Called with updated jobs after drag reorder (App's `handleBoardUpdate`) |
 | `onDeleteJob` | `(id: number) => void` | Delete handler passed through to JobCard config |
 | `onEditJob` | `(job: Job) => void` | Edit handler passed through to JobCard config |
+| `onViewJob` | `(job: Job) => void` | View handler passed through to JobCard for opening the profile card |
 
 ## State managed
 

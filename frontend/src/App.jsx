@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import KanbanBoard from './components/KanbanBoard'
 import JobModal from './components/JobModal'
+import JobProfileCard from './components/JobProfileCard'
 import ReminderDrawer from './components/ReminderDrawer'
 
 function computeReminders(jobs, today) {
@@ -25,6 +26,8 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [modalOpen, setModalOpen] = useState(false)
   const [editingJob, setEditingJob] = useState(null)
+  const [profileCardOpen, setProfileCardOpen] = useState(false)
+  const [viewingJob, setViewingJob] = useState(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const today = new Date()
   const reminders = computeReminders(jobs, today)
@@ -53,6 +56,11 @@ function App() {
   const handleEditJob = (job) => {
     setEditingJob(job)
     setModalOpen(true)
+  }
+
+  const handleViewJob = (job) => {
+    setViewingJob(job)
+    setProfileCardOpen(true)
   }
 
   const handleModalSubmit = async (data) => {
@@ -194,6 +202,7 @@ function App() {
               onBoardUpdate={handleBoardUpdate}
               onDeleteJob={handleDeleteJob}
               onEditJob={handleEditJob}
+              onViewJob={handleViewJob}
             />
           </div>
 
@@ -205,6 +214,15 @@ function App() {
             }}
             onSubmit={handleModalSubmit}
             initialData={editingJob}
+          />
+
+          <JobProfileCard
+            isOpen={profileCardOpen}
+            onClose={() => {
+              setProfileCardOpen(false)
+              setViewingJob(null)
+            }}
+            job={viewingJob}
           />
 
           <ReminderDrawer
