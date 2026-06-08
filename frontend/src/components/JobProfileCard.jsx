@@ -40,17 +40,26 @@ function displayValue(val) {
   return val
 }
 
-function statusBadgeColor(status) {
-  const colors = {
-    'Wishlist': 'bg-teal-500/20 text-teal-200 border-teal-400/30',
-    'Applied': 'bg-blue-500/20 text-blue-200 border-blue-400/30',
-    'Followed Up': 'bg-indigo-500/20 text-indigo-200 border-indigo-400/30',
-    'Interviewing': 'bg-orange-500/20 text-orange-200 border-orange-400/30',
-    'Offer': 'bg-green-500/20 text-green-200 border-green-400/30',
-    'Rejected': 'bg-red-500/20 text-red-200 border-red-400/30',
-    'Withdrawn': 'bg-gray-500/20 text-gray-200 border-gray-400/30',
-  }
-  return colors[status] || 'bg-gray-500/20 text-gray-200 border-gray-400/30'
+const statusGradient = {
+  'Wishlist': 'linear-gradient(to right, var(--color-wishlist-status), color-mix(in srgb, var(--color-wishlist-status) 85%, black))',
+  'Applied': 'linear-gradient(to right, var(--color-applied-status), color-mix(in srgb, var(--color-applied-status) 85%, black))',
+  'Followed Up': 'linear-gradient(to right, var(--color-followed-up-status), color-mix(in srgb, var(--color-followed-up-status) 85%, black))',
+  'Interviewing': 'linear-gradient(to right, var(--color-interviewing-status), color-mix(in srgb, var(--color-interviewing-status) 85%, black))',
+  'Offer': 'linear-gradient(to right, var(--color-offer-status), color-mix(in srgb, var(--color-offer-status) 85%, black))',
+  'Rejected': 'linear-gradient(to right, var(--color-rejected-status), color-mix(in srgb, var(--color-rejected-status) 85%, black))',
+}
+
+const statusBadgeStyle = {
+  'Wishlist': { backgroundColor: 'var(--color-wishlist-status-light)', color: 'var(--color-wishlist-status)', borderColor: 'color-mix(in srgb, var(--color-wishlist-status) 50%, var(--color-wishlist-status-light))' },
+  'Applied': { backgroundColor: 'var(--color-applied-status-light)', color: 'var(--color-applied-status)', borderColor: 'color-mix(in srgb, var(--color-applied-status) 50%, var(--color-applied-status-light))' },
+  'Followed Up': { backgroundColor: 'var(--color-followed-up-status-light)', color: 'var(--color-followed-up-status)', borderColor: 'color-mix(in srgb, var(--color-followed-up-status) 50%, var(--color-followed-up-status-light))' },
+  'Interviewing': { backgroundColor: 'var(--color-interviewing-status-light)', color: 'var(--color-interviewing-status)', borderColor: 'color-mix(in srgb, var(--color-interviewing-status) 50%, var(--color-interviewing-status-light))' },
+  'Offer': { backgroundColor: 'var(--color-offer-status-light)', color: 'var(--color-offer-status)', borderColor: 'color-mix(in srgb, var(--color-offer-status) 50%, var(--color-offer-status-light))' },
+  'Rejected': { backgroundColor: 'var(--color-rejected-status-light)', color: 'var(--color-rejected-status)', borderColor: 'color-mix(in srgb, var(--color-rejected-status) 50%, var(--color-rejected-status-light))' },
+}
+
+function defaultBadgeStyle() {
+  return { backgroundColor: '#f5f5f5', color: '#757575', borderColor: '#e0e0e0' }
 }
 
 export default function JobProfileCard({ job, isOpen, onClose }) {
@@ -104,7 +113,10 @@ export default function JobProfileCard({ job, isOpen, onClose }) {
       {/* Modal Card */}
       <div className="relative w-full max-w-lg bg-white rounded-xl shadow-xl overflow-hidden">
         {/* Hero Header */}
-        <div className="bg-gradient-to-r from-primary to-primary-dark px-6 py-5">
+        <div
+          className="px-6 py-5"
+          style={{ background: statusGradient[job.status] || 'linear-gradient(to right, #555, #333)' }}
+        >
           <div className="flex items-start justify-between">
             <div>
               <div id="profile-card-title" className="text-xl font-bold text-white">
@@ -112,7 +124,10 @@ export default function JobProfileCard({ job, isOpen, onClose }) {
               </div>
               <div className="text-sm text-gray-200 mt-1">{job.position}</div>
             </div>
-            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${statusBadgeColor(job.status)}`}>
+            <span
+              className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border"
+              style={statusBadgeStyle[job.status] || defaultBadgeStyle()}
+            >
               {job.status}
             </span>
           </div>

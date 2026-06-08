@@ -61,7 +61,7 @@ function JobCard({ job, status, onEdit, onDelete, onView }) {
       onClick={() => onView(job)}
     >
       {interviewDate && (
-        <div className="absolute top-2 right-2 text-xs font-medium rounded text-interview-status bg-interview-status-light px-1.5 py-0.5">
+        <div className="absolute top-2 right-2 text-xs font-medium rounded text-interviewing-status bg-interviewing-status-light px-1.5 py-0.5">
           {interviewDate}
         </div>
       )}

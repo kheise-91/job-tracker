@@ -11,11 +11,19 @@
   --color-accent-dark: #4a8a96;
   --color-accent-darkest: #417a86;
   --color-sidebar: #242e37;
-  --color-sidebar-muted: #7a8f9e; 
-  --color-interview-status: #f57c00;
-  --color-interview-status-light: #fff3e0;
+  --color-sidebar-muted: #7a8f9e;
+  --color-wishlist-status: #2f4f4f;
+  --color-wishlist-status-light: #e6f0f0;
+  --color-applied-status: #1976d2;
+  --color-applied-status-light: #e3f2fd;
   --color-followed-up-status: #283593;
   --color-followed-up-status-light: #e8eaf6;
+  --color-interviewing-status: #f57c00;
+  --color-interviewing-status-light: #fff3e0;
+  --color-offer-status: #388e3c;
+  --color-offer-status-light: #e8f5e9;
+  --color-rejected-status: #d32f2f;
+  --color-rejected-status-light: #ffebee;
 }
 
 :root {
@@ -65,12 +73,12 @@ button.bg-primary-darkest:disabled {
 .rkk-column {
   background-color: unset !important;
 }
-.rkk-column.wishlist-status     {background-color: #e6f0f0 !important;}
-.rkk-column.applied-status       {background-color: #e3f2fd !important;}
-.rkk-column.followed-up-status   {background-color: #e8eaf6 !important;}
-.rkk-column.interviewing-status  {background-color: #fff3e0 !important;}
-.rkk-column.offer-status        {background-color: #e8f5e9 !important;}
-.rkk-column.rejected-status     {background-color: #ffebee !important;}
+.rkk-column.wishlist-status     {background-color: var(--color-wishlist-status-light) !important;}
+.rkk-column.applied-status       {background-color: var(--color-applied-status-light) !important;}
+.rkk-column.followed-up-status   {background-color: var(--color-followed-up-status-light) !important;}
+.rkk-column.interviewing-status  {background-color: var(--color-interviewing-status-light) !important;}
+.rkk-column.offer-status        {background-color: var(--color-offer-status-light) !important;}
+.rkk-column.rejected-status     {background-color: var(--color-rejected-status-light) !important;}
 
 .rkk-column-wrapper {
   gap: 0px !important;
@@ -81,12 +89,12 @@ button.bg-primary-darkest:disabled {
   padding: 2px 6px 2px 12px !important;
   width: 99%;
 }
-.rkk-column-header.wishlist-status     {background: #2f4f4f !important;}
-.rkk-column-header.applied-status      {background: #1976d2 !important;}
-.rkk-column-header.followed-up-status  {background: #283593 !important;}
-.rkk-column-header.interviewing-status {background: #f57c00 !important;}
-.rkk-column-header.offer-status        {background: #388e3c !important;}
-.rkk-column-header.rejected-status     {background: #d32f2f !important;}
+.rkk-column-header.wishlist-status     {background: var(--color-wishlist-status) !important;}
+.rkk-column-header.applied-status      {background: var(--color-applied-status) !important;}
+.rkk-column-header.followed-up-status  {background: var(--color-followed-up-status) !important;}
+.rkk-column-header.interviewing-status {background: var(--color-interviewing-status) !important;}
+.rkk-column-header.offer-status        {background: var(--color-offer-status) !important;}
+.rkk-column-header.rejected-status     {background: var(--color-rejected-status) !important;}
 
 .rkk-column-header .rkk-column-header-left,
 .rkk-column-header .rkk-column-header-right {
@@ -99,12 +107,12 @@ button.bg-primary-darkest:disabled {
   background-color: #37352f33;
   border-radius: 8px;
 }
-.rkk-column-header.wishlist-status .rkk-column-header-right     {background-color: #cfe2e2 !important; color: #2f4f4f !important;}
-.rkk-column-header.applied-status .rkk-column-header-right      {background-color: #b7defa !important; color: #1976d2 !important;}
-.rkk-column-header.followed-up-status .rkk-column-header-right  {background-color: #c8cdea !important; color: #283593 !important;}
-.rkk-column-header.interviewing-status .rkk-column-header-right {background-color: #ffe2b3 !important; color: #f57c00 !important;}
-.rkk-column-header.offer-status .rkk-column-header-right        {background-color: #cae8cc !important; color: #388e3c !important;}
-.rkk-column-header.rejected-status .rkk-column-header-right     {background-color: #ffc2cb !important; color: #d32f2f !important;}
+.rkk-column-header.wishlist-status .rkk-column-header-right     {background-color: #cfe2e2 !important; color: var(--color-wishlist-status) !important;}
+.rkk-column-header.applied-status .rkk-column-header-right      {background-color: #b7defa !important; color: var(--color-applied-status) !important;}
+.rkk-column-header.followed-up-status .rkk-column-header-right  {background-color: #c8cdea !important; color: var(--color-followed-up-status) !important;}
+.rkk-column-header.interviewing-status .rkk-column-header-right {background-color: #ffe2b3 !important; color: var(--color-interviewing-status) !important;}
+.rkk-column-header.offer-status .rkk-column-header-right        {background-color: #cae8cc !important; color: var(--color-offer-status) !important;}
+.rkk-column-header.rejected-status .rkk-column-header-right     {background-color: #ffc2cb !important; color: var(--color-rejected-status) !important;}
 
 .rkk-column-content-list {
   padding-right: 5px;
