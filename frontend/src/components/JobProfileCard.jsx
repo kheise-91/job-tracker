@@ -211,7 +211,7 @@ export default function JobProfileCard({ job, isOpen, onClose }) {
               <PencilIcon className="w-4 h-4 text-gray-400" />
               <div className="text-xs text-gray-500 font-medium">Notes</div>
             </div>
-            <div className="text-sm text-gray-900 leading-relaxed bg-gray-50 rounded-md p-3">
+            <div className="text-sm text-gray-900 leading-relaxed bg-gray-50 rounded-md p-3 whitespace-pre-wrap">
               {displayValue(notes)}
             </div>
           </div>
