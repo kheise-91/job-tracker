@@ -11,7 +11,7 @@ description: A view-only modal displaying job details in a profile card layout w
 
 A modal overlay with a centered card (`max-w-lg`) containing:
 
-- **Hero Header** — gradient background (`from-primary to-primary-dark`) with company name (large, bold), position name, and a status badge colored per status.
+- **Hero Header** — status-matched gradient background (dark-to-darker shade per status) with company name (large, bold), position name, and a status badge using the light variant of the matching status color.
 - **Two-column field grid** — icon-labeled rows for Date Applied (CalendarIcon), Followed Up (BellIcon), Interview Date (UserIcon), Source (NewspaperIcon).
 - **Full-width Hyperlink row** — LinkIcon with clickable URL that opens in a new tab.
 - **Notes section** — light grey background (`bg-gray-50`), rounded, with PencilIcon and a divider above.
@@ -37,12 +37,14 @@ None. Component is fully controlled via props.
 
 ## Helper functions
 
-| Function | Purpose |
+| Function / Constant | Purpose |
 |---|---|
 | `formatDate(dateStr)` | Parses datetime string, formats as "Aug 29, 2025" |
 | `formatDateTime(dateStr)` | Parses datetime string, formats as "Aug 29, 2025 at 2:30 PM" |
 | `displayValue(val)` | Returns formatted value or `<em>Not Set</em>` for null/empty strings |
-| `statusBadgeColor(status)` | Returns Tailwind classes for status badge based on status string |
+| `statusGradient` | Object mapping status strings to CSS `linear-gradient` values using `var(--color-*-status)` and `color-mix` for the dark-to-darker hero header effect |
+| `statusBadgeStyle` | Object mapping status strings to inline style objects (backgroundColor, color, borderColor) using `var(--color-*-status-light)` and `var(--color-*-status)` CSS variables |
+| `defaultBadgeStyle()` | Returns a neutral gray fallback style for unrecognized statuses |
 
 ## Accessibility
 
@@ -56,5 +58,5 @@ None. Component is fully controlled via props.
 
 - Conditional rendering — returns `null` when `isOpen` is false or `job` is absent.
 - Uses HeroIcons from `@heroicons/react/24/outline` for all icons.
-- Status badge colors are mapped per status to match the kanban column color scheme.
+- Status gradient and badge colors are mapped per status to match the kanban column color scheme, using inline styles with CSS custom properties (`var(--color-*-status)`, `var(--color-*-status-light)`) and `color-mix()` rather than Tailwind utility classes.
 - Date formatting uses `toLocaleString` for month names, consistent with JobCard's approach.
