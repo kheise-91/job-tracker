@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { BellIcon, XMarkIcon, CheckCircleIcon, BriefcaseIcon } from '@heroicons/react/24/outline';
 
-function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, onDismissAll }) {
+function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, onDismissAll, onViewJob }) {
   const [expanded, setExpanded] = useState(false);
   const [animatingIds, setAnimatingIds] = useState(new Set());
 
@@ -112,7 +112,8 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
               {visibleReminders.map((reminder) => (
                 <div
                   key={reminder.id}
-                  className={`flex items-start gap-3 p-3 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all group ${animatingIds.has(reminder.id) ? 'animate-exit' : ''}`}
+                  className={`flex items-start gap-3 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all group ${animatingIds.has(reminder.id) ? 'animate-exit' : ''}`}
+                  onClick={() => onViewJob && onViewJob(reminder)}
                 >
                   <BriefcaseIcon className="w-5 h-5 text-primary-dark flex-shrink-0 mt-0.5" />
                   <div className="flex-1 min-w-0">
@@ -122,7 +123,10 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
                       </span>
                       <button
                         className="flex-shrink-0 p-1 rounded text-gray-300 hover:text-secondary hover:bg-red-50 transition-colors cursor-pointer"
-                        onClick={() => handleDismiss(reminder.id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDismiss(reminder.id);
+                        }}
                         title="Dismiss reminder"
                         aria-label={`Dismiss reminder for ${reminder.company} - ${reminder.position}`}
                       >
