@@ -21,13 +21,14 @@ A fixed-position, full-height drawer that slides in from the right edge of the s
 | `reminderCount` | `number` | Total count of reminders (used to disable "Dismiss All" when zero) |
 | `onDismiss` | `(id: number) => void` | Dismiss a single reminder — App.jsx handler optimistically updates local state immediately, then makes a PUT call to set `follow_up_dismissed: true` (called by X button on each item, wrapped in `handleDismiss` which triggers a 200ms slide-out animation before calling the API). Reverts optimistic update on API failure. |
 | `onDismissAll` | `() => void` | Dismiss all reminders at once — App.jsx handler optimistically updates local state for all reminders immediately, then makes PUT calls to set `follow_up_dismissed: true` on each (called by Dismiss All button via `handleDismissAll`, which staggers animations at 50ms intervals then calls this after the last animation completes). Reverts all on API failure. |
+| `onViewJob` | `(job: object) => void` | Open the JobProfileCard for a given job — called when a reminder list item is clicked (not the dismiss button). App.jsx passes `handleViewJob` which sets `viewingJob` and `profileCardOpen` state. |
 
 ## Layout
 
 - **Backdrop**: `fixed inset-0 bg-black/20 z-[100]` — semi-transparent overlay, clickable to close
 - **Drawer panel**: `fixed top-0 right-0 h-full w-96 z-[110]` — white background, left border, shadow, slides in with CSS transition
 - **Header**: flex row with BellIcon + title (left), Dismiss All button (right), border-bottom divider
-- **List**: `flex-1 overflow-y-auto` — maps reminders or shows empty state
+- **List**: `flex-1 overflow-y-auto` — maps reminders or shows empty state; each reminder item is clickable (calls `onViewJob` with the reminder job object) with `hover:bg-gray-50` and `cursor-pointer` visual feedback; the dismiss X button uses `e.stopPropagation()` to prevent the click from bubbling to the parent
 - **Expand/Collapse**: "+ N more" button (when collapsed and >5 items) or "Show less" button (when expanded) centered below the list
 - **Footer**: `border-t` divider + full-width Close button (gray styling)
 

@@ -232,6 +232,7 @@ function App() {
             reminderCount={reminders.length}
             onDismiss={handleDismissReminder}
             onDismissAll={handleDismissAllReminders}
+            onViewJob={handleViewJob}
           />
         </main>
       </div>
