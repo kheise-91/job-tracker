@@ -26,6 +26,8 @@ None — this is the top-level component.
 | `modalOpen` | `boolean` | JobModal open/close toggle |
 | `editingJob` | `Job \| null` | The job being edited, or `null` for create mode |
 | `drawerOpen` | `boolean` | ReminderDrawer open/close toggle |
+| `profileCardOpen` | `boolean` | JobProfileCard open/close toggle |
+| `viewingJob` | `Job \| null` | The job being viewed in the profile card |
 
 Reminders are derived state — computed from `jobs` on every render via the `computeReminders(jobs, today)` helper function above the `App` component. This ensures reminders always stay in sync with job data regardless of how jobs are modified (modal edit, drag-and-drop, delete, or dismiss).
 
@@ -45,6 +47,7 @@ Reminders are derived state — computed from `jobs` on every render via the `co
 | `handleEditJob(job)` | Opens modal in edit mode with job data pre-filled |
 | `handleDismissReminder(id)` | Optimistically updates local `jobs` state (sets `follow_up_dismissed: 1`), then PUTs `/api/jobs/{id}` with `follow_up_dismissed: true`. Reverts optimistic update on API failure. |
 | `handleDismissAllReminders()` | Optimistically updates local `jobs` state for all current reminders (sets `follow_up_dismissed: 1`), then PUTs each via API. Reverts all on API failure. |
+| `handleViewJob(job)` | Opens the profile card modal with the given job (`viewingJob = job`, `profileCardOpen = true`) |
 
 ## Component tree
 
@@ -52,9 +55,10 @@ Reminders are derived state — computed from `jobs` on every render via the `co
 App
 ├── Sidebar (isOpen, onToggle)
 ├── Header (searchValue, onSearchChange, onAddJob, onToggleReminderDrawer, reminderCount)
-├── KanbanBoard (jobs, onBoardUpdate, onDeleteJob, onEditJob)
+├── KanbanBoard (jobs, onBoardUpdate, onDeleteJob, onEditJob, onViewJob)
 ├── JobModal (isOpen, onClose, onSubmit, initialData)
-└── ReminderDrawer (isOpen, onClose, reminders, reminderCount, onDismiss, onDismissAll)
+├── JobProfileCard (isOpen, onClose, job)
+└── ReminderDrawer (isOpen, onClose, reminders, reminderCount, onDismiss, onDismissAll, onViewJob)
 ```
 
 ## State management pattern

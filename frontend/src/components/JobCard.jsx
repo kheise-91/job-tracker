@@ -26,7 +26,7 @@ function formatFollowedUpDate(dateStr) {
   return `${m} ${day}`
 }
 
-function JobCard({ job, status, onEdit, onDelete }) {
+function JobCard({ job, status, onEdit, onDelete, onView }) {
   const interviewDate = status === 'Interviewing' && job.interview_date
     ? formatInterviewDate(job.interview_date)
     : ''
@@ -56,9 +56,12 @@ function JobCard({ job, status, onEdit, onDelete }) {
   }
 
   return (
-    <div className="group bg-white rounded-lg shadow-sm border border-gray-200 p-3 hover:shadow-md transition-shadow cursor-pointer relative">
+    <div
+      className="group bg-white rounded-lg shadow-sm border border-gray-200 p-3 hover:shadow-md transition-shadow cursor-pointer relative"
+      onClick={() => onView(job)}
+    >
       {interviewDate && (
-        <div className="absolute top-2 right-2 text-xs font-medium rounded text-interview-status bg-interview-status-light px-1.5 py-0.5">
+        <div className="absolute top-2 right-2 text-xs font-medium rounded text-interviewing-status bg-interviewing-status-light px-1.5 py-0.5">
           {interviewDate}
         </div>
       )}
