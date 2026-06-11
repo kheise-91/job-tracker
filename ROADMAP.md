@@ -208,7 +208,53 @@ working and dismissable, and PWA criteria met.
     Done when: Typing in the search box filters visible cards across all columns in real
     time. Clearing the input restores all cards. Empty search shows all jobs.
 
-- [ ] **3.13 - Auto-update fields on related changes**
+- [ ] **3.13 - Add salary field (and remove from notes)**
+    
+    Add a new `salary` TEXT column to `jobs` in `db.php`. Expose it in all API read/write
+    operations in `api.php`. Text input added to `JobModal.jsx`.
+
+    Write a migration that extracts the salary from existing job notes into the new field,
+    then removes all text up to `========== TECHNOLOGY ==========` from every job's notes.
+    Use the notes template format (with surrounding separators and line breaks) to locate
+    the salary block:
+    ```
+    ============= SALARY =============
+    $130,000 - $150,000
+
+    ========== TECHNOLOGY ===========
+    ```
+    The migration should capture the line between `SALARY` and `TECHNOLOGY` separators as
+    the salary value, then strip everything from the top of notes through the
+    `========== TECHNOLOGY ==========` line (inclusive, plus trailing newline).
+
+    In `JobModal.jsx`, change the default notes template from:
+    ```
+    notes: '============= SALARY =============\n\n\n========== TECHNOLOGY ===========\n\n\n============ COMPANY ============\n',
+    ```
+    to:
+    ```
+    notes: '========== TECHNOLOGY ===========\n\n\n============ COMPANY ============\n',
+    ```
+
+    Done when: The `salary` column exists and is read/written via the API. The modal has a
+    salary text input. Existing jobs have their salary extracted into the new field and
+    notes cleaned up. New jobs no longer include salary in their default notes template.
+
+- [ ] **3.14 - Add toggle to hide applications older than 1 month**
+    
+    Add a toggle control to `Header.jsx` (or near the search bar) labeled something like
+    "Hide old applications". When enabled, any job card with `status = 'Applied'` and
+    `date_applied` older than 1 month should be hidden from the Kanban board.
+
+    Jobs hidden by this toggle should also remain hidden when searching — the filter
+    applies before search filtering. If the toggle is disabled, all jobs are visible
+    regardless of age.
+
+    Done when: The toggle exists and works in the header area. Applied jobs older than 1
+    month disappear from the board when enabled. Re-enabling shows them again. Search
+    results respect the toggle — hidden jobs don't appear in search either.
+
+- [ ] **3.15 - Auto-update fields on related changes**
     
     In `JobModal.jsx`, implement logic that auto-updates the status dropdown when certain
     date fields are set: if `followed_up_date` is filled and status is "Applied", switch
@@ -232,7 +278,7 @@ working and dismissable, and PWA criteria met.
     it to today's date. Manual override works for all cases. Other status transitions are
     unaffected.
 
-- [ ] **3.14 - Cleanup and polish**
+- [ ] **3.16 - Cleanup and polish**
     
     Remove old flat list and form code from `App.jsx` superseded by the kanban. Review
     all components for consistent Tailwind styling and no visual rough edges. Verify the
@@ -241,7 +287,7 @@ working and dismissable, and PWA criteria met.
     Done when: No dead code remains in `App.jsx`. All components are visually consistent.
     Sidebar toggle works at all screen sizes. No obvious UI bugs remain.
 
-- [ ] **3.15 - PWA configuration**
+- [ ] **3.17 - PWA configuration**
     
     Add and validate the web app manifest (name, short name, icons, theme color, display
     mode). Implement a service worker for basic offline access. Verify the app passes PWA
@@ -250,7 +296,7 @@ working and dismissable, and PWA criteria met.
     Done when: The app installs to a mobile home screen via "Add to Home Screen". Basic
     offline access works. Lighthouse PWA audit shows no blocking issues.
 
-- [ ] **3.16 - Frontend code review**
+- [ ] **3.18 - Frontend code review**
     
     Review all frontend code against professional standards: consistent naming conventions,
     no dead imports, no `console.log` statements, component responsibilities clearly

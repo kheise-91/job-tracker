@@ -42,7 +42,7 @@ For each issue:
 *Custom Claude Code skills available: `/qa-review`, `/update-documentation`*
 
 When all issues for sub-phase/milestone have been completed and merged:
-- Perform a QA review of sub-phase branch
+- Perform a QA review of sub-phase branch (inside sub-phase branch)
 - Update documentation with changes implemented in this sub-phase (inside sub-phase branch)
 - Mark sub-phase as "Complete" in project roadmap (inside sub-phase branch)
 - Open pull request for `phase-X-Y` branch into `master` branch
