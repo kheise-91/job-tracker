@@ -10,6 +10,11 @@ You are in `accept edits` mode. Do not request permission for any of the steps b
 
 The issue number is: $issueNumber.
 
+**Scope Boundary**
+The implementation scope is defined entirely by this issue's title, body, and acceptance criteria - nothing else. The milestone description, any other issues in this milestone, and ROADMAP.md are organisational context only. Do not read ROADMAP.md. Do not implement work described in the milestone description or in any other issue. If the acceptance criteria in this issue are satisfied, the work is done.
+
+Pass this same scope boundary to every agent you spawn.
+
 ---
 
 ## Step 1 - Fetch the issue

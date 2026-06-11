@@ -10,13 +10,16 @@ You are in `plan` mode. Do not write, modify, or delete any files.
 
 The issue number is: $issueNumber.
 
+**Scope Boundary**
+The plan must cover only what this issue's title, body, and acceptance criteria describe. The milestone description and ROADMAP.md are organisational context - not implementation scope. Do not plan work that belongs to other issues in this milestone. The acceptance criteria in this issue are the complete definition of done.
+
+Pass this same scope boundary to every agent you spawn.
+
 ---
 
 ## Step 1 - Fetch the issue
 
-Using the Gitea MCP, detect the repo from the current git remote. Retrieve 
-issue #$issueNumber and read its full content: title, body, acceptance c
-riteria, notes, labels, and milestone.
+Using the Gitea MCP, detect the repo from the current git remote. Retrieve issue #$issueNumber and read its full content: title, body, acceptance criteria, notes, labels, and milestone.
 
 ---
 
@@ -110,7 +113,7 @@ Do not save anything until the user explicitly approves.
 
 ## Step 7 - Save the approved plan
  
-Create the directory if needed and save the plan to `.claude/plans/issue-$issueNumber.md` using exactly this structure (fill in all bracketed values):
+Create the directory if needed and save the plan to `.claude/plans/issue-$issueNumber.md` inside the current project, using exactly this structure (fill in all bracketed values):
  
 ```markdown
 # Issue Plan - #$issueNumber
@@ -157,4 +160,4 @@ If a mockup file is found, treat it as the visual reference for frontend work. P
 3. [code-reviewer - does not make any changes, only gives feedback]
 ```
  
-Confirm the file was saved and print its path.
+Confirm the file was saved and print its path. When the user approves the plan and the plan file is created, your job is complete. Do not start working on the plan. That plan will be executed by a different skill and model.
