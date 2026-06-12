@@ -211,7 +211,8 @@ working and dismissable, and PWA criteria met.
 - [ ] **3.13 - Add salary field (and remove from notes)**
     
     Add a new `salary` TEXT column to `jobs` in `db.php`. Expose it in all API read/write
-    operations in `api.php`. Text input added to `JobModal.jsx`.
+    operations in `api.php`. Text input added to `JobModal.jsx`. Add salary to the list
+    of fields that can be searched using the search bar in `Header.jsx`.
 
     Write a migration that extracts the salary from existing job notes into the new field,
     then removes all text up to `========== TECHNOLOGY ==========` from every job's notes.
@@ -290,27 +291,29 @@ working and dismissable, and PWA criteria met.
 - [ ] **3.17 - PWA configuration**
     
     Add and validate the web app manifest (name, short name, icons, theme color, display
-    mode). Implement a service worker for basic offline access. Verify the app passes PWA
-    installability criteria on desktop and mobile via a Lighthouse audit.
+    mode). Verify the app passes PWA installability criteria on desktop and mobile via a Lighthouse audit.
 
-    Done when: The app installs to a mobile home screen via "Add to Home Screen". Basic
-    offline access works. Lighthouse PWA audit shows no blocking issues.
+    Done when: The app installs to a mobile home screen via "Add to Home Screen".
+    Lighthouse PWA audit shows no blocking issues.
 
-- [ ] **3.18 - Frontend code review**
-    
-    Review all frontend code against professional standards: consistent naming conventions,
-    no dead imports, no `console.log` statements, component responsibilities clearly
-    separated, and styling consistent across all components.
+- [ ] **3.18 - Full code review**
 
-    Done when: Review is complete and all identified issues are resolved. No linting
-    errors remain.
+    Review all frontend and backend code against professional standards: consistent naming
+    conventions, no dead imports or unused variables, no `console.log` statements, component
+    responsibilities clearly separated, styling consistent across all components, clean PHP
+    code with proper error handling, and no security vulnerabilities (SQL injection, XSS,
+    CSRF). Check that the API follows RESTful conventions and the database schema is properly
+    indexed.
+
+    Done when: Review is complete and all identified issues are resolved. No linting errors
+    remain. No obvious security or code quality issues persist.
 
 ---
 
 ## [ ] Phase 4 - Testing & Deployment
 
-Validate the full application locally and on mobile, then produce a minimal, secure
-production Docker image deployable with a single `docker run` command.
+Validate the full application locally, then produce a minimal, secure production Docker image 
+deployable with a single `docker run` command.
 
 Done when: All CRUD operations verified, PWA works on mobile, and the production image
 runs cleanly with a single command.
@@ -318,21 +321,12 @@ runs cleanly with a single command.
 - [ ] **4.1 - Local testing**
 
     Run the app with `docker-compose up` and verify all CRUD operations, drag-to-reorder,
-    modal add/edit/view, search filtering, reminder alerts, and dismissal. Fix any bugs
-    found before mobile testing.
+    modal add/edit/view, search filtering, reminder alerts, and dismissal.
 
     Done when: All features work end-to-end in the local Docker environment with no
     console errors or broken interactions.
 
-- [ ] **4.2 - Mobile testing**
-
-    Verify PWA functionality on a physical mobile device: install to home screen, test
-    offline access, verify touch interactions (drag-to-reorder, tooltip tap, modal open).
-
-    Done when: App installs and runs from home screen. Offline mode works. All touch
-    interactions behave correctly on a real device.
-
-- [ ] **4.3 - Production build and packaging**
+- [ ] **4.2 - Production build and packaging**
 
     Optimize the React build. Minimize the Docker image (remove dev dependencies, use a
     minimal base). Ensure the app runs correctly with a single `docker run` command with
