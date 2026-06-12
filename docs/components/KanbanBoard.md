@@ -30,7 +30,7 @@ None. All derived from props via `useMemo`.
 | Function | Purpose |
 |---|---|
 | `buildDataSource(jobs)` | Transforms flat `Job[]` into the nested node-map structure expected by `react-kanban-kit`. Groups jobs by status, sorts by `order` then `id`, wraps each job as `card-{id}` node. |
-| `handleCardMove(cardId, fromType, toType)` | Optimistically updates local state, then calls `PUT /api/jobs/reorder` with the new column mapping. |
+| `handleCardMove(cardId, fromColumnId, toColumnId, position)` | Removes job from source column, updates status to target column, renumbers orders in both columns, calls `onBoardUpdate` for immediate UI feedback, then persists via `PUT /api/jobs/reorder`. |
 
 ## Dead code
 

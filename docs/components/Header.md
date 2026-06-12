@@ -33,4 +33,4 @@ None.
 
 ## Notes
 
-The search state is passed from App but not yet consumed by any downstream component (KanbanBoard, JobCard). The search input is currently cosmetic.
+Search state (`searchQuery`) is managed in App.jsx and applied via `filteredJobs` (a `useMemo` that filters by `company` and `position`). The filtered list is passed to `KanbanBoard` as the `jobs` prop.
