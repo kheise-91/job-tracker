@@ -20,8 +20,9 @@ None — this is the top-level component.
 | State | Type | Purpose |
 |---|---|---|
 | `sidebarOpen` | `boolean` | Sidebar expanded/collapsed toggle |
-| `searchQuery` | `string` | Value of the header search input (not yet consumed by downstream components) |
+| `searchQuery` | `string` | Value of the header search input — case-insensitive substring filter applied to `company` and `position` fields |
 | `jobs` | `Job[]` | Full job list fetched from `/api/jobs` |
+| `filteredJobs` | `Job[]` | Derived from `jobs` via `useMemo` — filters by `searchQuery` (case-insensitive substring match on `company` OR `position`); returns all jobs when `searchQuery` is empty |
 | `loading` | `boolean` | Loading indicator shown on initial fetch |
 | `modalOpen` | `boolean` | JobModal open/close toggle |
 | `editingJob` | `Job \| null` | The job being edited, or `null` for create mode |
@@ -55,7 +56,7 @@ Reminders are derived state — computed from `jobs` on every render via the `co
 App
 ├── Sidebar (isOpen, onToggle)
 ├── Header (searchValue, onSearchChange, onAddJob, onToggleReminderDrawer, reminderCount)
-├── KanbanBoard (jobs, onBoardUpdate, onDeleteJob, onEditJob, onViewJob)
+├── KanbanBoard (filteredJobs, onBoardUpdate, onDeleteJob, onEditJob, onViewJob)
 ├── JobModal (isOpen, onClose, onSubmit, initialData)
 ├── JobProfileCard (isOpen, onClose, job)
 └── ReminderDrawer (isOpen, onClose, reminders, reminderCount, onDismiss, onDismissAll, onViewJob)
