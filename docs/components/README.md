@@ -14,7 +14,7 @@ The ATS uses a single-page architecture with no client-side routing. All state i
 App (App.jsx)
 ├── Sidebar (components/Sidebar.jsx)
 ├── Header (components/Header.jsx)
-├── KanbanBoard (components/KanbanBoard.jsx)
+├── KanbanBoard (components/KanbanBoard.jsx) — receives filteredJobs from App
 │   └── JobCard (components/JobCard.jsx, rendered per card)
 ├── JobModal (components/JobModal.jsx)
 ├── JobProfileCard (components/JobProfileCard.jsx)

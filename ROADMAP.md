@@ -199,7 +199,7 @@ working and dismissable, and PWA criteria met.
     still triggers their respective actions, not the view modal. Clicking an item from the 
     reminder drawer will open that job in the view-only mode modal.
 
-- [ ] **3.12 - Search and filter**
+- [x] **[3.12 - Search and filter](https://gitea.heise.home/kheise/ats/milestone/7)**
     
     Add search state to `App.jsx` that filters the kanban board by company or position
     name (case-insensitive substring match). Wire `Header.jsx`'s existing search input

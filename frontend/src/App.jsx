@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import KanbanBoard from './components/KanbanBoard'
@@ -31,6 +31,16 @@ function App() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const today = new Date()
   const reminders = computeReminders(jobs, today)
+
+  const filteredJobs = useMemo(() => {
+    if (!searchQuery.trim()) return jobs
+    const q = searchQuery.toLowerCase()
+    return jobs.filter(
+      job =>
+        (job.company || '').toLowerCase().includes(q) ||
+        (job.position || '').toLowerCase().includes(q)
+    )
+  }, [jobs, searchQuery])
 
   useEffect(() => {
     fetchJobs()
@@ -198,7 +208,7 @@ function App() {
         <main className="flex-1 flex flex-col overflow-hidden">
           <div className="flex-1 overflow-hidden px-6 pb-6">
             <KanbanBoard
-              jobs={jobs}
+              jobs={filteredJobs}
               onBoardUpdate={handleBoardUpdate}
               onDeleteJob={handleDeleteJob}
               onEditJob={handleEditJob}

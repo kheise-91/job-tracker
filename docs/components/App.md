@@ -20,14 +20,16 @@ None — this is the top-level component.
 | State | Type | Purpose |
 |---|---|---|
 | `sidebarOpen` | `boolean` | Sidebar expanded/collapsed toggle |
-| `searchQuery` | `string` | Value of the header search input (not yet consumed by downstream components) |
+| `searchQuery` | `string` | Value of the header search input — case-insensitive substring filter applied to `company` and `position` fields |
 | `jobs` | `Job[]` | Full job list fetched from `/api/jobs` |
+| `filteredJobs` | `Job[]` | Derived from `jobs` via `useMemo` — filters by `searchQuery` (case-insensitive substring match on `company` OR `position`); returns all jobs when `searchQuery` is empty |
 | `loading` | `boolean` | Loading indicator shown on initial fetch |
 | `modalOpen` | `boolean` | JobModal open/close toggle |
 | `editingJob` | `Job \| null` | The job being edited, or `null` for create mode |
 | `drawerOpen` | `boolean` | ReminderDrawer open/close toggle |
 | `profileCardOpen` | `boolean` | JobProfileCard open/close toggle |
 | `viewingJob` | `Job \| null` | The job being viewed in the profile card |
+| `drawerOpen` | `boolean` | ReminderDrawer open/close toggle |
 
 Reminders are derived state — computed from `jobs` on every render via the `computeReminders(jobs, today)` helper function above the `App` component. This ensures reminders always stay in sync with job data regardless of how jobs are modified (modal edit, drag-and-drop, delete, or dismiss).
 
@@ -55,7 +57,7 @@ Reminders are derived state — computed from `jobs` on every render via the `co
 App
 ├── Sidebar (isOpen, onToggle)
 ├── Header (searchValue, onSearchChange, onAddJob, onToggleReminderDrawer, reminderCount)
-├── KanbanBoard (jobs, onBoardUpdate, onDeleteJob, onEditJob, onViewJob)
+├── KanbanBoard (filteredJobs, onBoardUpdate, onDeleteJob, onEditJob, onViewJob)
 ├── JobModal (isOpen, onClose, onSubmit, initialData)
 ├── JobProfileCard (isOpen, onClose, job)
 └── ReminderDrawer (isOpen, onClose, reminders, reminderCount, onDismiss, onDismissAll, onViewJob)
