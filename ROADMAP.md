@@ -214,72 +214,10 @@ working and dismissable, and PWA criteria met.
     operations in `api.php`. Text input added to `JobModal.jsx`. Add salary to the list
     of fields that can be searched using the search bar in `Header.jsx`.
 
-    Write a migration that extracts the salary from existing job notes into the new field,
-    then removes all text up to `========== TECHNOLOGY ==========` from every job's notes.
-    Use the notes template format (with surrounding separators and line breaks) to locate
-    the salary block:
-    ```
-    ============= SALARY =============
-    $130,000 - $150,000
-
-    ========== TECHNOLOGY ===========
-    ```
-    The migration should capture the line between `SALARY` and `TECHNOLOGY` separators as
-    the salary value, then strip everything from the top of notes through the
-    `========== TECHNOLOGY ==========` line (inclusive, plus trailing newline).
-
-    In `JobModal.jsx`, change the default notes template from:
-    ```
-    notes: '============= SALARY =============\n\n\n========== TECHNOLOGY ===========\n\n\n============ COMPANY ============\n',
-    ```
-    to:
-    ```
-    notes: '========== TECHNOLOGY ===========\n\n\n============ COMPANY ============\n',
-    ```
-
     Done when: The `salary` column exists and is read/written via the API. The modal has a
-    salary text input. Existing jobs have their salary extracted into the new field and
-    notes cleaned up. New jobs no longer include salary in their default notes template.
+    salary text input. Kanaban board can be searched by salary value.
 
-- [ ] **3.14 - Add toggle to hide applications older than 1 month**
-    
-    Add a toggle control to `Header.jsx` (or near the search bar) labeled something like
-    "Hide old applications". When enabled, any job card with `status = 'Applied'` and
-    `date_applied` older than 1 month should be hidden from the Kanban board.
-
-    Jobs hidden by this toggle should also remain hidden when searching — the filter
-    applies before search filtering. If the toggle is disabled, all jobs are visible
-    regardless of age.
-
-    Done when: The toggle exists and works in the header area. Applied jobs older than 1
-    month disappear from the board when enabled. Re-enabling shows them again. Search
-    results respect the toggle — hidden jobs don't appear in search either.
-
-- [ ] **3.15 - Auto-update fields on related changes**
-    
-    In `JobModal.jsx`, implement logic that auto-updates the status dropdown when certain
-    date fields are set: if `followed_up_date` is filled and status is "Applied", switch
-    status to "Followed Up"; if `interview_date` is filled and status is "Applied", switch
-    status to "Interviewing". The auto-change happens in the modal before save - the user
-    can still override it before submitting.
-
-    Additionally, implement a backend-only rule in `api.php`: when a card's status changes
-    to "Followed Up" via drag-and-drop and `followed_up_date` is not already set, auto-set
-    it to the current date on save. This is the only scenario where `followed_up_date`
-    should be auto-set — specifically when the current `status` is "Applied" and
-    `followed_up_date` is null/empty. If a date already exists, it must not be overwritten.
-
-    > **Implementation note:** The drag-to-update feature requires backend work only. No
-    > frontend changes are needed beyond what's already in place for drag-and-drop status
-    > updates.
-
-    Done when: Setting a followed-up date on an Applied job auto-selects "Followed Up" in
-    the dropdown. Setting an interview date on an Applied job auto-selects "Interviewing".
-    Dragging an Applied card to "Followed Up" with no existing `followed_up_date` auto-sets
-    it to today's date. Manual override works for all cases. Other status transitions are
-    unaffected.
-
-- [ ] **3.16 - Mobile UI improvements**
+- [ ] **3.14 - Mobile UI improvements**
 
     Make the app look and work well on mobile/tablet screens while keeping the desktop
     layout unchanged. All changes are gated behind Tailwind responsive breakpoints (e.g.
@@ -316,6 +254,44 @@ working and dismissable, and PWA criteria met.
     buttons show only icons on mobile/tablet. Mobile portrait header uses a two-row layout
     (title | search+buttons). Desktop layout is identical to pre-change behaviour. No visual
     regressions at any breakpoint.
+
+- [ ] **3.15 - Add toggle to hide applications older than 1 month**
+    
+    Add a toggle control to `Header.jsx` (or near the search bar) labeled something like
+    "Hide old applications". When enabled, any job card with `status = 'Applied'` and
+    `date_applied` older than 1 month should be hidden from the Kanban board.
+
+    Jobs hidden by this toggle should also remain hidden when searching — the filter
+    applies before search filtering. If the toggle is disabled, all jobs are visible
+    regardless of age.
+
+    Done when: The toggle exists and works in the header area. Applied jobs older than 1
+    month disappear from the board when enabled. Re-enabling shows them again. Search
+    results respect the toggle — hidden jobs don't appear in search either.
+
+- [ ] **3.16 - Auto-update fields on related changes**
+    
+    In `JobModal.jsx`, implement logic that auto-updates the status dropdown when certain
+    date fields are set: if `followed_up_date` is filled and status is "Applied", switch
+    status to "Followed Up"; if `interview_date` is filled and status is "Applied", switch
+    status to "Interviewing". The auto-change happens in the modal before save - the user
+    can still override it before submitting.
+
+    Additionally, implement a backend-only rule in `api.php`: when a card's status changes
+    to "Followed Up" via drag-and-drop and `followed_up_date` is not already set, auto-set
+    it to the current date on save. This is the only scenario where `followed_up_date`
+    should be auto-set — specifically when the current `status` is "Applied" and
+    `followed_up_date` is null/empty. If a date already exists, it must not be overwritten.
+
+    > **Implementation note:** The drag-to-update feature requires backend work only. No
+    > frontend changes are needed beyond what's already in place for drag-and-drop status
+    > updates.
+
+    Done when: Setting a followed-up date on an Applied job auto-selects "Followed Up" in
+    the dropdown. Setting an interview date on an Applied job auto-selects "Interviewing".
+    Dragging an Applied card to "Followed Up" with no existing `followed_up_date` auto-sets
+    it to today's date. Manual override works for all cases. Other status transitions are
+    unaffected.
 
 - [ ] **3.17 - PWA configuration**
     
