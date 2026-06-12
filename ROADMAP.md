@@ -279,14 +279,43 @@ working and dismissable, and PWA criteria met.
     it to today's date. Manual override works for all cases. Other status transitions are
     unaffected.
 
-- [ ] **3.16 - Cleanup and polish**
-    
-    Remove old flat list and form code from `App.jsx` superseded by the kanban. Review
-    all components for consistent Tailwind styling and no visual rough edges. Verify the
-    sidebar collapse/expand works correctly at all viewport sizes. Fix any issues found.
+- [ ] **3.16 - Mobile UI improvements**
 
-    Done when: No dead code remains in `App.jsx`. All components are visually consistent.
-    Sidebar toggle works at all screen sizes. No obvious UI bugs remain.
+    Make the app look and work well on mobile/tablet screens while keeping the desktop
+    layout unchanged. All changes are gated behind Tailwind responsive breakpoints (e.g.
+    `md:`, `sm:`) so desktop behaviour is unaffected.
+
+    **Sidebar overlay on mobile/tablet:**
+    On screens below or equal to tablet width, when the sidebar is expanded it should overlay content
+    with a backdrop layer instead of pushing the main area to the right. The collapsed
+    sidebar (~w-16 strip with hamburger icon) remains visible at all times as a thin left
+    edge — only the expanded state overlays. On screens above tablet width, keep the current push-layout.
+
+    **Sidebar collapsed by default on mobile/tablet:**
+    Default `sidebarOpen` to `false` on screens below or equal to tablet width so the narrow sidebar
+    strip is shown initially. Screens above tablet width keeps the current `true` default. Use a
+    responsive state or media query listener so resizing across breakpoints works.
+
+    **Icon-only buttons on mobile/tablet:**
+    In `Header.jsx`, hide the text labels on the two right-side buttons at tablet
+    breakpoints: "Follow-up Reminders" becomes just the `BellIcon` (with its badge), and
+    "Add Job" becomes just a `PlusIcon`. The buttons should still have `aria-label` for
+    accessibility. On screens above tablet size, keep the existing text+icon layout.
+
+    **Two-row header on mobile:**
+    On mobile/portrait size, restructure the header into two rows:
+    - Row 1 (full-width): "Job Tracking Board" title
+    - Row 2 (full-width): search bar at ~66% width, icon-only buttons at ~33% width side by side
+    Use flex-col with `justify-between` so the rows space nicely. Reduce padding and font sizes
+    as needed to fit everything cleanly.
+
+    Tablet landscape and desktop layouts are unchanged — same three-column single-row header.
+
+    Done when: The collapsed sidebar (~w-16) is always visible on mobile/tablet. Expanding it
+    overlays content with a backdrop. Sidebar is collapsed by default on those screens. Header
+    buttons show only icons on mobile/tablet. Mobile portrait header uses a two-row layout
+    (title | search+buttons). Desktop layout is identical to pre-change behaviour. No visual
+    regressions at any breakpoint.
 
 - [ ] **3.17 - PWA configuration**
     
