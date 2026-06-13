@@ -9,7 +9,7 @@ description: A dialog form for creating or editing a job entry, built with `@hea
 
 ## What it renders
 
-Form fields: Company (required), Position (required), Status (select dropdown), Followed Up Date (date input + clear button), Interview Date (datetime-local input + clear button), Source, Job Posting URL (text input), Notes (textarea).
+Form fields: Company (required), Position (required), Salary (optional text input), Status (select dropdown), Followed Up Date (date input + clear button), Interview Date (datetime-local input + clear button), Source, Job Posting URL (text input), Notes (textarea).
 
 ## Props
 
@@ -24,7 +24,7 @@ Form fields: Company (required), Position (required), Status (select dropdown), 
 
 | State | Type | Purpose |
 |---|---|---|
-| `formData` | `object` | Form field values: company, position, status, followed_up_date, interview_date, notes, hyperlink, source |
+| `formData` | `object` | Form field values: company, position, salary, status, followed_up_date, interview_date, notes, hyperlink, source |
 
 ## Side effects
 

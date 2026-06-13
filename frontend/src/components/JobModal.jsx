@@ -13,6 +13,7 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
     notes: '',
     hyperlink: '',
     source: '',
+    salary: '',
   })
 
   useEffect(() => {
@@ -30,6 +31,7 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
         notes: initialData.notes || '',
         hyperlink: initialData.hyperlink || '',
         source: initialData.source || '',
+        salary: initialData.salary || '',
       })
     } else {
       setFormData({
@@ -38,9 +40,10 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
         status: 'Applied',
         followed_up_date: null,
         interview_date: null,
-        notes: '============= SALARY =============\n\n\n========== TECHNOLOGY ===========\n\n\n============ COMPANY ============\n',
+        notes: '',
         hyperlink: '',
         source: '',
+        salary: '',
       })
     }
   }, [initialData])
@@ -104,6 +107,17 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
                     value={formData.position}
                     onChange={(e) => setFormData({ ...formData, position: e.target.value })}
                     placeholder="Software Engineer"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Salary</label>
+                  <input
+                    type="text"
+                    value={formData.salary}
+                    onChange={(e) => setFormData({ ...formData, salary: e.target.value })}
+                    placeholder="e.g. $80,000"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>

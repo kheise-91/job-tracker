@@ -30,6 +30,6 @@ App (App.jsx)
 | [Header](Header.md) | White top bar with three-section flex layout (30/40/30): title, search input, "Follow-up Reminders" button, and "Add Job" button. Fully controlled by parent. |
 | [KanbanBoard](KanbanBoard.md) | Horizontal-scrollable Kanban board using `react-kanban-kit` with six status columns and drag-and-drop support. |
 | [JobCard](JobCard.md) | White card showing job details, date badges, and action buttons. Uses `createPortal` for notes tooltip. |
-| [JobModal](JobModal.md) | Dialog form for creating or editing a job entry, built with `@headlessui/react`. |
+| [JobModal](JobModal.md) | Dialog form for creating or editing a job entry, built with `@headlessui/react`, includes fields for company, position, salary, status, dates, source, URL, and notes. |
 | [JobProfileCard](JobProfileCard.md) | View-only modal displaying job details in a profile card layout with a status-matched gradient hero header, icon-labeled field grid, notes section, and ESC/backdrop close handling. |
 | [ReminderDrawer](ReminderDrawer.md) | Right-side sliding drawer panel for displaying and managing follow-up reminder alerts, with expand/collapse pagination (5-item default), slide-out dismiss animation (200ms opacity + translateX), and clickable reminder items that open the JobProfileCard — receives reminder data as props from App component. |
