@@ -49,6 +49,7 @@ Return all jobs, ordered by `status` then `order` ascending (per-column ordering
     "followed_up_date": null,
     "follow_up_dismissed": 0,
     "interview_date": null,
+    "salary": "120000",
     "source": "LinkedIn",
     "hyperlink": "https://acme.com/jobs/123",
     "notes": "Fast response time",
@@ -65,6 +66,7 @@ Return all jobs, ordered by `status` then `order` ascending (per-column ordering
 | id                   | integer  | Unique identifier                  |
 | company              | string   | Company name                       |
 | position             | string   | Job title                          |
+| salary               | string   | Salary/compensation data (nullable)|
 | status               | string   | Current status                     |
 | date_applied         | datetime | Application date                   |
 | followed_up_date     | datetime | When user followed up (nullable)   |
@@ -90,6 +92,7 @@ Create a new job entry. Automatically assigns the next available `order` value w
 |----------------------|-----------|----------|-------------|--------------------------------------|
 | company              | string    | Yes      | —           | Company name (trimmed)               |
 | position             | string    | Yes      | —           | Job title/position (trimmed)         |
+| salary               | string    | No       | `null`      | Salary/compensation data             |
 | status               | string    | No       | `"Applied"` | One of the valid status values       |
 | followed_up_date     | string/null | No     | `null`      | ISO datetime or null                 |
 | follow_up_dismissed  | boolean   | No       | `false`     | Normalized to 0/1 integer in storage |
@@ -110,6 +113,7 @@ Create a new job entry. Automatically assigns the next available `order` value w
   "followed_up_date": null,
   "follow_up_dismissed": 0,
   "interview_date": null,
+  "salary": null,
   "source": "",
   "hyperlink": "",
   "notes": "",
@@ -138,6 +142,7 @@ Partially update a single job. Only fields present in the request body are updat
 |----------------------|-----------|--------------------------------------------|
 | company              | string    | Trimmed before storage                     |
 | position             | string    | Trimmed before storage                     |
+| salary               | string    | Set to `null` if empty string              |
 | status               | string    | Must be one of the allowed statuses        |
 | followed_up_date     | string/null | Set to `null` if empty string or null    |
 | follow_up_dismissed  | boolean   | Normalized to 0/1                          |
@@ -158,6 +163,7 @@ Partially update a single job. Only fields present in the request body are updat
   "followed_up_date": "2026-05-22 09:00:00",
   "follow_up_dismissed": 0,
   "interview_date": "2026-05-28 14:00:00",
+  "salary": "150000",
   "source": "LinkedIn",
   "hyperlink": "https://acme.com/jobs/123",
   "notes": "Technical round next week",
