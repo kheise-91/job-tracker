@@ -10,11 +10,6 @@ You are in `plan` mode. Do not write, modify, or delete any files.
 
 The issue number is: $issueNumber.
 
-**Scope Boundary**
-The plan must cover only what this issue's title, body, and acceptance criteria describe. The milestone description and ROADMAP.md are organisational context - not implementation scope. Do not plan work that belongs to other issues in this milestone. The acceptance criteria in this issue are the complete definition of done.
-
-Pass this same scope boundary to every agent you spawn.
-
 ---
 
 ## Step 1 - Fetch the issue
@@ -58,7 +53,12 @@ Read the issue carefully and determine:
 
 ## Step 5 - Build the plan
 
-Write a structured implementation plan. Delegate work to the appropriate agents:
+Write a structured implementation plan. Delegate work to the appropriate agents.
+
+**Scope Boundary**
+The plan must cover only what this issue's title, body, and acceptance criteria describe. The milestone description and ROADMAP.md are organisational context - not implementation scope. Do not plan work that belongs to other issues in this milestone. The acceptance criteria in this issue are the complete definition of done.
+
+Pass this same scope boundary to every agent you spawn.
 
 **`backend-engineer` agent**
 Handles all work inside `backend/`: database schema changes in `db.php`, API endpoint logic in `api.php`, and any other server-side PHP. Only spawned if the issue requires backend changes. 
