@@ -225,7 +225,7 @@ export default function JobProfileCard({ job, isOpen, onClose }) {
               <div className="text-xs text-gray-500 font-medium">Notes</div>
             </div>
             <div className="text-sm text-gray-900 leading-relaxed bg-gray-50 rounded-md p-3 whitespace-pre-wrap">
-              {displayValue(notes)}
+              {notes ?? <em className="text-gray-400">None added yet</em>}
             </div>
           </div>
 
