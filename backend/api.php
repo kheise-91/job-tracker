@@ -50,7 +50,7 @@ $requestPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 // =========================
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $requestPath === '/api/jobs') {
     $sql = "
-        SELECT id, company, position, status, date_applied, followed_up_date, follow_up_dismissed, interview_date, `source`, hyperlink, notes, `order`, updated_at FROM jobs
+        SELECT id, company, position, salary, status, date_applied, followed_up_date, follow_up_dismissed, interview_date, `source`, hyperlink, notes, `order`, updated_at FROM jobs
         ORDER BY
             CASE status
                 WHEN 'Wishlist' THEN 1
@@ -80,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $requestPath === '/api/jobs') {
 
     $company = trim($input['company'] ?? '');
     $position = trim($input['position'] ?? '');
+    $salary = trim($input['salary'] ?? '');
     $status = $input['status'] ?? 'Applied';
     $followedUpDate = $input['followed_up_date'] ?? null;
     $followUpDismissed = $input['follow_up_dismissed'] ?? false;
@@ -115,6 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $requestPath === '/api/jobs') {
         INSERT INTO jobs (
             company,
             position,
+            salary,
             status,
             followed_up_date,
             follow_up_dismissed,
@@ -123,12 +125,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $requestPath === '/api/jobs') {
             hyperlink,
             notes,
             `order`
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ");
 
     $stmt->execute([
         $company,
         $position,
+        $salary,
         $status,
         $followedUpDate,
         $followUpDismissed,
@@ -228,6 +231,11 @@ if (
     if (array_key_exists('position', $input)) {
         $updates[] = 'position = ?';
         $params[] = trim($input['position']);
+    }
+
+    if (array_key_exists('salary', $input)) {
+        $updates[] = 'salary = ?';
+        $params[] = trim($input['salary']);
     }
 
     if (array_key_exists('status', $input)) {
