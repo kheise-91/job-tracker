@@ -104,4 +104,4 @@ The frontend is baked into the Docker image at build time - changes to the React
 
 ## Project Documentation
 
-See [`docs/README.md`](/docs/README.md) for project related documentation (including API endpoints, React components, database schema, AI/Claude guides, and the project development workflow).
+See [`docs/README.md`](docs/README.md) for project related documentation (including API endpoints, React components, database schema, AI/Claude guides, and the project development workflow).

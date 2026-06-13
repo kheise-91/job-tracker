@@ -29,7 +29,6 @@ None — this is the top-level component.
 | `drawerOpen` | `boolean` | ReminderDrawer open/close toggle |
 | `profileCardOpen` | `boolean` | JobProfileCard open/close toggle |
 | `viewingJob` | `Job \| null` | The job being viewed in the profile card |
-| `drawerOpen` | `boolean` | ReminderDrawer open/close toggle |
 
 Reminders are derived state — computed from `jobs` on every render via the `computeReminders(jobs, today)` helper function above the `App` component. This ensures reminders always stay in sync with job data regardless of how jobs are modified (modal edit, drag-and-drop, delete, or dismiss).
 

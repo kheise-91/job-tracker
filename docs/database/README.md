@@ -31,6 +31,7 @@ Stores individual job application entries for tracking through the hiring pipeli
 | `id`                 | INTEGER   | PRIMARY KEY, AUTOINCREMENT   | —                       | Unique auto-incrementing ID      |
 | `company`            | TEXT      | NOT NULL                     | —                       | Company name                     |
 | `position`           | TEXT      | NOT NULL                     | —                       | Job title/position               |
+| `salary`             | TEXT      | NOT NULL                     | `''`                    | Salary/compensation data         |
 | `status`             | TEXT      | NOT NULL                     | `'Applied'`             | Pipeline stage                   |
 | `date_applied`       | DATETIME  | —                            | `CURRENT_TIMESTAMP`     | When the job was created         |
 | `followed_up_date`   | DATETIME  | —                            | `NULL`                  | Date of last follow-up           |
