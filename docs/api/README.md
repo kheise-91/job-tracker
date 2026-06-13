@@ -92,7 +92,7 @@ Create a new job entry. Automatically assigns the next available `order` value w
 |----------------------|-----------|----------|-------------|--------------------------------------|
 | company              | string    | Yes      | —           | Company name (trimmed)               |
 | position             | string    | Yes      | —           | Job title/position (trimmed)         |
-| salary               | string    | No       | —           | Salary/compensation data             |
+| salary               | string    | No       | `""`        | Salary/compensation data (trimmed)   |
 | status               | string    | No       | `"Applied"` | One of the valid status values       |
 | followed_up_date     | string/null | No     | `null`      | ISO datetime or null                 |
 | follow_up_dismissed  | boolean   | No       | `false`     | Normalized to 0/1 integer in storage |
