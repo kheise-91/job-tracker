@@ -5,6 +5,7 @@ import {
   UserIcon,
   NewspaperIcon,
   LinkIcon,
+  CurrencyDollarIcon,
   PencilIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
@@ -93,6 +94,7 @@ export default function JobProfileCard({ job, isOpen, onClose }) {
   const followedUp = job.followed_up_date ? formatDate(job.followed_up_date) : null
   const interviewDate = job.interview_date ? formatDateTime(job.interview_date) : null
   const source = job.source || null
+  const salary = job.salary || null
   const hyperlink = job.hyperlink || null
   const notes = job.notes || null
 
@@ -181,6 +183,17 @@ export default function JobProfileCard({ job, isOpen, onClose }) {
               </div>
             </div>
 
+            {/* Salary */}
+            <div className="flex items-start gap-2.5">
+              <CurrencyDollarIcon className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
+              <div>
+                <div className="text-xs text-gray-500 font-medium">Salary</div>
+                <div className="text-sm text-gray-900 mt-0.5">
+                  {displayValue(salary)}
+                </div>
+              </div>
+            </div>
+
             {/* Hyperlink (full width) */}
             <div className="flex items-start gap-2.5 col-span-2">
               <LinkIcon className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
@@ -212,7 +225,7 @@ export default function JobProfileCard({ job, isOpen, onClose }) {
               <div className="text-xs text-gray-500 font-medium">Notes</div>
             </div>
             <div className="text-sm text-gray-900 leading-relaxed bg-gray-50 rounded-md p-3 whitespace-pre-wrap">
-              {displayValue(notes)}
+              {notes ?? <em className="text-gray-400">None added yet</em>}
             </div>
           </div>
 

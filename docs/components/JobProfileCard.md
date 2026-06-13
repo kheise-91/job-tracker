@@ -12,7 +12,7 @@ description: A view-only modal displaying job details in a profile card layout w
 A modal overlay with a centered card (`max-w-lg`) containing:
 
 - **Hero Header** — status-matched gradient background (dark-to-darker shade per status) with company name (large, bold), position name, and a status badge using the light variant of the matching status color.
-- **Two-column field grid** — icon-labeled rows for Date Applied (CalendarIcon), Followed Up (BellIcon), Interview Date (UserIcon), Source (NewspaperIcon).
+- **Two-column field grid** — icon-labeled rows for Date Applied (CalendarIcon), Followed Up (BellIcon), Interview Date (UserIcon), Source (NewspaperIcon), and Salary (CurrencyDollarIcon, row 3 left column).
 - **Full-width Hyperlink row** — LinkIcon with clickable URL that opens in a new tab.
 - **Notes section** — light grey background (`bg-gray-50`), rounded, with PencilIcon and a divider above.
 - **Close button** — positioned bottom-right with a divider above, includes XMarkIcon.
