@@ -80,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $requestPath === '/api/jobs') {
 
     $company = trim($input['company'] ?? '');
     $position = trim($input['position'] ?? '');
+    $salary = trim($input['salary'] ?? '');
     $status = $input['status'] ?? 'Applied';
     $followedUpDate = $input['followed_up_date'] ?? null;
     $followUpDismissed = $input['follow_up_dismissed'] ?? false;
@@ -93,7 +94,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $requestPath === '/api/jobs') {
     $interviewDate = $input['interview_date'] ?? null;
     $source = $input['source'] ?? '';
     $hyperlink = $input['hyperlink'] ?? '';
-    $salary = $input['salary'] ?? null;
     $notes = $input['notes'] ?? '';
 
     if (!$company || !$position) {
@@ -233,6 +233,11 @@ if (
         $params[] = trim($input['position']);
     }
 
+    if (array_key_exists('salary', $input)) {
+        $updates[] = 'salary = ?';
+        $params[] = trim($input['salary']);
+    }
+
     if (array_key_exists('status', $input)) {
         if (!in_array($input['status'], $allowedStatuses, true)) {
             sendJson([
@@ -277,11 +282,6 @@ if (
     if (array_key_exists('hyperlink', $input)) {
         $updates[] = 'hyperlink = ?';
         $params[] = $input['hyperlink'];
-    }
-
-    if (array_key_exists('salary', $input)) {
-        $updates[] = 'salary = ?';
-        $params[] = $input['salary'] === '' ? null : $input['salary'];
     }
 
     if (empty($updates)) {

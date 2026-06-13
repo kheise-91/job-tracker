@@ -21,7 +21,7 @@ try {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             company TEXT NOT NULL,
             position TEXT NOT NULL,
-            salary TEXT,
+            salary TEXT NOT NULL,
             status TEXT NOT NULL DEFAULT 'Applied',
             date_applied DATETIME DEFAULT CURRENT_TIMESTAMP,
             followed_up_date DATETIME DEFAULT NULL,
