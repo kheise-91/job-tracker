@@ -208,7 +208,7 @@ working and dismissable, and PWA criteria met.
     Done when: Typing in the search box filters visible cards across all columns in real
     time. Clearing the input restores all cards. Empty search shows all jobs.
 
-- [ ] **3.13 - Add salary field (and remove from notes)**
+- [x] **[3.13 - Add salary field (and remove from notes)](https://gitea.heise.home/kheise/ats/milestone/8)**
     
     Add a new `salary` TEXT column to `jobs` in `db.php`. Expose it in all API read/write
     operations in `api.php`. Text input added to `JobModal.jsx`. Add salary to the list
