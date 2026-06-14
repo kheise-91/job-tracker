@@ -219,41 +219,44 @@ working and dismissable, and PWA criteria met.
 
 - [ ] **3.14 - Mobile UI improvements**
 
-    Make the app look and work well on mobile/tablet screens while keeping the desktop
-    layout unchanged. All changes are gated behind Tailwind responsive breakpoints (e.g.
-    `md:`, `sm:`) so desktop behaviour is unaffected.
+    Make the app look and work well on mobile/tablet screens while keeping the 
+    desktop layout unchanged. All changes are gated behind Tailwind responsive 
+    breakpoints (e.g. `md:`, `sm:`) so desktop behaviour is unaffected. The very
+    first change that should happen: change "Follow-up reminders" button to only 
+    say "Reminders" (keep icon and badge) in the header. Then, the following visual 
+    changes should happen at the specified breakpoints.
 
-    **Sidebar overlay on mobile/tablet:**
-    On screens below or equal to tablet width, when the sidebar is expanded it should overlay content
-    with a backdrop layer instead of pushing the main area to the right. The collapsed
-    sidebar (~w-16 strip with hamburger icon) remains visible at all times as a thin left
-    edge — only the expanded state overlays. On screens above tablet width, keep the current push-layout.
+    **Laptops / Small desktops**
+    When the screen width gets to be **< 1200px**: Modify the "Reminders" button
+    in the header to only have the icon. Remove the text and badge. Modify the
+    "New Job" button to only have a plus sign icon from heroicons (no circle or
+    anything, just the icon). Make sure both buttons are exactly the same size.
+    Move the search bar to be the first element in the third column, set the third
+    column's width to be 66%, and delete the second column.
 
-    **Sidebar collapsed by default on mobile/tablet:**
-    Default `sidebarOpen` to `false` on screens below or equal to tablet width so the narrow sidebar
-    strip is shown initially. Screens above tablet width keeps the current `true` default. Use a
-    responsive state or media query listener so resizing across breakpoints works.
+    **Tablets**
+    When the screen width gets to **< 992px**: The left menu should no longer push
+    other elements over. The menu should overlay the elements instead and sit on top,
+    while keeping the same width as normal No backdrop is necessary. This will be the
+    tablet view, which is too big for the bottom nav with full screen menu, but too 
+    small to have elements squished from a menu that's opening.
 
-    **Icon-only buttons on mobile/tablet:**
-    In `Header.jsx`, hide the text labels on the two right-side buttons at tablet
-    breakpoints: "Follow-up Reminders" becomes just the `BellIcon` (with its badge), and
-    "Add Job" becomes just a `PlusIcon`. The buttons should still have `aria-label` for
-    accessibility. On screens above tablet size, keep the existing text+icon layout.
+    **Smartphones (Landscape and Portrait)**
+    When the screen gets to **< 768px**: Implement a bottom nav bar (mobile-style). 
+    This new nav bar should have the same background color as the current navbar, 
+    and will have 3 buttons. The first (left) button will be "Menu" (with icon). 
+    This will open the left side menu now. The second (middle) button will be the 
+    "Add Job" button, with a plus icon in a cirlce (background primary with white 
+    font). This button should have primary colored text. The third (right) button 
+    will be the "Reminders" button. This should have a bell icon with a badge 
+    implemented in the icon (or sitting over the icon if necessary) with the number 
+    of reminders. The left nav should be hidden, and the left side menu will be 
+    fullscreen when expanded from the bottom nav. The "Follow-up Reminders" drawer 
+    should also be  fullscreen when it's expanded in this view. The text and the 
+    buttons in the header should be hidden. Only the search bar should show at 
+    this screen-width, and the search bar should be full-width.
 
-    **Two-row header on mobile:**
-    On mobile/portrait size, restructure the header into two rows:
-    - Row 1 (full-width): "Job Tracking Board" title
-    - Row 2 (full-width): search bar at ~66% width, icon-only buttons at ~33% width side by side
-    Use flex-col with `justify-between` so the rows space nicely. Reduce padding and font sizes
-    as needed to fit everything cleanly.
-
-    Tablet landscape and desktop layouts are unchanged — same three-column single-row header.
-
-    Done when: The collapsed sidebar (~w-16) is always visible on mobile/tablet. Expanding it
-    overlays content with a backdrop. Sidebar is collapsed by default on those screens. Header
-    buttons show only icons on mobile/tablet. Mobile portrait header uses a two-row layout
-    (title | search+buttons). Desktop layout is identical to pre-change behaviour. No visual
-    regressions at any breakpoint.
+    Done when: All visual criteria listed above are met at the correct breakpoints.
 
 - [ ] **3.15 - Add toggle to hide applications older than 1 month**
     
