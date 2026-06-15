@@ -27,7 +27,7 @@ App (App.jsx)
 |-----------|-------------|
 | [App](App.md) | Root component — renders the application shell and owns all application state. |
 | [Sidebar](Sidebar.md) | Dark-themed vertical navigation panel with logo, title, and nav links. Fully controlled by parent. |
-| [Header](Header.md) | White top bar with three-section flex layout (30/40/30): title, search input, "Follow-up Reminders" button, and "Add Job" button. Fully controlled by parent. |
+| [Header](Header.md) | White top bar with title, search input, "Reminders" button, and "Add Job" button. Responsive: collapses to icon-only buttons and moves search into the third column below 1200px. Fully controlled by parent. |
 | [KanbanBoard](KanbanBoard.md) | Horizontal-scrollable Kanban board using `react-kanban-kit` with six status columns and drag-and-drop support. |
 | [JobCard](JobCard.md) | White card showing job details, date badges, and action buttons. Uses `createPortal` for notes tooltip. |
 | [JobModal](JobModal.md) | Dialog form for creating or editing a job entry, built with `@headlessui/react`, includes fields for company, position, salary, status, dates, source, URL, and notes. |
