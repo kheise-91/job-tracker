@@ -18,7 +18,7 @@ function Header({ searchValue, onSearchChange, onAddJob, onToggleReminderDrawer,
           />
         </div>
       </div>
-      <div className="w-[66%] xl:w-[30%] flex items-center gap-2">
+      <div className="w-[66%] xl:w-[30%] flex items-center justify-end gap-2">
         {/* Search bar — visible only below 1200px, positioned first in third column */}
         <div className="relative xl:hidden flex-1">
           <MagnifyingGlassIcon className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -44,7 +44,7 @@ function Header({ searchValue, onSearchChange, onAddJob, onToggleReminderDrawer,
         {/* Add Job button — icon only below 1200px, full button at desktop */}
         <button
           onClick={onAddJob}
-          className="bg-primary text-white rounded-md hover:bg-primary-dark font-medium transition-colors cursor-pointer text-sm flex items-center justify-center gap-1 xl:px-4 xl:py-2 p-2"
+          className="bg-primary text-white rounded-md hover:bg-primary-dark font-medium transition-colors cursor-pointer text-sm flex items-center justify-center gap-1 xl:px-4 xl:py-[10px] p-2"
         >
           <PlusIcon className="w-5 h-5 flex-shrink-0" />
           <span className="hidden xl:inline">Add Job</span>
