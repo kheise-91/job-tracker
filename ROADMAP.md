@@ -239,7 +239,9 @@ working and dismissable, and PWA criteria met.
     other elements over. The menu should overlay the elements instead and sit on top,
     while keeping the same width as normal No backdrop is necessary. This will be the
     tablet view, which is too big for the bottom nav with full screen menu, but too 
-    small to have elements squished from a menu that's opening.
+    small to have elements squished from a menu that's opening. At this screen-width,
+    kanban columns should take up 50% of the screen (not including the collapsed side
+    nav).
 
     **Smartphones (Landscape and Portrait)**
     When the screen gets to **< 768px**: Implement a bottom nav bar (mobile-style). 
@@ -254,7 +256,8 @@ working and dismissable, and PWA criteria met.
     fullscreen when expanded from the bottom nav. The "Follow-up Reminders" drawer 
     should also be  fullscreen when it's expanded in this view. The text and the 
     buttons in the header should be hidden. Only the search bar should show at 
-    this screen-width, and the search bar should be full-width.
+    this screen-width, and the search bar should be full-width. At this screen-width,
+    kanban columns should take up 100% of the screen.
 
     Done when: All visual criteria listed above are met at the correct breakpoints.
 
