@@ -20,7 +20,7 @@ function computeReminders(jobs, today) {
 }
 
 function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(() => window.matchMedia('(min-width: 1024px)').matches)
+  const [sidebarOpen, setSidebarOpen] = useState(window.matchMedia('(min-width: 1024px)').matches)
   const [searchQuery, setSearchQuery] = useState('')
   const [jobs, setJobs] = useState([])
   const [loading, setLoading] = useState(true)
@@ -41,6 +41,10 @@ function App() {
         (job.position || '').toLowerCase().includes(q)
     )
   }, [jobs, searchQuery])
+
+  useEffect(() => {
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => setSidebarOpen(e.matches))
+  }, [])
 
   useEffect(() => {
     fetchJobs()
@@ -189,9 +193,8 @@ function App() {
 
   return (
     <div className="flex h-screen bg-gray-100 relative">
-      <aside className={`${sidebarOpen ? 'w-72 absolute lg:relative' : 'w-16 relative'} transition-all duration-200
-        inset-0 z-50
-         lg:z-auto lg:flex-shrink-0`}>
+      <aside className={`lg:hidden relative w-16 z-25`}></aside>
+      <aside className={`${sidebarOpen ? 'w-72 absolute lg:relative' : 'w-16 absolute lg:relative'} transition-all duration-200 inset-0 z-50 overflow-hidden`}>
         <Sidebar
           isOpen={sidebarOpen}
           onToggle={() => setSidebarOpen(!sidebarOpen)}
