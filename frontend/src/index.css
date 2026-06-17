@@ -70,6 +70,14 @@ button.bg-primary-darkest:disabled {
   max-width: 290px;
 }
 
+@media (max-width: 1023px) {
+  .rkk-column-outer {
+    min-width: 0;
+    max-width: none;
+    width: 28vw;
+  }
+}
+
 .rkk-column {
   background-color: unset !important;
 }
