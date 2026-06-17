@@ -5,6 +5,7 @@ import KanbanBoard from './components/KanbanBoard'
 import JobModal from './components/JobModal'
 import JobProfileCard from './components/JobProfileCard'
 import ReminderDrawer from './components/ReminderDrawer'
+import BottomNav from './components/BottomNav'
 
 function computeReminders(jobs, today) {
   return jobs
@@ -193,8 +194,8 @@ function App() {
 
   return (
     <div className="flex h-screen bg-gray-100 relative">
-      <aside className={`lg:hidden relative w-16 z-25`}></aside>
-      <aside className={`${sidebarOpen ? 'w-72 absolute lg:relative' : 'w-16 absolute lg:relative'} transition-all duration-200 inset-0 z-50 overflow-hidden`}>
+      <aside className={`relative hidden md:block lg:hidden w-16 z-25`}></aside>
+      <aside className={`${sidebarOpen ? 'w-72 absolute lg:relative' : 'w-16 absolute lg:relative hidden md:block'} transition-all duration-200 inset-0 z-50 overflow-hidden`}>
         <Sidebar
           isOpen={sidebarOpen}
           onToggle={() => setSidebarOpen(!sidebarOpen)}
@@ -248,6 +249,13 @@ function App() {
             onDismiss={handleDismissReminder}
             onDismissAll={handleDismissAllReminders}
             onViewJob={handleViewJob}
+          />
+
+          <BottomNav
+            onToggle={() => setSidebarOpen(!sidebarOpen)}
+            onAddJob={handleAddJob}
+            onToggleReminderDrawer={handleToggleReminderDrawer}
+            reminderCount={reminders.length}
           />
         </main>
       </div>
