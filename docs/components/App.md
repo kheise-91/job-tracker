@@ -19,7 +19,7 @@ None — this is the top-level component.
 
 | State | Type | Purpose |
 |---|---|---|
-| `sidebarOpen` | `boolean` | Sidebar expanded/collapsed toggle |
+| `sidebarOpen` | `boolean` | Sidebar expanded/collapsed toggle — initialized from `window.matchMedia('(min-width: 1024px)').matches` and synced on breakpoint changes via a `useEffect` listener |
 | `searchQuery` | `string` | Value of the header search input — case-insensitive substring filter applied to `company` and `position` fields |
 | `jobs` | `Job[]` | Full job list fetched from `/api/jobs` |
 | `filteredJobs` | `Job[]` | Derived from `jobs` via `useMemo` — filters by `searchQuery` (case-insensitive substring match on `company` OR `position`); returns all jobs when `searchQuery` is empty |
@@ -35,6 +35,7 @@ Reminders are derived state — computed from `jobs` on every render via the `co
 ## Side effects
 
 - `useEffect([])` — calls `fetchJobs()` once on mount to load all jobs from the API.
+- `useEffect([])` — registers a `matchMedia('(min-width: 1024px)')` change listener that syncs `sidebarOpen` to `e.matches` on breakpoint transitions.
 
 ## Key handlers
 
@@ -54,12 +55,16 @@ Reminders are derived state — computed from `jobs` on every render via the `co
 
 ```
 App
-├── Sidebar (isOpen, onToggle)
-├── Header (searchValue, onSearchChange, onAddJob, onToggleReminderDrawer, reminderCount)
-├── KanbanBoard (filteredJobs, onBoardUpdate, onDeleteJob, onEditJob, onViewJob)
-├── JobModal (isOpen, onClose, onSubmit, initialData)
-├── JobProfileCard (isOpen, onClose, job)
-└── ReminderDrawer (isOpen, onClose, reminders, reminderCount, onDismiss, onDismissAll, onViewJob)
+└── div.flex.h-screen.bg-gray-100.relative          // layout wrapper
+    ├── aside.lg:hidden.relative.w-16.z-25           // placeholder for 16px gutter at < 1024px
+    ├── aside (sidebar)
+    │   └── Sidebar (isOpen, onToggle)
+    └── div.flex-1.flex.flex-col.overflow-hidden     // main content area
+        ├── Header (searchValue, onSearchChange, onAddJob, onToggleReminderDrawer, reminderCount)
+        ├── KanbanBoard (filteredJobs, onBoardUpdate, onDeleteJob, onEditJob, onViewJob)
+        ├── JobModal (isOpen, onClose, onSubmit, initialData)
+        ├── JobProfileCard (isOpen, onClose, job)
+        └── ReminderDrawer (isOpen, onClose, reminders, reminderCount, onDismiss, onDismissAll, onViewJob)
 ```
 
 ## State management pattern

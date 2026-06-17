@@ -27,7 +27,7 @@ None — fully controlled by parent.
 ## Responsive Behavior
 
 ### Desktop (>= 1024px)
-- Sidebar sits in the flex layout as `flex-shrink-0`.
+- Sidebar is positioned `lg:relative` (and `lg:hidden` placeholder aside preserves the 16px gutter), sitting within the flex layout.
 - Expands/collapses normally, pushing content when toggled.
 - Default state: **open** (expanded).
 
@@ -40,7 +40,7 @@ None — fully controlled by parent.
 
 ## Side effects
 
-None.
+None — the sidebar component itself is stateless. Its default open/collapsed state responds to window resize via a `matchMedia` breakpoint listener (`(min-width: 1024px)`) defined in the parent `App` component.
 
 ## Notes
 
