@@ -2,7 +2,7 @@
 name: Sidebar
 title: Sidebar Component
 file: `frontend/src/components/Sidebar.jsx`
-description: A dark-themed vertical navigation panel with logo, title, and nav links. Fully controlled by parent. Overlays content at tablet sizes (< 1024px) instead of pushing layout.
+description: A dark-themed vertical navigation panel with logo, title, and nav links. Fully controlled by parent. Overlays content at tablet sizes (< 1024px) instead of pushing layout; fills full viewport width on mobile (< 768px) when expanded.
 ---
 
 # Sidebar
@@ -37,6 +37,10 @@ None — fully controlled by parent.
 - All other elements remain stationary when the sidebar expands or collapses.
 - Default state: **collapsed** (icon-only bar).
 - Sidebar maintains its normal width (`w-72` = 288px) when expanded in overlay mode.
+
+### Mobile (< 768px)
+- Sidebar uses `w-0` when collapsed, `w-full` when expanded — fills the entire viewport width.
+- `h-full` ensures the sidebar fills the viewport height.
 
 ## Side effects
 

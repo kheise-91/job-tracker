@@ -37,6 +37,19 @@ None. All derived from props via `useMemo`.
 - `dataSourceToJobs(dataSource, existingJobs)` — reverse transform, defined but never called.
 - `persistBoardState(updatedJobs)` — serializes job IDs by column and sends reorder API call; logic is duplicated inline in `handleCardMove`.
 
+## Responsive column widths (CSS)
+
+Kanban column widths are controlled via media queries in `index.css`:
+
+| Breakpoint | Column width | Notes |
+|---|---|---|
+| >= 1024px | `minmax(280px, 1fr)` | Default — columns share space equally with minimum 280px |
+| 768px – 1023px | `minmax(280px, 48vw)` | Narrowed to prevent horizontal overflow on tablets |
+| 576px – 767px | `minmax(280px, 46vw)` | Further narrowed for small phones in landscape |
+| < 576px | `minmax(280px, 43vw)` | Narrowest — small phones in portrait |
+
+At all breakpoints, columns remain horizontally scrollable via `overflow-x-auto` on the board container.
+
 ## Notable patterns
 
 Uses `useMemo` to build a `configMap` that maps column type strings to rendering configs. Status columns are non-draggable with colored headers; job-card nodes are draggable and render `<JobCard>`.

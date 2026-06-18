@@ -2,7 +2,7 @@
 name: Header
 title: Header Component
 file: `frontend/src/components/Header.jsx`
-description: A white top bar with app title, search input, "Reminders" button, and "Add Job" button. Responsive layout collapses to icon-only buttons and moves search into the third column below 1200px. Fully controlled by parent state.
+description: A white top bar with app title, search input, "Reminders" button, and "Add Job" button. Responsive layout: icon-only buttons below 1200px, title hidden below 768px, search full-width below 768px. Fully controlled by parent state.
 ---
 
 # Header
@@ -49,11 +49,25 @@ None.
 
 ## Responsive behavior
 
-Uses Tailwind's `xl:` prefix (1200px breakpoint):
-- `hidden xl:block` — hides the second column (search container) below 1200px
-- `hidden xl:inline` — hides button text and badge below 1200px
-- `w-[66%] xl:w-[30%]` — third column takes 66% below 1200px, reverts to 30% at desktop
-- Search bar appears twice in the markup: once in the second column (desktop) and once in the third column (mobile), each toggled via `xl:hidden` / `hidden xl:block`
+Uses Tailwind's `xl:` prefix (1200px breakpoint) and `md:` prefix (768px breakpoint):
+
+### Desktop (>= 1200px / `xl`)
+
+Three-column flex layout (30% / 40% / 30%) with full title, search bar, and labeled buttons.
+
+### Below 1200px but >= 768px (`md` – `xl`)
+
+Two-column flex layout (30% / 66%):
+- Second column hidden (`hidden xl:block`)
+- Search bar appears in third column (`hidden xl:block`)
+- Button text and badge hidden (`hidden xl:inline`), icon-only buttons
+- Third column takes 66% width (`w-[66%] xl:w-[30%]`)
+
+### Below 768px (`md`)
+
+- Title text hidden (`md:hidden`), leaving only search bar and icon-only buttons
+- Search bar takes full width (`w-[100%] md:w-[66%]`)
+- Button text and badge remain hidden
 
 ## Notes
 
