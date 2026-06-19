@@ -73,7 +73,7 @@ button.bg-primary-darkest:disabled {
   }
 }
 
-@media (min-width: 640px) (max-width: 767px) {
+@media (min-width: 640px) and (max-width: 767px) {
   .rkk-board {
     gap: 6px;
   }
