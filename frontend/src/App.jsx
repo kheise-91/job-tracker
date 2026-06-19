@@ -212,7 +212,7 @@ function App() {
         />
 
         <main className="flex-1 flex flex-col overflow-hidden">
-          <div className="flex-1 overflow-hidden px-6 pb-6">
+          <div className="flex-1 overflow-hidden px-2 sm:px-4 lg:px-6 pb-6">
             <KanbanBoard
               jobs={filteredJobs}
               onBoardUpdate={handleBoardUpdate}

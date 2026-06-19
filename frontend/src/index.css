@@ -61,42 +61,73 @@ button.bg-primary-darkest:disabled {
 /* ========================================= */
 /* REACT KANABAN KIT OVERRIDE STYLES         */
 /* ========================================= */
+
+/* BOARD*/
 .rkk-board {
   gap: 10px;
 }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  .rkk-board {
+    gap: 8px;
+  }
+}
+
+@media (min-width: 640px) (max-width: 767px) {
+  .rkk-board {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 639px) {
+  .rkk-board {
+    gap: 2px;
+  }
+}
+
+/* COLUMNS */
 .rkk-column-outer {
   min-width: 290px;
   max-width: 290px;
+}
+.rkk-column-outer .rkk-column {
+  background-color: unset !important;
+  padding: 10px;
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
   .rkk-column-outer {
     min-width: 0;
     max-width: none;
-    width: 28vw;
+    width: 29vw;
+  }
+  .rkk-column-outer .rkk-column {
+    padding: 8px;
   }
 }
 
-@media (min-width: 576px) and (max-width: 767px) {
+@media (min-width: 640px) and (max-width: 767px) {
   .rkk-column-outer {
     min-width: 0;
     max-width: none;
-    width: 46vw;
+    width: 31vw;
+  }
+  .rkk-column-outer .rkk-column {
+    padding: 6px;
   }
 }
 
-@media (max-width: 575px){
+@media (max-width: 639px) {
   .rkk-column-outer {
     min-width: 0;
     max-width: none;
-    width: 43vw;
+    width: 48vw;
+  }
+  .rkk-column-outer .rkk-column {
+    padding: 2px;
   }
 }
 
-.rkk-column {
-  background-color: unset !important;
-}
 .rkk-column.wishlist-status     {background-color: var(--color-wishlist-status-light) !important;}
 .rkk-column.applied-status       {background-color: var(--color-applied-status-light) !important;}
 .rkk-column.followed-up-status   {background-color: var(--color-followed-up-status-light) !important;}
