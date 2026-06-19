@@ -2,14 +2,36 @@
 name: JobModal
 title: Job Modal Component
 file: `frontend/src/components/JobModal.jsx`
-description: A dialog form for creating or editing a job entry, built with `@headlessui/react`.
+description: A compact grid dialog form for creating or editing a job entry, built with `@headlessui/react`.
 ---
 
 # JobModal
 
 ## What it renders
 
-Form fields: Company (required), Position (required), Salary (optional text input), Status (select dropdown), Followed Up Date (date input + clear button), Interview Date (datetime-local input + clear button), Source, Job Posting URL (text input), Notes (textarea).
+A modal dialog with a fixed header (title + close button), scrollable form content organized into sections, and a fixed footer (Cancel + Submit buttons). The form uses a compact grid layout: single column on mobile (< 768px), two columns on tablet+ (768px). Modal container is `max-w-5xl` with `max-h-[95vh]`.
+
+### Form Sections
+
+- **Basic Information** — Company (required), Position (required), Salary (optional text input), Status (select dropdown using `STATUSES` array)
+- **Dates** — Followed Up Date (date input + clear button), Interview Date (datetime-local input + clear button)
+- **Additional Details** — Source, Job Posting URL, Notes (textarea, full-width spanning both columns)
+
+### Layout Details
+
+| Breakpoint | Layout |
+|---|---|
+| Mobile (< 768px) | Single column for all fields; `p-4` padding, `gap-3` grid spacing |
+| Tablet+ (768px+) | Two-column grid where logical (Company/Position, Salary/Status, Dates side-by-side, Source/URL side-by-side); Notes spans both columns. `p-6` padding, `gap-4` grid spacing |
+
+### Styling
+
+- **Inputs:** `text-sm`, `px-3 py-2`, rounded-lg
+- **Labels:** `text-xs font-medium`, `mb-1`
+- **Section headers:** `text-sm font-semibold text-gray-700 border-b pb-2 mb-3`
+- **Focus ring:** `accent-dark` (project design system color) instead of blue-500
+- **Footer:** `bg-gray-50` background with top border; Cancel button is gray, Submit uses `bg-accent hover:bg-accent-dark`
+- **Scrollable body:** `overflow-y-auto flex-1` between fixed header and footer
 
 ## Props
 
@@ -18,7 +40,7 @@ Form fields: Company (required), Position (required), Salary (optional text inpu
 | `isOpen` | `boolean` | Modal visibility |
 | `onClose` | `() => void` | Close callback (App sets modalOpen=false, editingJob=null) |
 | `onSubmit` | `(data: object) => void` | Form submission handler (App's `handleModalSubmit`) |
-| `initialData` | `Job \| null` | If present, pre-fills form for edit mode; if null, creates fresh form with placeholder notes |
+| `initialData` | `Job \| null` | If present, pre-fills form for edit mode; if null, creates fresh form |
 
 ## State
 
@@ -28,7 +50,7 @@ Form fields: Company (required), Position (required), Salary (optional text inpu
 
 ## Side effects
 
-- `useEffect([initialData])` — when `initialData` changes, populates `formData` from it (editing mode). When `initialData` is null, resets to a fresh form with placeholder divider lines in the notes field.
+- `useEffect([initialData])` — when `initialData` changes, populates `formData` from it (editing mode). When `initialData` is null, resets to a fresh form.
 
 ## Form submission behavior
 
