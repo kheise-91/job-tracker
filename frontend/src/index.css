@@ -62,69 +62,59 @@ button.bg-primary-darkest:disabled {
 /* REACT KANABAN KIT OVERRIDE STYLES         */
 /* ========================================= */
 
-/* BOARD*/
 .rkk-board {
   gap: 10px;
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
-  .rkk-board {
-    gap: 8px;
-  }
-}
-
-@media (min-width: 640px) and (max-width: 767px) {
-  .rkk-board {
-    gap: 6px;
-  }
-}
-
-@media (max-width: 639px) {
-  .rkk-board {
-    gap: 2px;
-  }
-}
-
-/* COLUMNS */
 .rkk-column-outer {
   min-width: 290px;
   max-width: 290px;
 }
+
 .rkk-column-outer .rkk-column {
   background-color: unset !important;
   padding: 10px;
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .rkk-board {
+    gap: 8px !important;
+  }
   .rkk-column-outer {
-    min-width: 0;
-    max-width: none;
-    width: 29vw;
+    min-width: 0 !important;
+    max-width: none !important;
+    width: 29vw !important;
   }
   .rkk-column-outer .rkk-column {
-    padding: 8px;
+    padding: 8px !important;
   }
 }
 
-@media (min-width: 640px) and (max-width: 767px) {
+@media screen and (min-width: 640px) and (max-width: 767px) {
+  .rkk-board {
+    gap: 6px !important;
+  }
   .rkk-column-outer {
-    min-width: 0;
-    max-width: none;
-    width: 31vw;
+    min-width: 0 !important;
+    max-width: none !important;
+    width: 31vw !important;
   }
   .rkk-column-outer .rkk-column {
-    padding: 6px;
+    padding: 6px !important;
   }
 }
 
-@media (max-width: 639px) {
+@media screen and (max-width: 639px) {
+  .rkk-board {
+    gap: 2px !important;
+  }
   .rkk-column-outer {
-    min-width: 0;
-    max-width: none;
-    width: 48vw;
+    min-width: 0 !important;
+    max-width: none !important;
+    width: 48vw !important;
   }
   .rkk-column-outer .rkk-column {
-    padding: 2px;
+    padding: 2px !important;
   }
 }
 
