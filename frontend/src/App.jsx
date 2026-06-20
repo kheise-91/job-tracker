@@ -195,7 +195,7 @@ function App() {
   return (
     <div className="flex h-screen bg-gray-100 relative">
       <aside className={`relative hidden md:block lg:hidden w-16 z-25`}></aside>
-      <aside className={`${sidebarOpen ? 'w-[100%] md:w-72 absolute lg:relative' : 'w-[0%] md:w-16 absolute lg:relative hidden md:block'} h-full transition-all duration-200 inset-0 z-50 overflow-hidden`}>
+      <aside className={`${sidebarOpen ? 'w-[100%] md:w-72 absolute lg:relative' : 'w-[0%] md:w-16 absolute lg:relative md:block'} h-full transition-all duration-200 inset-0 z-100 overflow-hidden`}>
         <Sidebar
           isOpen={sidebarOpen}
           onToggle={() => setSidebarOpen(!sidebarOpen)}
@@ -212,7 +212,7 @@ function App() {
         />
 
         <main className="flex-1 flex flex-col overflow-hidden">
-          <div className="flex-1 overflow-hidden px-2 sm:px-4 lg:px-6 pb-6">
+          <div className="flex-1 overflow-hidden px-2 sm:px-4 lg:px-6 pb-2 lg:pb-6">
             <KanbanBoard
               jobs={filteredJobs}
               onBoardUpdate={handleBoardUpdate}

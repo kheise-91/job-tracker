@@ -71,7 +71,7 @@ function JobCard({ job, status, onEdit, onDelete, onView }) {
         </div>
       )}
       <div className={`font-semibold text-gray-800 text-sm ${interviewDate || followedUpDate ? 'pr-16' : ''}`}>{job.company}</div>
-      <div className={`text-gray-500 text-xs mt-0.5 ${interviewDate || followedUpDate ? 'pr-16' : ''}`}>{job.position}</div>
+      <div className={`text-gray-500 text-xs mt-0.5`}>{job.position}</div>
       <div className="mt-2 flex items-center justify-between">
         <div className="flex items-center">
           {job.notes && (
