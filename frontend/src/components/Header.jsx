@@ -37,7 +37,7 @@ function Header({ searchValue, onSearchChange, onAddJob, onToggleReminderDrawer,
         >
           <BellIcon className="w-5 h-5 flex-shrink-0" />
           <span className="hidden xl:inline">Reminders</span>
-          <span className="hidden xl:inline bg-primary-darkest text-white text-xs rounded ml-3 px-2 py-1">
+          <span className="bg-secondary-dark absolute top-4.5 right-17.5 text-[8px] w-4 h-4 p-0 flex items-center justify-center rounded-full text-white xl:bg-primary-darkest xl:relative xl:inline xl:top-0 xl:right-0 xl:text-xs xl:w-auto xl:h-auto xl:rounded xl:ml-3 xl:px-2 xl:py-1">
             {reminderCount}
           </span>
         </button>
