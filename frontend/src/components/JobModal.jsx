@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react'
 
-const STATUSES = ['Wishlist', 'Applied', 'Followed Up', 'Interviewing', 'Offer', 'Rejected', 'Withdrawn']
+const STATUSES = ['Wishlist', 'Applied', 'Followed Up', 'Interviewing', 'Offer', 'Rejected']
 
 function JobModal({ isOpen, onClose, onSubmit, initialData }) {
   const [formData, setFormData] = useState({
@@ -258,13 +258,13 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
                   <button
                     type="button"
                     onClick={onClose}
-                    className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 rounded-lg transition-colors"
+                    className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 rounded-lg transition-colors cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 text-sm font-medium bg-primary hover:bg-primary-dark text-white rounded-lg transition-colors shadow-sm"
+                    className="px-4 py-2 text-sm font-medium bg-primary hover:bg-primary-dark text-white rounded-lg transition-colors shadow-sm cursor-pointer"
                   >
                     {initialData ? 'Save Changes' : 'Add Job'}
                   </button>

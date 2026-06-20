@@ -26,7 +26,6 @@ Valid status values across all endpoints:
 | Interviewing | Currently in interview process |
 | Offer        | Received an offer              |
 | Rejected     | Application rejected           |
-| Withdrawn    | Self-withdrawn                 |
 
 ---
 
@@ -195,7 +194,7 @@ Bulk-update status and order for multiple jobs at once. Accepts a map of column 
 }
 ```
 
-Valid column keys: `wishlist`, `applied`, `followed-up`, `interviewing`, `offer`, `rejected`, `withdrawn`. Unknown keys are silently ignored.
+Valid column keys: `wishlist`, `applied`, `followed-up`, `interviewing`, `offer`, `rejected`. Unknown keys are silently ignored.
 
 **Response** — `200 OK`
 

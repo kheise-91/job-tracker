@@ -45,7 +45,7 @@ Stores individual job application entries for tracking through the hiring pipeli
 
 ### Valid `status` values
 
-`Wishlist`, `Applied`, `Followed Up`, `Interviewing`, `Offer`, `Rejected`, `Withdrawn`
+`Wishlist`, `Applied`, `Followed Up`, `Interviewing`, `Offer`, `Rejected`
 
 ### Relationships / Foreign Keys
 

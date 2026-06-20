@@ -13,7 +13,6 @@ $allowedStatuses = [
     'Interviewing',
     'Offer',
     'Rejected',
-    'Withdrawn'
 ];
 
 $statusMap = [
@@ -23,7 +22,6 @@ $statusMap = [
     'interviewing' => 'Interviewing',
     'offer' => 'Offer',
     'rejected' => 'Rejected',
-    'withdrawn' => 'Withdrawn',
 ];
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -59,7 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $requestPath === '/api/jobs') {
                 WHEN 'Interviewing' THEN 4
                 WHEN 'Offer' THEN 5
                 WHEN 'Rejected' THEN 6
-                WHEN 'Withdrawn' THEN 7
                 ELSE 99
             END,
             `order` ASC,
