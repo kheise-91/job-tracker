@@ -106,7 +106,7 @@ button.bg-primary-darkest:disabled {
 
 @media screen and (max-width: 639px) {
   .rkk-board {
-    gap: 2px !important;
+    gap: 4px !important;
   }
   .rkk-column-outer {
     min-width: 0 !important;
