@@ -2,10 +2,13 @@ import { MagnifyingGlassIcon, BellIcon, PlusIcon } from '@heroicons/react/24/out
 
 function Header({ searchValue, onSearchChange, onAddJob, onToggleReminderDrawer, reminderCount }) {
   return (
-    <header className="bg-white border-b border-gray-200 mb-2 px-6 py-4 flex items-center justify-between">
+    <header className="bg-white border-b border-gray-200 mb-2 flex items-center justify-between px-6 py-4">
+      {/* Title - hidden at < 768px, visible at >= 768px */}
       <div className="hidden md:block w-[30%]">
         <h1 className="text-xl font-semibold text-gray-800">Job Tracking Board</h1>
       </div>
+
+      {/* Desktop search - only visible at >= 1280px (xl) */}
       <div className="hidden xl:block w-[40%]">
         <div className="relative">
           <MagnifyingGlassIcon className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -18,8 +21,10 @@ function Header({ searchValue, onSearchChange, onAddJob, onToggleReminderDrawer,
           />
         </div>
       </div>
+
+      {/* Mobile/Laptop section - search + buttons */}
       <div className="w-[100%] md:w-[66%] xl:w-[30%] flex items-center justify-end gap-2">
-        {/* Search bar — visible only below 1200px, positioned first in third column */}
+        {/* Search bar — visible below 1280px, positioned first in third column */}
         <div className="relative xl:hidden flex-1">
           <MagnifyingGlassIcon className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
@@ -30,7 +35,7 @@ function Header({ searchValue, onSearchChange, onAddJob, onToggleReminderDrawer,
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
           />
         </div>
-        {/* Reminders button — icon only below 1200px, full button at desktop */}
+        {/* Reminders button — icon only below 1280px, full button at desktop */}
         <button
           onClick={onToggleReminderDrawer}
           className="hidden md:flex bg-primary text-white rounded-md hover:bg-primary-dark font-medium transition-colors cursor-pointer text-sm flex items-center justify-center gap-1 xl:px-4 xl:py-2 p-2"
@@ -41,7 +46,7 @@ function Header({ searchValue, onSearchChange, onAddJob, onToggleReminderDrawer,
             {reminderCount}
           </span>
         </button>
-        {/* Add Job button — icon only below 1200px, full button at desktop */}
+        {/* Add Job button — icon only below 1280px, full button at desktop */}
         <button
           onClick={onAddJob}
           className="hidden md:flex bg-primary text-white rounded-md hover:bg-primary-dark font-medium transition-colors cursor-pointer text-sm flex items-center justify-center gap-1 xl:px-4 xl:py-[10px] p-2"
