@@ -266,17 +266,18 @@ working and dismissable, and PWA criteria met.
 
 - [ ] **3.15 - Add toggle to hide applications older than 1 month**
     
-    Add a toggle control to `Header.jsx` (or near the search bar) labeled something like
-    "Hide old applications". When enabled, any job card with `status = 'Applied'` and
-    `date_applied` older than 1 month should be hidden from the Kanban board.
+    Add a toggle control somewhere in the application (side menu, header, main section) 
+    labeled something like "Hide old applications". When enabled, any job card with 
+    `status = 'Applied'` and `date_applied` older than 1 month should be hidden from 
+    the Kanban board.
 
-    Jobs hidden by this toggle should also remain hidden when searching — the filter
+    Jobs hidden by this toggle should also remain hidden when searching - the filter
     applies before search filtering. If the toggle is disabled, all jobs are visible
-    regardless of age.
+    regardless of age. The toggle should be enabled by default.
 
-    Done when: The toggle exists and works in the header area. Applied jobs older than 1
-    month disappear from the board when enabled. Re-enabling shows them again. Search
-    results respect the toggle — hidden jobs don't appear in search either.
+    Done when: The toggle exists and works. Applied jobs older than 1 month disappear 
+    from the board when enabled. Re-enabling shows them again. Search results respect 
+    the toggle - hidden jobs don't appear in search either. Toggle is enabled by default.
 
 - [ ] **3.16 - Auto-update fields on related changes**
     
@@ -289,7 +290,7 @@ working and dismissable, and PWA criteria met.
     Additionally, implement a backend-only rule in `api.php`: when a card's status changes
     to "Followed Up" via drag-and-drop and `followed_up_date` is not already set, auto-set
     it to the current date on save. This is the only scenario where `followed_up_date`
-    should be auto-set — specifically when the current `status` is "Applied" and
+    should be auto-set - specifically when the current `status` is "Applied" and
     `followed_up_date` is null/empty. If a date already exists, it must not be overwritten.
 
     > **Implementation note:** The drag-to-update feature requires backend work only. No
@@ -364,10 +365,10 @@ functionality based on continuous user feedback.
     `updated_at`.
 
     Add CRUD endpoints in `backend/api.php`:
-    `GET /api/interview-prep` — list all prep entries with a JOIN on the jobs table to
-    include company, position, and status; `POST /api/interview-prep` — create entry
+    `GET /api/interview-prep` - list all prep entries with a JOIN on the jobs table to
+    include company, position, and status; `POST /api/interview-prep` - create entry
     (validates `job_id` references an existing job and that `prep_questions` is valid JSON);
-    `PUT /api/interview-prep/{id}` — partial update; `DELETE /api/interview-prep/{id}`.
+    `PUT /api/interview-prep/{id}` - partial update; `DELETE /api/interview-prep/{id}`.
 
     Done when: The `interview_prep` table is created on app startup. All 4 endpoints work
     correctly via curl or browser dev tools. GET returns prep entries with linked job data.
@@ -379,15 +380,15 @@ functionality based on continuous user feedback.
     active-state highlighting. Add a `currentPage` state (`'board'` or `'prep'`) to
     `App.jsx` that conditionally renders the KanbanBoard or the Interview Prep page.
 
-    Create `InterviewPrep.jsx` — a page component that fetches prep entries from the API
+    Create `InterviewPrep.jsx` - a page component that fetches prep entries from the API
     and displays them as full-width accordion cards showing company + position in the
-    header. Expanding a card reveals a 3-column layout: **Col 1** — job info (company,
-    position, status, date applied, source, hyperlink); **Col 2** — notes from the linked
-    job (read-only display); **Col 3** — Q&A section with expand/collapse per question/answer
+    header. Expanding a card reveals a 3-column layout: **Col 1** - job info (company,
+    position, status, date applied, source, hyperlink); **Col 2** - notes from the linked
+    job (read-only display); **Col 3** - Q&A section with expand/collapse per question/answer
     pair and an "Add Q&A" button. Empty state shows a message and "Add Prep" button when
     no entries exist.
 
-    Create `InterviewPrepModal.jsx` — a modal for creating/editing prep entries. Contains
+    Create `InterviewPrepModal.jsx` - a modal for creating/editing prep entries. Contains
     a dropdown to select a job, a textarea for prep notes, and a dynamic Q&A builder where
     users can add/remove question-answer pairs. On submit, the Q&A array is JSON-serialized
     into the `prep_questions` column.
