@@ -217,7 +217,7 @@ working and dismissable, and PWA criteria met.
     Done when: The `salary` column exists and is read/written via the API. The modal has a
     salary text input. Kanaban board can be searched by salary value.
 
-- [-] **[3.14 - Mobile UI improvements](https://gitea.heise.home/kheise/ats/milestone/9)**
+- [x] **[3.14 - Mobile UI improvements](https://gitea.heise.home/kheise/ats/milestone/9)**
 
     Make the app look and work well on mobile/tablet screens while keeping the 
     desktop layout unchanged. All changes are gated behind Tailwind responsive 
