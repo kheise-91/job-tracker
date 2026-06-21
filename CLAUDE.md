@@ -1,9 +1,3 @@
----
-name: ai-agent-guide
-title: AI Agent Guide
-description: A guide for working with AI agents (including agent rules and project overview/architecture).
----
-
 ## Agent Rules
 
 ### 1. Think Before Coding
@@ -97,7 +91,7 @@ Serves on port 5000. Database stored in `data/jobs.db` (volume-mounted).
 
 ### Frontend (`frontend/`)
 - **React 18 + Vite** with Tailwind CSS v4
-- **App.jsx** - single component managidng jobs state, modal state, and layout (Sidebar + Header + KanbanBoard + JobModal)
+- **App.jsx** - single component managing jobs state, modal state, and layout (Sidebar + Header + KanbanBoard + JobModal)
 - **Components:** `Sidebar.jsx`, `Header.jsx`, `KanbanBoard.jsx`, `JobCard.jsx`, `JobModal.jsx`
 
 ### Database schema (`jobs` table)
@@ -116,7 +110,10 @@ See `docs/components/README.md` for a full list of React components.
 - `frontend/src/App.jsx` - main React component (layout orchestration)
 - `frontend/src/components/` - UI components
 - `docker/nginx.conf` - SPA fallback + PHP routing rules
-- `docs/` - source of truth for the project (includes Databse schemas, API endpoints, and React components)
+- `docs/` - source of truth for the project (database schemas, API endpoints, React components, Claude skills/subagents guides)
+  - `docs/api/README.md` - API endpoint reference
+  - `docs/database/README.md` - database schema reference
+  - `docs/components/README.md` - React component reference
 - `ROADMAP.md` - project development roadmap
 
 ## External Sources
