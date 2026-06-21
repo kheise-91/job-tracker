@@ -68,9 +68,8 @@ docker run -d \
   --name ats \
   --restart unless-stopped \
   -p 5000:80 \
-  -v /home/admin/Projects/ats/data:/var/www/html/data:rw \
-  -v /home/admin/Projects/ats/backend:/var/www/html/backend:rw \
-  -e APP_ENV=production \
+  -v /home/admin/Projects/ats/data/${APP_USER}:/var/www/html/data/${APP_USER}:rw \
+  -e APP_USER=${APP_USER} \
   ats:latest
 ```
 
@@ -83,7 +82,7 @@ docker run -d \
 **Environment variables:**
 | Variable | Required | Default | Description |
 |---|---|---|---|
-| `APP_ENV` | No | *(none)* | Set to `production`. Currently only a marker; no conditional logic reads it. |
+| `APP_USER` | Yes | *(none)* | Set to first name of user. |
 
 The frontend is baked into the Docker image at build time - changes to the React frontend require rebuilding the image (`docker compose build ats`).
 

@@ -1,6 +1,7 @@
 <?php
 // Database configuration
-$dbPath = '/var/www/html/data/jobs.db';
+$appUser = getenv('APP_USER');
+$dbPath = "/var/www/html/data/{$appUser}/jobs.db";
 
 try {
     // Create the data directory if it doesn't exist
