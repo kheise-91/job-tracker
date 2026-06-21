@@ -5,6 +5,7 @@ import KanbanBoard from './components/KanbanBoard'
 import JobModal from './components/JobModal'
 import JobProfileCard from './components/JobProfileCard'
 import ReminderDrawer from './components/ReminderDrawer'
+import BottomNav from './components/BottomNav'
 
 function computeReminders(jobs, today) {
   return jobs
@@ -20,7 +21,7 @@ function computeReminders(jobs, today) {
 }
 
 function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(window.matchMedia('(min-width: 1024px)').matches)
   const [searchQuery, setSearchQuery] = useState('')
   const [jobs, setJobs] = useState([])
   const [loading, setLoading] = useState(true)
@@ -41,6 +42,10 @@ function App() {
         (job.position || '').toLowerCase().includes(q)
     )
   }, [jobs, searchQuery])
+
+  useEffect(() => {
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => setSidebarOpen(e.matches))
+  }, [])
 
   useEffect(() => {
     fetchJobs()
@@ -188,8 +193,9 @@ function App() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      <aside className={`${sidebarOpen ? 'w-72' : 'w-16'} flex-shrink-0 transition-all duration-200`}>
+    <div className="flex h-screen bg-gray-100 relative">
+      <aside className={`relative hidden md:block lg:hidden w-16 z-25`}></aside>
+      <aside className={`${sidebarOpen ? 'w-[100%] md:w-72 absolute lg:relative' : 'w-[0%] md:w-16 absolute lg:relative md:block'} h-full transition-all duration-200 inset-0 z-100 overflow-hidden`}>
         <Sidebar
           isOpen={sidebarOpen}
           onToggle={() => setSidebarOpen(!sidebarOpen)}
@@ -206,7 +212,7 @@ function App() {
         />
 
         <main className="flex-1 flex flex-col overflow-hidden">
-          <div className="flex-1 overflow-hidden px-6 pb-6">
+          <div className="flex-1 overflow-hidden px-2 sm:px-4 lg:px-6 pb-2 lg:pb-6">
             <KanbanBoard
               jobs={filteredJobs}
               onBoardUpdate={handleBoardUpdate}
@@ -243,6 +249,13 @@ function App() {
             onDismiss={handleDismissReminder}
             onDismissAll={handleDismissAllReminders}
             onViewJob={handleViewJob}
+          />
+
+          <BottomNav
+            onToggle={() => setSidebarOpen(!sidebarOpen)}
+            onAddJob={handleAddJob}
+            onToggleReminderDrawer={handleToggleReminderDrawer}
+            reminderCount={reminders.length}
           />
         </main>
       </div>

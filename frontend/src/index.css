@@ -37,6 +37,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  overflow: hidden;
   background-color: #f0f2f5;
 }
 
@@ -61,6 +62,7 @@ button.bg-primary-darkest:disabled {
 /* ========================================= */
 /* REACT KANABAN KIT OVERRIDE STYLES         */
 /* ========================================= */
+
 .rkk-board {
   gap: 10px;
 }
@@ -70,9 +72,56 @@ button.bg-primary-darkest:disabled {
   max-width: 290px;
 }
 
-.rkk-column {
+.rkk-column-outer .rkk-column {
   background-color: unset !important;
+  padding: 10px;
 }
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .rkk-board {
+    gap: 8px !important;
+  }
+  .rkk-column-outer {
+    min-width: 0 !important;
+    max-width: none !important;
+    width: 29vw !important;
+  }
+  .rkk-column-outer .rkk-column {
+    padding: 8px !important;
+    max-height: 88vh;
+  }
+}
+
+@media screen and (min-width: 640px) and (max-width: 767px) {
+  .rkk-board {
+    gap: 6px !important;
+  }
+  .rkk-column-outer {
+    min-width: 0 !important;
+    max-width: none !important;
+    width: 31vw !important;
+  }
+  .rkk-column-outer .rkk-column {
+    padding: 6px !important;
+    max-height: 80vh;
+  }
+}
+
+@media screen and (max-width: 639px) {
+  .rkk-board {
+    gap: 4px !important;
+  }
+  .rkk-column-outer {
+    min-width: 0 !important;
+    max-width: none !important;
+    width: 48vw !important;
+  }
+  .rkk-column-outer .rkk-column {
+    padding: 2px !important;
+    max-height: 80vh;
+  }
+}
+
 .rkk-column.wishlist-status     {background-color: var(--color-wishlist-status-light) !important;}
 .rkk-column.applied-status       {background-color: var(--color-applied-status-light) !important;}
 .rkk-column.followed-up-status   {background-color: var(--color-followed-up-status-light) !important;}

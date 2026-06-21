@@ -75,7 +75,7 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
 
       {/* Drawer Panel */}
       <div
-        className="fixed top-0 right-0 h-full w-96 z-[110] bg-white shadow-2xl border-l border-gray-200 flex flex-col transition-transform duration-200 ease-out"
+        className="fixed top-0 right-0 h-full w-full md:w-96 z-[110] bg-white shadow-2xl border-l border-gray-200 flex flex-col transition-transform duration-200 ease-out"
         style={{ transform: isOpen ? 'translateX(0)' : 'translateX(100%)' }}
         role="dialog"
         aria-modal="true"

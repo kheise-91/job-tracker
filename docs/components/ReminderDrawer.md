@@ -2,7 +2,7 @@
 name: ReminderDrawer
 title: Reminder Drawer Component
 file: `frontend/src/components/ReminderDrawer.jsx`
-description: A right-side sliding drawer panel for displaying and managing follow-up reminder alerts, with expand/collapse pagination (5-item default) and API-backed data fetching from App.jsx.
+description: A right-side sliding drawer panel for displaying and managing follow-up reminder alerts, with expand/collapse pagination (5-item default), full-width on mobile (< 768px), and API-backed data fetching from App.jsx.
 ---
 
 # ReminderDrawer
@@ -26,7 +26,7 @@ A fixed-position, full-height drawer that slides in from the right edge of the s
 ## Layout
 
 - **Backdrop**: `fixed inset-0 bg-black/20 z-[100]` — semi-transparent overlay, clickable to close
-- **Drawer panel**: `fixed top-0 right-0 h-full w-96 z-[110]` — white background, left border, shadow, slides in with CSS transition
+- **Drawer panel**: `fixed top-0 right-0 h-full w-full md:w-96 z-[110]` — white background, left border, shadow, slides in with CSS transition; full-width below 768px, 384px at >= 768px
 - **Header**: flex row with BellIcon + title (left), Dismiss All button (right), border-bottom divider
 - **List**: `flex-1 overflow-y-auto` — maps reminders or shows empty state; each reminder item is clickable (calls `onViewJob` with the reminder job object) with `hover:bg-gray-50` and `cursor-pointer` visual feedback; the dismiss X button uses `e.stopPropagation()` to prevent the click from bubbling to the parent
 - **Expand/Collapse**: "+ N more" button (when collapsed and >5 items) or "Show less" button (when expanded) centered below the list

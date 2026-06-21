@@ -217,7 +217,7 @@ working and dismissable, and PWA criteria met.
     Done when: The `salary` column exists and is read/written via the API. The modal has a
     salary text input. Kanaban board can be searched by salary value.
 
-- [ ] **3.14 - Mobile UI improvements**
+- [x] **[3.14 - Mobile UI improvements](https://gitea.heise.home/kheise/ats/milestone/9)**
 
     Make the app look and work well on mobile/tablet screens while keeping the 
     desktop layout unchanged. All changes are gated behind Tailwind responsive 
@@ -240,7 +240,7 @@ working and dismissable, and PWA criteria met.
     while keeping the same width as normal No backdrop is necessary. This will be the
     tablet view, which is too big for the bottom nav with full screen menu, but too 
     small to have elements squished from a menu that's opening. At this screen-width,
-    kanban columns should take up 50% of the screen (not including the collapsed side
+    kanban columns should take up 33% of the screen (not including the collapsed side
     nav).
 
     **Smartphones (Landscape and Portrait)**
@@ -257,7 +257,10 @@ working and dismissable, and PWA criteria met.
     should also be  fullscreen when it's expanded in this view. The text and the 
     buttons in the header should be hidden. Only the search bar should show at 
     this screen-width, and the search bar should be full-width. At this screen-width,
-    kanban columns should take up 100% of the screen.
+    kanban columns should take up 50% of the screen.
+
+    **Smartphones (Portrait)**
+    When the screen gets to **< 576px**: Kanban columns should be 100% of the screen.
 
     Done when: All visual criteria listed above are met at the correct breakpoints.
 
