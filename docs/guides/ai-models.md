@@ -12,13 +12,13 @@ Five models are available via llama-swap. All share the same 256K-class context 
 
 ## Model roster
 
-| Name | Claude Code Alias | Base Model | Quant | Architecture | Thinking |
-| ---- | ----------------- | ---------- | ----- | ------------ | -------- |
-|`Coder-Agent`|`cc-coder-agent`|Qwen3-Coder-Next|Q4_K_M|80B MoE · 3B active|None|
-|`Precise-Coder`|`cc-precise-coder`|Qwen3.6-27B|Q4_K_M|27B dense|Off|
-|`Deep-Reasoner`|`cc-deep-reasoner`|Qwen3.6-27B|Q4_K_M|27B dense|On|
-|`Quick-Coder`|`cc-quick-coder`|Qwen3.6-35B-A3B|Q8_0|35B MoE · 3B active|Off|
-|`Swift-Reasoner`|`cc-swift-reasoner`|Qwen3.6-35B-A3B|Q8_0|35B MoE · 3B active|On|
+| Name | Claude Code Alias | Base Model | Quant | Architecture | MTP | Thinking |
+| ---- | ----------------- | ---------- | ----- | ------------ | --- | -------- |
+|`Qwen-Agent`|none (default)|Qwen3-Coder-Next|UD-Q4_K_XL|80B MoE · 3B active|No|None|
+|`Quick-Coder`|`cc-quick-coder`|Qwen3.6-35B-A3B|UD-Q8_K_XL|35B MoE · 3B active|Yes|Off|
+|`Swift-Reasoner`|`cc-swift-reasoner`|Qwen3.6-35B-A3B|UD-Q8_K_XL|35B MoE · 3B active|Yes|On|
+|`Precise-Coder`|`cc-precise-coder`|Qwen3.6-27B|UD-Q4_K_XL|27B dense|Yes|Off|
+|`Deep-Reasoner`|`cc-deep-reasoner`|Qwen3.6-27B|UD-Q4_K_XL|27B dense|Yes|On|
 
 ---
 
@@ -32,19 +32,19 @@ Rough generation speeds at 32K context:
 
 |Model|Est. speed|Bottleneck|
 |-|-|-|
-|`Coder-Agent`|~5–10 t/s|Largest file, most CPU offloading|
-|`Precise-Coder`|~10–18 t/s|Dense — all 27B fire every token|
-|`Deep-Reasoner`|Slower — thinking tokens add overhead|Same as above|
+|`Qwen-Agent`|~5–10 t/s|Largest file, most CPU offloading|
 |`Quick-Coder`|~12–22 t/s|Best speed; MoE sparse compute|
 |`Swift-Reasoner`|Moderate — thinking tokens, but MoE helps|Same base as Quick-Coder|
+|`Precise-Coder`|~10–18 t/s|Dense — all 27B fire every token|
+|`Deep-Reasoner`|Slower — thinking tokens add overhead|Same as above|
 
 ---
 
 ## The models
 
-### `Coder-Agent`
+### `Qwen-Agent`
 
-**Qwen3-Coder-Next · Q4_K_M · no thinking**
+**Qwen3-Coder-Next · UD-Q4_K_XL · no thinking**
 
 Purpose-built for agentic workflows. Unlike the general 3.6 models, Coder-Next was trained specifically on 800K executable coding tasks with real environment feedback — tool calls, bash loops, file edits, and failure recovery. Nothing else in this lineup was trained the same way.
 
@@ -61,45 +61,9 @@ It has no thinking mode by design; it's optimized for decisive, low-latency tool
 
 ---
 
-### `Precise-Coder`
-
-**Qwen3.6-27B · Q4_K_M · thinking off**
-
-The highest-quality coding model in the lineup. Dense architecture means every one of its 27B parameters fires on every token — no routing, no sparsity, just full model capacity. Q8_0 quantization is near-lossless, so what you get here is very close to the full model's ceiling.
-
-Benchmarks back this up: 77.2% on SWE-bench Verified (within 3.7 points of Claude Opus 4.6), 59.3% on Terminal-Bench 2.0. Thinking is off, so responses are direct and fast relative to `Deep-Reasoner` — use this when you already know what you want and just need it done right.
-
-**Use with:** Claude Code / Continue.dev
-
-**Reach for it when:**
-
-* Writing new features or functions from scratch
-* Fixing a specific known bug
-* Generating tests for existing code
-* You want the best output quality and `Quick-Coder` isn't cutting it
-
----
-
-### `Deep-Reasoner`
-
-**Qwen3.6-27B · Q4_K_M · thinking on**
-
-Same weights as `Precise-Coder`, different mode. Thinking enabled means the model works through the problem step-by-step inside `<think>` blocks before committing to a response. The 27B dense architecture gives it the most reasoning depth in the lineup — it will out-think both MoE models on hard problems. Worth the extra wait on genuinely difficult tasks.
-
-**Use with:** Claude Code / Continue.dev
-
-**Reach for it when:**
-
-* Debugging something subtle — race conditions, off-by-one errors, async timing issues
-* Designing system architecture or weighing technical tradeoffs
-* Tracing through unfamiliar or complex code to understand what it actually does
-* Any task where `Precise-Coder` or `Quick-Coder` gave you a shallow or wrong answer
-
----
-
 ### `Quick-Coder`
 
-**Qwen3.6-35B-A3B · Q8_0 · thinking off**
+**Qwen3.6-35B-A3B · UD-Q8_K_XL · thinking off**
 
 Your fastest model for everyday coding tasks. MoE architecture activates only ~3B parameters per token (~9 of 256 experts), which makes it 2–3x faster than the 27B dense models despite being a larger file. Quality is slightly below `Precise-Coder` on hard benchmarks (73.4% vs 77.2% SWE-bench Verified), but on everyday tasks the gap is small and the speed difference is noticeable. Also vision-capable — paste a screenshot or diagram and it can reason about it.
 
@@ -119,7 +83,7 @@ Good default for Continue.dev chat. Switch to `Precise-Coder` when quality start
 
 ### `Swift-Reasoner`
 
-**Qwen3.6-35B-A3B · Q8_0 · thinking on**
+**Qwen3.6-35B-A3B · UD-Q8_K_XL · thinking on**
 
 Same weights as `Quick-Coder` with thinking enabled. MoE efficiency still applies to the non-reasoning parts, so thinking tokens are produced faster here than in `Deep-Reasoner`. The trade-off is shallower reasoning than the 27B dense model — the 27B leads by ~8 points on Terminal-Bench 2.0. Still a meaningful upgrade over `Quick-Coder` for anything that benefits from a deliberation pass.
 
@@ -136,21 +100,62 @@ Think of it as the middle option: more than `Quick-Coder`, less wait than `Deep-
 
 ---
 
+### `Precise-Coder`
+
+**Qwen3.6-27B · UD-Q4_K_XL · thinking off**
+
+The highest-quality coding model in the lineup. Dense architecture means every one of its 27B parameters fires on every token — no routing, no sparsity, just full model capacity.
+
+Benchmarks back this up: 77.2% on SWE-bench Verified (within 3.7 points of Claude Opus 4.6), 59.3% on Terminal-Bench 2.0. Thinking is off, so responses are direct and fast relative to `Deep-Reasoner` — use this when you already know what you want and just need it done right.
+
+**Use with:** Claude Code / Continue.dev
+
+**Reach for it when:**
+
+* Writing new features or functions from scratch
+* Fixing a specific known bug
+* Generating tests for existing code
+* You want the best output quality and `Quick-Coder` isn't cutting it
+
+---
+
+### `Deep-Reasoner`
+
+**Qwen3.6-27B · UD-Q4_K_XL · thinking on**
+
+Same weights as `Precise-Coder`, different mode. Thinking enabled means the model works through the problem step-by-step inside `<think>` blocks before committing to a response. The 27B dense architecture gives it the most reasoning depth in the lineup — it will out-think both MoE models on hard problems. Worth the extra wait on genuinely difficult tasks.
+
+**Use with:** Claude Code / Continue.dev
+
+**Reach for it when:**
+
+* Debugging something subtle — race conditions, off-by-one errors, async timing issues
+* Designing system architecture or weighing technical tradeoffs
+* Tracing through unfamiliar or complex code to understand what it actually does
+* Any task where `Precise-Coder` or `Quick-Coder` gave you a shallow or wrong answer
+
+---
+
 ## Benchmark reference
 
-|Benchmark|`Coder-Agent`|`Precise-Coder` / `Deep-Reasoner`|`Quick-Coder` / `Swift-Reasoner`|
+|Benchmark|`Qwen-Agent`|`Quick-Coder` / `Swift-Reasoner`|`Precise-Coder` / `Deep-Reasoner`|
 |-|-|-|-|
-|SWE-bench Verified|~74%|**77.2%**|73.4%|
-|SWE-bench Pro|~44%|**53.5%**|~48%|
-|Terminal-Bench 2.0|~65%|**59.3%**|51.5%|
+|SWE-bench Verified|~74%|73.4%|**77.2%**|
+|SWE-bench Pro|~44%|~48%|**53.5%**|
+|Terminal-Bench 2.0|~65%|51.5%|**59.3%**|
 |Vision input|No|Yes|Yes|
 
 Coder-Next leads on Terminal-Bench due to its agentic training focus. The 27B dense leads on SWE-bench. All figures are at full/high precision — Q4 quants see a small reduction.
 
+
+## Step 5 - Spawn Frontend subagent to generate variants
+
+Spawn one **frontend-ux** subagent to produce a complete, self-contained HTML file for each variant:
 ---
 
 ## Comparison using same prompt in llama-swap
 
+After an initial "Hello" prompt to load the model into memory, the following prompt was used to measure and compare model speeds:
 > Generate a Laravel migration. This migration should include both the `up()` and `down()` functions for rolling back if needed. This migration will create a new table called `users` in a database called `app`. The table will have the following columns:
 > - id (primary key, auto generated)
 > - first_name
@@ -158,33 +163,11 @@ Coder-Next leads on Terminal-Bench due to its agentic training focus. The 27B de
 > - email_address
 > - phone_number
 
-### Coder-Agent
-| Model          | Base Model       | Quant  | MTP | Prompt (new prompt tokens processed) | Generated | Prompt Speed | Gen Speed | Duration |
-| -------------- | -----------------| ------ | --- | ------------------------------------ | --------- | ------------ | --------- | -------- |
-| Coder-Agent    | Qwen3-Coder-Next | Q4_K_M | No  | 83	                                  |   467     | 57.07 t/s    | 46.60 t/s |  31.84s  | 
-
-### Precise-Coder
-| Model                 | Base Model       | Quant  | MTP | Prompt (new prompt tokens processed) | Generated | Prompt Speed | Gen Speed | Duration |
-| --------------------- | -----------------| ------ | --- | ------------------------------------ | --------- | ------------ | --------- | -------- |
-| Precise-Coder         | Qwen3.6-27B      | Q4_K_M | No  | 92	                                 |   455     | 82.01 t/s    |  8.04 t/s |  76.76s  | 
-| Precise-Coder-MTP     | Qwen3.6-27B      | Q4_K_M | Yes | 99	                                 |   430     | 57.98 t/s    | 11.18 t/s |  40.28s  |
-| Precise-Coder-IQ-MTP  | Qwen3.6-27B      | IQ4_XS | Yes | 99                                   |   441     | 52.19 t/s    | 10.16 t/s |  45.44s  |
-
-### Deep-Reasoner
-| Model                 | Base Model       | Quant  | MTP | Prompt (new prompt tokens processed) | Generated | Prompt Speed | Gen Speed | Duration |
-| --------------------- | -----------------| ------ | --- | ------------------------------------ | --------- | ------------ | --------- | -------- |
-| Deep-Reasoner         | Qwen3.6-27B      | Q4_K_M | No  | 90	                                 | 2,333     | 84.37 t/s    |  7.36 t/s | 335.00s  | 
-| Deep-Reasoner-MTP     | Qwen3.6-27B      | Q4_K_M | Yes | 90                                   | 2,206     | 57.09 t/s    |  9.76 t/s | 227.79s  |
-| Deep-Reasoner-IQ-MTP  | Qwen3.6-27B      | IQ4_XS | Yes | 92                                   | 1,646     | 51.44 t/s    |  8.85 t/s | 187.95s  |
-
-### Quick-Coder
-| Model           | Base Model       | Quant  | MTP | Prompt (new prompt tokens processed) | Generated | Prompt Speed | Gen Speed | Duration |
-| --------------- | -----------------| ------ | --- | ------------------------------------ | --------- | ------------ | --------- | -------- |
-| Quick-Coder     | Qwen3.6-35B-A3B  | Q8_0   | No  | 89	                               |   191     | 30.93 t/s    | 49.30 t/s |  28.67s  | 
-| Quick-Coder-MTP | Qwen3.6-35B-A3B  | Q8_0   | Yes | 99                                   |   457     | 27.59 t/s    | 53.79 t/s |  12.15s  |
-
-### Swift-Reasoner
-| Model              | Base Model       | Quant  | MTP | Prompt (new prompt tokens processed) | Generated | Prompt Speed | Gen Speed | Duration |
-| ------------------ | -----------------| ------ | --- | ------------------------------------ | --------- | ------------ | --------- | -------- |
-| Swift-Reasoner     | Qwen3.6-35B-A3B  | Q8_0   | No  | 87	                                  | 1,959     | 48.94 t/s    | 45.27 t/s |  63.35s  | 
-| Swift-Reasoner-MTP | Qwen3.6-35B-A3B  | Q8_0   | Yes | 92                                   | 1,898     | 38.81 t/s    | 56.30 t/s |  36.14s  | 
+### Qwen-Agent
+| Model          | Base Model       | Quant      | MTP | Prompt (new prompt tokens processed) | Generated | Prompt Speed | Gen Speed | Duration |
+| -------------- | -----------------| ---------- | --- | ------------------------------------ | --------- | ------------ | --------- | -------- |
+| Qwen-Agent     | Qwen3-Coder-Next | UD-Q4_K_XL | No  | 113                                  |   483     | 57.16 t/s    | 44.44 t/s |  12.88s  | 
+| Quick-Coder    | Qwen3.6-35B-A3B  | UD-Q8_K_XL | Yes |  99                                  |   487     | 69.46 t/s    | 51.92 t/s |  10.87s  |
+| Swift-Reasoner | Qwen3.6-35B-A3B  | UD-Q8_K_XL | Yes | 116                                  | 1,427     | 49.31 t/s    | 54.45 t/s |  28.62s  | 
+| Precise-Coder  | Qwen3.6-27B      | UD-Q4_K_XL | Yes | 125                                  |   424     | 77.93 t/s    | 10.94 t/s |  40.48s  | 
+| Deep-Reasoner  | Qwen3.6-27B      | UD-Q4_K_XL | Yes |  92                                  | 2,388     | 60.41 t/s    | 10.12 t/s | 237.58s  |

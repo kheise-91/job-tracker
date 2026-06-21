@@ -1,6 +1,6 @@
 ---
 name: create-mockup
-description: Reads a sub-phase from ROADMAP.md, extracts frontend design requirements using the `frontend-ux` subagent, and generates HTML mockup variants for comparison before implementation.
+description: Reads a sub-phase from ROADMAP.md, extracts frontend design requirements using the `frontend-ux` subagent, and generates HTML mockup variants (also using the `frontend-ux` subagent) for comparison before implementation.
 disable-model-invocation: true
 effort: xhigh
 arguments: [subPhase, numberOfMockups]
@@ -83,9 +83,9 @@ Do not start writing HTML until all $numberOfMockups variants are planned.
 
 ---
 
-## Step 5 - Generate each variant
+## Step 5 - Spawn Frontend Subagents to generate variants
 
-For each planned variant, produce a complete, self-contained HTML file:
+Spawn one **frontend-ux** subagent to produce a complete, self-contained HTML file for each variant:
 
 **Reference Warning**
 - The first two lines of the HTML file should contain a warning to any model reading
