@@ -30,18 +30,32 @@ function App() {
   const [profileCardOpen, setProfileCardOpen] = useState(false)
   const [viewingJob, setViewingJob] = useState(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [hideOldApplications, setHideOldApplications] = useState(true)
   const today = new Date()
   const reminders = computeReminders(jobs, today)
 
   const filteredJobs = useMemo(() => {
-    if (!searchQuery.trim()) return jobs
+    let result = jobs
+
+    // First filter: hide old applications (Applied status, older than 30 days) when toggle is enabled
+    if (hideOldApplications) {
+      const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000)
+      result = result.filter(job => {
+        if (job.status !== 'Applied' || !job.date_applied) return true
+        const appliedDate = new Date(job.date_applied.replace(' ', 'T'))
+        return appliedDate >= thirtyDaysAgo
+      })
+    }
+
+    // Second filter: apply search query
+    if (!searchQuery.trim()) return result
     const q = searchQuery.toLowerCase()
-    return jobs.filter(
+    return result.filter(
       job =>
         (job.company || '').toLowerCase().includes(q) ||
         (job.position || '').toLowerCase().includes(q)
     )
-  }, [jobs, searchQuery])
+  }, [jobs, searchQuery, hideOldApplications, today])
 
   useEffect(() => {
     window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => setSidebarOpen(e.matches))
