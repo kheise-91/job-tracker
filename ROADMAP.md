@@ -265,19 +265,26 @@ working and dismissable, and PWA criteria met.
     Done when: All visual criteria listed above are met at the correct breakpoints.
 
 - [ ] **3.15 - Add toggle to hide applications older than 1 month**
-    
-    Add a toggle control somewhere in the application (side menu, header, main section) 
-    labeled something like "Hide old applications". When enabled, any job card with 
-    `status = 'Applied'` and `date_applied` older than 1 month should be hidden from 
-    the Kanban board.
+
+    In `Sidebar.jsx`, add a new "Filters" section at the bottom of the expanded sidebar 
+    menu (below the existing nav links, above the footer). This section should only be 
+    visible when the sidebar is expanded (`isOpen` is true). It must NOT appear in the 
+    collapsed sidebar or on the mobile bottom nav.
+
+    The section contains a single toggle labeled "Hide Old Applications" with subtext 
+    "Hides jobs in 'Applied' older than 30 days." Use a switch-style toggle control. When 
+    enabled, any job card with `status = 'Applied'` and `date_applied` older than 30 days 
+    should be hidden from the Kanban board.
 
     Jobs hidden by this toggle should also remain hidden when searching - the filter
     applies before search filtering. If the toggle is disabled, all jobs are visible
     regardless of age. The toggle should be enabled by default.
 
-    Done when: The toggle exists and works. Applied jobs older than 1 month disappear 
-    from the board when enabled. Re-enabling shows them again. Search results respect 
-    the toggle - hidden jobs don't appear in search either. Toggle is enabled by default.
+    Done when: The toggle exists in the expanded sidebar's Filters section at the bottom.
+    Applied jobs older than 30 days disappear from the board when enabled. Re-disabling 
+    shows them again. Search results respect the toggle - hidden jobs don't appear in 
+    search either. Toggle is enabled by default. The filter section does not appear in 
+    the collapsed sidebar or on the mobile bottom nav.
 
 - [ ] **3.16 - Auto-update fields on related changes**
     
