@@ -50,7 +50,7 @@ A modal dialog with a fixed header (title + close button), scrollable form conte
 
 ## Side effects
 
-- `useEffect([initialData])` — when `initialData` changes, populates `formData` from it (editing mode). When `initialData` is null, resets to a fresh form.
+- `useEffect([isOpen, initialData])` — when the modal opens (`isOpen=true`) or `initialData` changes, populates `formData` from it (editing mode). When opening for a new job (`isOpen=true` and `initialData=null`), resets to a fresh form with empty fields.
 
 ## Form submission behavior
 

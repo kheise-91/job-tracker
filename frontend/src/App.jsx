@@ -30,18 +30,43 @@ function App() {
   const [profileCardOpen, setProfileCardOpen] = useState(false)
   const [viewingJob, setViewingJob] = useState(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [hideOldApplications, setHideOldApplications] = useState(true)
   const today = new Date()
   const reminders = computeReminders(jobs, today)
 
   const filteredJobs = useMemo(() => {
-    if (!searchQuery.trim()) return jobs
+    let result = jobs
+
+    // First filter: hide old applications (Applied status, older than 30 days) when toggle is enabled
+    if (hideOldApplications) {
+      const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000)
+      result = result.filter(job => {
+        if (!job.date_applied && !job.followed_up_date) return true
+        // Hide old 'Applied' jobs (no follow-up yet, older than 30 days)
+        if (job.status === 'Applied') {
+          if (!job.date_applied) return true
+          const appliedDate = new Date(job.date_applied.replace(' ', 'T'))
+          return appliedDate >= thirtyDaysAgo
+        }
+        // Hide old 'Followed Up' jobs (follow-up older than 30 days ago, no response)
+        if (job.status === 'Followed Up') {
+          if (!job.followed_up_date) return true
+          const followUpDate = new Date(job.followed_up_date.replace(' ', 'T'))
+          return followUpDate >= thirtyDaysAgo
+        }
+        return true
+      })
+    }
+
+    // Second filter: apply search query
+    if (!searchQuery.trim()) return result
     const q = searchQuery.toLowerCase()
-    return jobs.filter(
+    return result.filter(
       job =>
         (job.company || '').toLowerCase().includes(q) ||
         (job.position || '').toLowerCase().includes(q)
     )
-  }, [jobs, searchQuery])
+  }, [jobs, searchQuery, hideOldApplications, today])
 
   useEffect(() => {
     window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => setSidebarOpen(e.matches))
@@ -199,6 +224,8 @@ function App() {
         <Sidebar
           isOpen={sidebarOpen}
           onToggle={() => setSidebarOpen(!sidebarOpen)}
+          hideOldApplications={hideOldApplications}
+          onHideOldApplicationsChange={setHideOldApplications}
         />
       </aside>
 

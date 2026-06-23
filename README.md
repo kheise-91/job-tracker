@@ -40,8 +40,17 @@ I've also built custom Claude Code skills and subagents specifically for this pr
 
 ## Prerequisites
 - [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
+- [Node.js](https://nodejs.org/) (v18+) and npm — required for building the frontend
 
 ## Setup and running locally
+
+First, set the `APP_USER` environment variable (your name/identifier used to namespace the database):
+
+```bash
+export APP_USER=dev   # or your preferred identifier
+```
+
+Then:
 
 ```bash
 # Clone the repository, then:
@@ -76,8 +85,7 @@ docker run -d \
 **Volume mounts:**
 | Host Path | Container Path | Purpose |
 |---|---|---|
-| `./data` | `/var/www/html/data` | SQLite database (`jobs.db`) - the only persistent data |
-| `./backend` | `/var/www/html/backend` | Application source code (hot-reload for PHP files) |
+| `./data/${APP_USER}` | `/var/www/html/data/${APP_USER}` | SQLite database (`jobs.db`) - the only persistent data |
 
 **Environment variables:**
 | Variable | Required | Default | Description |
@@ -96,6 +104,7 @@ The frontend is baked into the Docker image at build time - changes to the React
 │   └── nginx.conf     # Nginx routing rules
 ├── frontend/          # React application (Vite)
 ├── docs/              # Project documentation
+├── ROADMAP.md         # Project development roadmap
 ├── docker-compose.yml # Orchestration config
 ├── .gitignore         # Git ignore rules
 └── README.md

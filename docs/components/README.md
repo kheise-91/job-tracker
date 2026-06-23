@@ -27,7 +27,7 @@ App (App.jsx)
 | Component | Description |
 |-----------|-------------|
 | [App](App.md) | Root component — renders the application shell and owns all application state. |
-| [Sidebar](Sidebar.md) | Dark-themed vertical navigation panel with logo, title, and nav links. Fully controlled by parent. Overlays content at tablet sizes (< 1024px) instead of pushing layout; fills full viewport width on mobile (< 768px) when expanded. |
+| [Sidebar](Sidebar.md) | Dark-themed vertical navigation panel with logo, title, nav links, and Filters section with "Hide old applications" toggle. Receives `hideOldApplications` state and `onHideOldApplicationsChange` callback as props. Fully controlled by parent. Overlays content at tablet sizes (< 1024px) instead of pushing layout; fills full viewport width on mobile (< 768px) when expanded. |
 | [Header](Header.md) | White top bar with title, search input, "Reminders" button, and "Add Job" button. Responsive: icon-only buttons below 1200px, title hidden below 768px, search full-width below 768px. Fully controlled by parent. |
 | [KanbanBoard](KanbanBoard.md) | Horizontal-scrollable Kanban board using `react-kanban-kit` with six status columns and drag-and-drop support. |
 | [JobCard](JobCard.md) | White card showing job details, date badges, and action buttons. Uses `createPortal` for notes tooltip. |
