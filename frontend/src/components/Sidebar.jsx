@@ -1,6 +1,6 @@
 import { Bars3Icon, XMarkIcon, HomeIcon, CalendarDaysIcon, AcademicCapIcon } from '@heroicons/react/24/outline'
 
-function Sidebar({ isOpen, onToggle }) {
+function Sidebar({ isOpen, onToggle, hideOldApplications, onHideOldApplicationsChange }) {
   return (
     <div className="bg-sidebar text-white flex flex-col h-full">
       <div className="flex items-center justify-between p-3 border-b-3 border-secondary-dark">
@@ -70,7 +70,13 @@ function Sidebar({ isOpen, onToggle }) {
 
                 {/* Switch Toggle */}
                 <div className="relative inline-flex items-center">
-                  <input type="checkbox" id="hideOldToggle" className="sr-only peer" />
+                  <input
+                    type="checkbox"
+                    id="hideOldToggle"
+                    className="sr-only peer"
+                    checked={hideOldApplications}
+                    onChange={(e) => onHideOldApplicationsChange(e.target.checked)}
+                  />
                   <div className="w-12 h-6 bg-gray-600 rounded-full peer-checked:bg-primary peer-focus:ring-2 peer-focus:ring-primary transition-colors toggle-switch"></div>
                   <div className="absolute left-1 w-4 h-4 bg-white rounded-full shadow-md transform peer-checked:translate-x-6 transition-transform duration-200"></div>
                 </div>

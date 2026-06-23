@@ -213,6 +213,8 @@ function App() {
         <Sidebar
           isOpen={sidebarOpen}
           onToggle={() => setSidebarOpen(!sidebarOpen)}
+          hideOldApplications={hideOldApplications}
+          onHideOldApplicationsChange={setHideOldApplications}
         />
       </aside>
 
