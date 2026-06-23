@@ -64,8 +64,8 @@ function Sidebar({ isOpen, onToggle, hideOldApplications, onHideOldApplicationsC
             <div className="py-2 px-2">
               <label className="flex items-center justify-between cursor-pointer group gap-2">
                 <div className="flex flex-col">
-                  <span className="text-sm font-medium text-white group-hover:text-gray-100 transition-colors">Hide old applications</span>
-                  <p className="text-xs text-sidebar-muted mt-1 leading-tight">Hides jobs in 'Applied' status that are older than 30 days</p>
+                    <span className="text-sm font-medium text-white group-hover:text-gray-100 transition-colors">Hide Old Applications</span>
+                    <p className="text-xs text-sidebar-muted mt-1 leading-tight">Hides 'Applied' & 'Followed Up' jobs that are older than 30 days</p>
                 </div>
 
                 {/* Switch Toggle */}
