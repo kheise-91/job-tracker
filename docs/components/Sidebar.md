@@ -20,10 +20,12 @@ description: A dark-themed vertical navigation panel with logo, title, and nav l
 |---|---|---|
 | `isOpen` | `boolean` | Whether sidebar is expanded |
 | `onToggle` | `() => void` | Callback to toggle sidebar state (defined in App) |
+| `hideOldApplications` | `boolean` | Whether the "Hide old applications" filter is enabled |
+| `onHideOldApplicationsChange` | `(checked: boolean) => void` | Callback when the hide old applications toggle changes |
 
 ## State managed
 
-None — fully controlled by parent.
+Props are fully controlled by parent (App component).
 
 ## Responsive Behavior
 
