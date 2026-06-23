@@ -264,7 +264,7 @@ working and dismissable, and PWA criteria met.
 
     Done when: All visual criteria listed above are met at the correct breakpoints.
 
-- [-] **[3.15 - Add toggle to hide applications older than 1 month](https://gitea.heise.home/kheise/ats/milestone/10)**
+- [x] **[3.15 - Add toggle to hide applications older than 1 month](https://gitea.heise.home/kheise/ats/milestone/10)**
 
     In `Sidebar.jsx`, add a new "Filters" section at the bottom of the expanded sidebar 
     menu (below the existing nav links, above the footer). This section should only be 
