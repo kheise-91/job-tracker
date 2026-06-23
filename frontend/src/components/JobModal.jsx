@@ -17,6 +17,11 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
   })
 
   useEffect(() => {
+    // Reset form when modal opens or initialData changes
+    if (!isOpen) {
+      return
+    }
+
     if (initialData) {
       setFormData({
         company: initialData.company || '',
@@ -38,15 +43,15 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
         company: '',
         position: '',
         status: 'Applied',
-        followed_up_date: null,
-        interview_date: null,
+        followed_up_date: '',
+        interview_date: '',
         notes: '',
         hyperlink: '',
         source: '',
         salary: '',
       })
     }
-  }, [initialData])
+  }, [isOpen, initialData])
 
   const handleSubmit = (e) => {
     e.preventDefault()
