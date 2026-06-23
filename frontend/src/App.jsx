@@ -41,9 +41,20 @@ function App() {
     if (hideOldApplications) {
       const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000)
       result = result.filter(job => {
-        if (job.status !== 'Applied' || !job.date_applied) return true
-        const appliedDate = new Date(job.date_applied.replace(' ', 'T'))
-        return appliedDate >= thirtyDaysAgo
+        if (!job.date_applied && !job.followed_up_date) return true
+        // Hide old 'Applied' jobs (no follow-up yet, older than 30 days)
+        if (job.status === 'Applied') {
+          if (!job.date_applied) return true
+          const appliedDate = new Date(job.date_applied.replace(' ', 'T'))
+          return appliedDate >= thirtyDaysAgo
+        }
+        // Hide old 'Followed Up' jobs (follow-up older than 30 days ago, no response)
+        if (job.status === 'Followed Up') {
+          if (!job.followed_up_date) return true
+          const followUpDate = new Date(job.followed_up_date.replace(' ', 'T'))
+          return followUpDate >= thirtyDaysAgo
+        }
+        return true
       })
     }
 
