@@ -21,9 +21,9 @@ None — this is the top-level component.
 |---|---|---|
 | `sidebarOpen` | `boolean` | Sidebar expanded/collapsed toggle — initialized from `window.matchMedia('(min-width: 1024px)').matches` and synced on breakpoint changes via a `useEffect` listener |
 | `searchQuery` | `string` | Value of the header search input — case-insensitive substring filter applied to `company` and `position` fields |
-| `hideOldApplications` | `boolean` | Toggles filtering out Applied jobs older than 30 days — defaults to `true` |
+| `hideOldApplications` | `boolean` | Toggles filtering out old applications (Applied and Followed Up jobs older than 30 days) — defaults to `true` |
 | `jobs` | `Job[]` | Full job list fetched from `/api/jobs` |
-| `filteredJobs` | `Job[]` | Derived from `jobs` via `useMemo` — first filters out old applications (Applied status, older than 30 days) when `hideOldApplications` is enabled, then applies `searchQuery` filter (case-insensitive substring match on `company` OR `position`); returns all jobs when both filters are inactive |
+| `filteredJobs` | `Job[]` | Derived from `jobs` via `useMemo` — first filters out old applications (Applied and Followed Up status, older than 30 days) when `hideOldApplications` is enabled, then applies `searchQuery` filter (case-insensitive substring match on `company` OR `position`); returns all jobs when both filters are inactive |
 | `loading` | `boolean` | Loading indicator shown on initial fetch |
 | `modalOpen` | `boolean` | JobModal open/close toggle |
 | `editingJob` | `Job \| null` | The job being edited, or `null` for create mode |
