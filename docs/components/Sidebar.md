@@ -11,6 +11,7 @@ description: A dark-themed vertical navigation panel with logo, title, and nav l
 
 - Logo and app title (hidden when collapsed)
 - Three navigation links: "Job Tracking Board", "Interview Prep", "Resources"
+- Filters section with "Hide old applications" toggle (only visible when expanded)
 - When collapsed, shows only a slim icon-only bar
 
 ## Props
@@ -49,3 +50,5 @@ None — the sidebar component itself is stateless. Its default open/collapsed s
 ## Notes
 
 The "Interview Prep" and "Resources" links are currently placeholders (`<a href="#">`). The sidebar is a presentational component with no internal logic. Default open/closed state is determined by `window.matchMedia('(min-width: 1024px)')` in the App component.
+
+The Filters section includes a switch-style toggle for "Hide old applications" with descriptive subtext. This section only renders when `isOpen` is true, making it invisible in collapsed sidebar and mobile bottom nav states.
