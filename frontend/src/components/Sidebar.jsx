@@ -29,7 +29,7 @@ function Sidebar({ isOpen, onToggle }) {
           }
       </div>
 
-      <nav className="flex-1 p-2">
+      <nav className="flex flex-col flex-1 p-2 overflow-y-auto">
         <a
           href="#"
           className="flex items-center gap-3 px-3 py-2 rounded-md bg-primary-dark hover:bg-accent transition-colors"
@@ -52,17 +52,20 @@ function Sidebar({ isOpen, onToggle }) {
           {isOpen && <span className="whitespace-nowrap">Resources</span>}
         </a>
 
-        {/* Filters Section - Only visible when sidebar is expanded */}
+        {/* Spacer to push Filters to bottom */}
+        <div className="flex-1"></div>
+
+        {/* Filters Section - Only visible when sidebar is expanded, pinned at bottom */}
         {isOpen && (
-          <div className="pt-4 mt-4 border-t border-gray-700">
-            <h3 className="px-3 text-xs font-semibold text-sidebar-muted uppercase tracking-wider mb-3">Filters</h3>
+          <div className="mt-auto">
+            <h3 className="px-1 text-xs font-semibold text-sidebar-muted uppercase tracking-wider border-t border-gray-700 mb-3 pt-4">Filters</h3>
 
             {/* Hide Old Applications Toggle */}
-            <div className="px-2 py-2">
-              <label className="flex items-center justify-between cursor-pointer group">
+            <div className="py-2 px-2">
+              <label className="flex items-center justify-between cursor-pointer group gap-2">
                 <div className="flex flex-col">
                   <span className="text-sm font-medium text-white group-hover:text-gray-100 transition-colors">Hide old applications</span>
-                  <p className="text-xs text-sidebar-muted mt-1 leading-tight">Hides jobs in 'Applied' older than 30 days</p>
+                  <p className="text-xs text-sidebar-muted mt-1 leading-tight">Hides jobs in 'Applied' status that are older than 30 days</p>
                 </div>
 
                 {/* Switch Toggle */}
