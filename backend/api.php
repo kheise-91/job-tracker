@@ -176,20 +176,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && $requestPath === '/api/jobs/reorder'
             }
 
             foreach ($jobIds as $index => $jobId) {
-                $stmt = $pdo->prepare("
-                    UPDATE jobs
-                    SET
-                        status = ?,
-                        `order` = ?,
-                        updated_at = CURRENT_TIMESTAMP
-                    WHERE id = ?
-                ");
+                // Check if status is changing from "Applied" to "Followed Up"
+                $followedUpDate = false;
+                if ($status === 'Followed Up') {
+                    $checkStmt = $pdo->prepare("SELECT `status`, followed_up_date FROM jobs WHERE id = ?");
+                    $checkStmt->execute([(int)$jobId]);
+                    $current = $checkStmt->fetch();
+                    if ($current && $current['status'] === 'Applied' && empty($current['followed_up_date'])) {
+                        $followedUpDate = date('Y-m-d');
+                    }
+                }
 
-                $stmt->execute([
-                    $status,
-                    $index,
-                    (int)$jobId
-                ]);
+                if ($followedUpDate) {
+                    $stmt = $pdo->prepare("
+                        UPDATE jobs
+                        SET
+                            status = ?,
+                            `order` = ?,
+                            followed_up_date = CURRENT_DATE,
+                            updated_at = CURRENT_TIMESTAMP
+                        WHERE id = ?
+                    ");
+
+                    $stmt->execute([
+                        $status,
+                        $index,
+                        (int)$jobId
+                    ]);
+                } else {
+                    $stmt = $pdo->prepare("
+                        UPDATE jobs
+                        SET
+                            status = ?,
+                            `order` = ?,
+                            updated_at = CURRENT_TIMESTAMP
+                        WHERE id = ?
+                    ");
+
+                    $stmt->execute([
+                        $status,
+                        $index,
+                        (int)$jobId
+                    ]);
+                }
             }
         }
 
