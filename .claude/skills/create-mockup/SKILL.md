@@ -1,6 +1,6 @@
 ---
 name: create-mockup
-description: Reads a sub-phase from ROADMAP.md, extracts frontend design requirements using the `frontend-ux` subagent, and generates HTML mockup variants (also using the `frontend-ux` subagent) for comparison before implementation.
+description: Reads a sub-phase from ROADMAP.md, extracts frontend design requirements using the `frontend-ux` agent, and generates HTML mockup variants (also using the `frontend-ux` agent) for comparison before implementation.
 disable-model-invocation: true
 effort: xhigh
 arguments: [subPhase, numberOfMockups]
@@ -50,11 +50,11 @@ If the sub-phase contains no meaningful frontend work, report that and stop.
 
 ---
 
-## Step 3 - Delegate Style Extraction to Frontend Subagent
+## Step 3 - Delegate Style Extraction to Frontend agent
 
-Spawn the `frontend-ux` subagent to analyze the existing frontend architecture. Do not use local file tools for this step; you must call the subagent tool. 
+Spawn the `frontend-ux` agent to analyze the existing frontend architecture. Do not use local file tools for this step; you must call the agent tool. 
 
-Provide the subagent with this exact prompt:
+Provide the agent with this exact prompt:
 ```text
 Analyze the existing codebase inside `frontend/src/` to extract visual design conventions for a new mockup. 
 1. Inspect the global stylesheet (e.g., `frontend/src/index.css`) for Tailwind patterns, CSS variables, and core theme colors.
@@ -64,7 +64,7 @@ Analyze the existing codebase inside `frontend/src/` to extract visual design co
 Return a markdown summary of these visual styles to the orchestrator. Do not attempt to read files outside your permitted directories or write any mockup files.
 ```
 
-Await the subagent's markdown response before moving on to Step 4. Use the subagent's summary to assist with planning and generating the mockups.
+Await the agent's markdown response before moving on to Step 4. Use the agent's summary to assist with planning and generating the mockups.
 
 ---
 
@@ -83,9 +83,9 @@ Do not start writing HTML until all $numberOfMockups variants are planned.
 
 ---
 
-## Step 5 - Spawn Frontend Subagents to generate variants
+## Step 5 - Spawn Frontend agents to generate variants
 
-Spawn one **frontend-ux** subagent to produce a complete, self-contained HTML file for each variant:
+Spawn one **frontend-ux** agent to produce a complete, self-contained HTML file for each variant:
 
 **Reference Warning**
 - The first two lines of the HTML file should contain a warning to any model reading
