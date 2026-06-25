@@ -22,19 +22,27 @@ Read @ROADMAP.md. Find the sub-phase matching the derived number. Extract the fu
 
 ---
 
-## Step 3 - Gather all changes
+## Step 3 - Gather all changes using subagents
+
+Spawn each of the following subagents to review the current branch's changes for their respective section(s):
+- **infra-devops**: `docker-compose.yml`, `docker/`
+- **backend-engineer**: `backend/`
+- **frontend-engineer**: `frontend/`
+
+Have each subagent summarize every file changed, added, or deleted for their section and return the summary.
 
 ```bash
 git diff master...HEAD --stat
 git diff master...HEAD
 ```
 
-Note every file changed, added, or deleted.
-
 ---
 
-## Step 4 - Gather all issue acceptance criteria
+## Step 4 - Gather all issue acceptance criteria using subagent
 
+Spawn the **gitea-git-ops** subagent with the following instructions:
+
+**Instructions:**
 Using the Gitea MCP, detect the repo from the current git remote. List all issues in the milestone `Phase X.Y`. For each issue, read the full body and extract every acceptance criterion checkbox. Compile a single flat list of all criteria across all issues - this is the complete test checklist for this sub-phase.
 
 ---
@@ -45,8 +53,8 @@ Spawn a **`qa-reviewer`** agent with the following context and instructions:
 
 **Context:**
 - Sub-phase title and "Done when" definition from ROADMAP.md
-- Full git diff (all changed files and their contents)
-- Complete acceptance criteria checklist from all issues
+- File summaries from step 3
+- Complete acceptance criteria checklist from step 4
 - List of all changed filenames
 - App URL: https://dev-server.heise.home
 

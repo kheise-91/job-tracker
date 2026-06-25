@@ -21,8 +21,11 @@ Read @ROADMAP.md. Find the sub-phase matching "$subPhase" (e.g. "3.9" matches "-
 
 ---
 
-## Step 2 - Create the sub-phase branch
+## Step 2 - Create the sub-phase branch and milestone using subagent
 
+Spawn a **gitea-git-ops** subagent with the following instructions.
+
+**Instructions:**
 Derive the branch name from the argument: replace the `.` with `-` and prepend `phase-`. Example: `3.9` → `phase-3-9`
 
 Create the branch off of `master` and push it:
@@ -34,15 +37,13 @@ git checkout -b phase-[X-Y]
 git push -u origin phase-[X-Y]
 ```
 
----
-
-## Step 3 - Create the milestone
-
 Using the Gitea MCP, detect the repo from the current git remote. Create a milestone with:
 - **Title:** `Phase X.Y` (e.g. "Phase 3.9")
 - **Description:** The full sub-phase description from the roadmap, including the done definition and any implementation notes, formatted as markdown
 
 If the milestone already exists, skip creation and use the existing one.
+
+Return the new branch name and milestone title.
 
 ---
 
@@ -84,6 +85,9 @@ For each task, determine:
 
 ## Step 5 - Create branches, issues, and comments
 
+Spawn a **gitea-git-ops** subagent with the complete list of tasks and the following instructions.
+
+**Instructions:**
 For each task in sequence, perform these steps **one task at a time** - complete all steps for one task before moving to the next:
 
 **5a. Generate the branch name**

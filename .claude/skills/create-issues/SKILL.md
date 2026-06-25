@@ -21,13 +21,18 @@ Read @ROADMAP.md. Find the sub-phase matching "$subPhase" (e.g. "3.9" matches "-
 
 ---
 
-## Step 2 - Create the milestone
+## Step 2 - Create the milestone using subagent
 
+Spawn a **gitea-git-ops** subagent with the following instructions.
+
+**Instructions:**
 Using the Gitea MCP, detect the repo from the current git remote. Create a milestone with:
 - **Title:** `Phase X.Y` (e.g. "Phase 3.9")
 - **Description:** The full sub-phase description from the roadmap, including the done definition and any implementation notes, formatted as markdown
 
-If the milestone already exists, skip creation and use the existing one.
+If the milestone already exists, skip creation and use the existing one. 
+
+Return the milestone title.
 
 ---
 
@@ -67,6 +72,9 @@ For each task, determine:
 
 ## Step 4 - Create issues
 
+Spawn a **gitea-git-ops** subagent with the complete list of tasks and the following instructions.
+
+**Instructions:**
 Detect the repo from the current git remote. For each task in sequence:
 
 **4a.** Create any missing labels via the Gitea MCP.
