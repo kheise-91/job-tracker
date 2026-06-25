@@ -108,7 +108,7 @@ Non-blocking observations can be noted in the PR body.
 
 *Do NOT proceed to this step until the user confirms the task has been completed successfully and requests a PR.*
  
-Stage all changes and commit:
+Stage ONLY the changes made for this issue and commit:
 ```
 feat: [issue title]
  
