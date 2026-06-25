@@ -191,9 +191,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && $requestPath === '/api/jobs/reorder'
                     $stmt = $pdo->prepare("
                         UPDATE jobs
                         SET
-                            status = ?,
+                            `status` = ?,
                             `order` = ?,
-                            followed_up_date = CURRENT_DATE,
+                            followed_up_date = '$followedUpDate',
                             updated_at = CURRENT_TIMESTAMP
                         WHERE id = ?
                     ");

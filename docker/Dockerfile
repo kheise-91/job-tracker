@@ -9,10 +9,20 @@ RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
+# Set timezone to America/Chicago
+RUN apt-get update && apt-get install -y tzdata \
+    && ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
+    && echo 'America/Chicago' > /etc/timezone \
+    && dpkg-reconfigure -f noninteractive tzdata \
+    && rm -rf /var/lib/apt/lists/*
+
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_sqlite \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd
+
+# Set PHP timezone
+RUN echo 'date.timezone = America/Chicago' > /usr/local/etc/php/conf.d/timezone.ini
 
 # Install nginx
 RUN apt-get update && apt-get install -y \
