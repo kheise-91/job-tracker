@@ -15,7 +15,7 @@ All skill files live in `/.claude/skills/`. Clicking the skill name will take yo
 ## Prerequisites
 
 - Gitea MCP v1.3.0+ configured in Claude Code (`GITEA_ACCESS_TOKEN` and `GITEA_HOST` set as MCP env vars)
-- `ROADMAP.md` in the project root (required by `/create-sub-phase` and `/create-issues`)
+- `ROADMAP.md` in the project root (required by `/create-sub-phase`)
 - `master` branch as the base for all sub-phase branches
 
 ---
@@ -88,17 +88,6 @@ downstream skills to reference.
 Returns a summary table of all issues and their branches when done.
 
 **Use when:** Starting a new sub-phase. Run once before any development begins.
-
----
-
-### [`/create-issues [subPhase]`](/.claude/skills/create-issues/SKILL.md)
-
-Creates issues only - no branch or milestone setup. Reads the sub-phase from `ROADMAP.md`
-and generates issues with the same rules as `/create-sub-phase`. Use when you want
-manual control over branch naming or need to add issues to an existing sub-phase. 
-
-**Use when:** The sub-phase branch and milestone already exist and you need more issues,
-or you prefer to manage branches yourself.
 
 ---
 
@@ -180,7 +169,6 @@ Can also be run after any major phase to keep docs current.
 | `/review-project-roadmap` | Critically reviews `ROADMAP.md` as an independent pass, flagging gaps, sequencing problems, and anything misscoped. Does not modify any files | **Swift-Reasoner** / Precise-Coder | 
 | `/create-mockup` | Reads a sub-phase from ROADMAP.md, extracts frontend design requirements using the `frontend-ux` subagent, and generates HTML mockup variants for comparison before implementation | **Precise-Coder** / Swift-Reasoner |
 | `/create-sub-phase` | Sets up sub-phase - create Gitea issues and branches based on sub-phase in project roadmap | **Precise-Coder** / Deep-Reasoner | 
-| `/create-issues` | Creates Gitea issues based on sub-phase in project roadmap | **Precise-Coder** / Deep-Reasoner | 
 | `/create-issue-plan` | Reads an issue from Gitea and creates a plan for implementation | **Swift-Reasoner** / Deep-Reasoner | 
 | `/execute-issue-plan` | Executes the saved plan for a Gitea issue | **Quick-Coder** / Precise-Coder | 
 | `/complete-issue` | Fully autonomous mode - works on a Gitea issue from start to finish without pausing for user confirmation | **Quick-Coder** / Precise-Coder | 
@@ -203,7 +191,6 @@ Can also be run after any major phase to keep docs current.
 2. **UI/UX Mockup (optional):** use `/create-mockup` to create one or more HTML mockups for ideas on implementing more complex UI features.
 3. **Task Creation:**
     - Use `/create-sub-phase` to create Gitea issues, branches, and milestones. 
-    - Use `/create-issues` to only create the issues.
 4. **Development:**
     - Use `/complete-issue` to have Claude work an issue from start to finish and open a PR.
     - Use `/create-issue-plan` followed by `/execute-issue-plan` to work an issue in steps (for more complex tasks).
