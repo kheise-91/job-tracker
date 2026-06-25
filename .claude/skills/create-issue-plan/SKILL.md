@@ -14,7 +14,11 @@ The issue number is: $issueNumber.
 
 ## Step 1 - Fetch the issue
 
-Using the Gitea MCP, detect the repo from the current git remote. Retrieve issue #$issueNumber and read its full content: title, body, acceptance criteria, notes, labels, and milestone.
+Spawn the **gitea-git-ops** subagent with the following instructions.
+
+**Instructions:**
+Using the Gitea MCP, detect the repo from the current git remote. 
+Retrieve issue #$issueNumber and return its full content: title, body, acceptance criteria, notes, labels, and milestone.
 
 ---
 
