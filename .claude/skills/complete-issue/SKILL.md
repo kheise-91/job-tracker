@@ -14,7 +14,7 @@ The issue number is: $issueNumber.
 
 ## Step 1 - Fetch the issue
 
-Spawn a **gitea-git-ops** subagent with the following instructions.
+Spawn a **gitea-git-ops** agent with the following instructions.
 
 **Instructions:**
 Using the Gitea MCP, detect the repo from the current git remote. 
@@ -152,9 +152,9 @@ Non-blocking observations can be noted in the PR body.
 
 ---
 
-## Step 6 - Commit, push, and open pull request using subagent
+## Step 6 - Commit, push, and open pull request using agent
 
-Spawn a **gitea-git-ops** subagent with the code review summary and the following instructions.
+Spawn a **gitea-git-ops** agent with the code review summary and the following instructions.
 
 **Instructions:**
 Stage ONLY the changes made for this issue and commit:

@@ -21,9 +21,9 @@ Read @ROADMAP.md. Find the sub-phase matching "$subPhase" (e.g. "3.9" matches "-
 
 ---
 
-## Step 2 - Create the sub-phase branch and milestone using subagent
+## Step 2 - Create the sub-phase branch and milestone using agent
 
-Spawn a **gitea-git-ops** subagent with the following instructions.
+Spawn a **gitea-git-ops** agent with the following instructions.
 
 **Instructions:**
 Derive the branch name from the argument: replace the `.` with `-` and prepend `phase-`. Example: `3.9` → `phase-3-9`
@@ -85,7 +85,7 @@ For each task, determine:
 
 ## Step 5 - Create branches, issues, and comments
 
-Spawn a **gitea-git-ops** subagent with the complete list of tasks and the following instructions.
+Spawn a **gitea-git-ops** agent with the complete list of tasks and the following instructions.
 
 **Instructions:**
 For each task in sequence, perform these steps **one task at a time** - complete all steps for one task before moving to the next:

@@ -104,11 +104,11 @@ Non-blocking observations can be noted in the PR body.
 
 ---
 
-## Step 5 - Commit, push, and open pull request using subagent
+## Step 5 - Commit, push, and open pull request using agent
 
 *Do NOT proceed to this step until the user confirms the task has been completed successfully and requests a PR.*
 
-Spawn a **gitea-git-ops** subagent with the code review summary and the following instructions.
+Spawn a **gitea-git-ops** agent with the code review summary and the following instructions.
 
 **Instructions:**
  

@@ -14,7 +14,7 @@ The issue number is: $issueNumber.
 
 ## Step 1 - Fetch the issue
 
-Spawn the **gitea-git-ops** subagent with the following instructions.
+Spawn the **gitea-git-ops** agent with the following instructions.
 
 **Instructions:**
 Using the Gitea MCP, detect the repo from the current git remote. 

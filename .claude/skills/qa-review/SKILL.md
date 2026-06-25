@@ -22,14 +22,14 @@ Read @ROADMAP.md. Find the sub-phase matching the derived number. Extract the fu
 
 ---
 
-## Step 3 - Gather all changes using subagents
+## Step 3 - Gather all changes using agents
 
-Spawn each of the following subagents to review the current branch's changes for their respective section(s):
+Spawn each of the following agents to review the current branch's changes for their respective section(s):
 - **infra-devops**: `docker-compose.yml`, `docker/`
 - **backend-engineer**: `backend/`
 - **frontend-engineer**: `frontend/`
 
-Have each subagent summarize every file changed, added, or deleted for their section and return the summary.
+Have each agent summarize every file changed, added, or deleted for their section and return the summary.
 
 ```bash
 git diff master...HEAD --stat
@@ -38,28 +38,29 @@ git diff master...HEAD
 
 ---
 
-## Step 4 - Gather all issue acceptance criteria using subagent
+## Step 4 - Gather all issue acceptance criteria using agent
 
-Spawn the **gitea-git-ops** subagent with the following instructions:
+Spawn the **gitea-git-ops** agent with the following instructions:
 
 **Instructions:**
 Using the Gitea MCP, detect the repo from the current git remote. List all issues in the milestone `Phase X.Y`. For each issue, read the full body and extract every acceptance criterion checkbox. Compile a single flat list of all criteria across all issues - this is the complete test checklist for this sub-phase.
 
 ---
 
-## Step 5 - Spawn the qa-reviewer agent
+## Step 5 - Spawn the qa-reviewer agents
 
-Spawn a **`qa-reviewer`** agent with the following context and instructions:
+Spawn one **`qa-reviewer`** agent for each summary returned in step 3. If a agent did not return a summary, skip that section. Each **qa-reviewer** agent should only review the files and section of the summary passed to it (frontend, backend, infra/devops)
+
+Pass the following context and instructions:
 
 **Context:**
 - Sub-phase title and "Done when" definition from ROADMAP.md
-- File summaries from step 3
+- The file summary pertaining to the section to review from step 3
 - Complete acceptance criteria checklist from step 4
 - List of all changed filenames
 - App URL: https://dev-server.heise.home
 
 **Instructions:**
-
 You are a senior QA engineer reviewing a completed sub-phase of development. Your job is to find problems, not to validate. Be direct and specific. Do not change any files. Only review changes according to your instructions and generate a report.
 
 If you an acceptance criteria has not been met, but the overall feature works, make note of that and move on. There's a chance the feature was modified during development. For example: if an acceptance criteria states that an API call must be made to fill a list of UI items, but the list is still getting filled by other means, do not flag this as a problem. The end product working as expected overrides any criteria checkboxes.
@@ -104,4 +105,4 @@ Do not produce a passing verdict unless every checkbox criterion is satisfied (s
 
 ## Step 6 - Report
 
-Print the full QA report. If the verdict is FAIL, list the specific issues that need to be addressed before the sub-phase branch can be merged into master.
+Print the full QA report, categorized by the codebase sections reviewed (frontend, backend, infra/devops). If the verdict is FAIL, list the specific issues that need to be addressed before the sub-phase branch can be merged into master.

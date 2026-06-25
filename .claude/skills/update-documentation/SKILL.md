@@ -73,7 +73,7 @@ For example: `App.jsx` would have `App.md` that summarizes the component.
 
 These markdown summaries should be placed in the `docs/components/` directory.
 
-When all components from the subagent's summary have been created/updated, update the `docs/components/README.md` file to 
+When all components from the agent's summary have been created/updated, update the `docs/components/README.md` file to 
 list each component, along with a 1 sentence description and link to the component's `.md` file.
 
 ---

@@ -21,9 +21,9 @@ Read @ROADMAP.md. Find the sub-phase matching "$subPhase" (e.g. "3.9" matches "-
 
 ---
 
-## Step 2 - Create the milestone using subagent
+## Step 2 - Create the milestone using agent
 
-Spawn a **gitea-git-ops** subagent with the following instructions.
+Spawn a **gitea-git-ops** agent with the following instructions.
 
 **Instructions:**
 Using the Gitea MCP, detect the repo from the current git remote. Create a milestone with:
@@ -72,7 +72,7 @@ For each task, determine:
 
 ## Step 4 - Create issues
 
-Spawn a **gitea-git-ops** subagent with the complete list of tasks and the following instructions.
+Spawn a **gitea-git-ops** agent with the complete list of tasks and the following instructions.
 
 **Instructions:**
 Detect the repo from the current git remote. For each task in sequence:
