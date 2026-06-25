@@ -5,8 +5,9 @@ import { createPortal } from 'react-dom'
 function formatInterviewDate(dateStr) {
   if (!dateStr) return ''
   const date = new Date(dateStr.replace(' ', 'T'))
+  
   if (isNaN(date)) return ''
-  const month = date.toLocaleString('en-US', { month: 'short' })
+  const month = date.toLocaleString('en-US', { month: 'long' })
   const day = date.getDate()
   const hours = date.getHours()
   const minutes = date.getMinutes()
@@ -17,12 +18,11 @@ function formatInterviewDate(dateStr) {
 
 function formatFollowedUpDate(dateStr) {
   if (!dateStr) return ''
-  // Parse as local date to avoid UTC timezone shift (date-only strings like "2026-05-27"
-  // are interpreted as UTC midnight, which shifts to the previous day in negative UTC timezones)
   const [year, month, day] = dateStr.split('-').map(Number)
   const date = new Date(year, month - 1, day)
+
   if (isNaN(date)) return ''
-  const m = date.toLocaleString('en-US', { month: 'short' })
+  const m = date.toLocaleString('en-US', { month: 'long' })
   return `${m} ${day}`
 }
 

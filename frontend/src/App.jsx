@@ -16,7 +16,7 @@ function computeReminders(jobs, today) {
     })
     .map(job => ({
       ...job,
-      daysAgo: Math.floor((today - new Date(job.date_applied.replace(' ', 'T'))) / (1000 * 60 * 60 * 24)),
+      daysAgo: Math.round((today - new Date(job.date_applied.replace(' ', 'T'))) / (1000 * 60 * 60 * 24))
     }))
 }
 
@@ -243,6 +243,7 @@ function App() {
             <KanbanBoard
               jobs={filteredJobs}
               onBoardUpdate={handleBoardUpdate}
+              onFetchJobs={fetchJobs}
               onDeleteJob={handleDeleteJob}
               onEditJob={handleEditJob}
               onViewJob={handleViewJob}

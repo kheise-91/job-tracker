@@ -39,8 +39,8 @@ None. Component is fully controlled via props.
 
 | Function / Constant | Purpose |
 |---|---|
-| `formatDate(dateStr)` | Parses datetime string, formats as "Aug 29, 2025" |
-| `formatDateTime(dateStr)` | Parses datetime string, formats as "Aug 29, 2025 at 2:30 PM" |
+| `formatDate(dateStr)` | Parses date string (YYYY-MM-DD or YYYY-MM-DD HH:MM:SS) without timezone conversion, formats as "Aug 29, 2025". Splits the date components manually and constructs a local-time `Date` object to avoid off-by-one errors caused by UTC interpretation. |
+| `formatDateTime(dateStr)` | Parses datetime string (YYYY-MM-DD HH:MM:SS or YYYY-MM-DD) without timezone conversion, formats as "Aug 29, 2025 at 2:30 PM". Splits both date and time components manually and constructs a local-time `Date` object to avoid off-by-one errors caused by UTC interpretation. |
 | `displayValue(val)` | Returns formatted value or `<em>Not Set</em>` for null/empty strings |
 | `statusGradient` | Object mapping status strings to CSS `linear-gradient` values using `var(--color-*-status)` and `color-mix` for the dark-to-darker hero header effect |
 | `statusBadgeStyle` | Object mapping status strings to inline style objects (backgroundColor, color, borderColor) using `var(--color-*-status-light)` and `var(--color-*-status)` CSS variables |

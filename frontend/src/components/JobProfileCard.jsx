@@ -12,26 +12,26 @@ import {
 
 function formatDate(dateStr) {
   if (!dateStr) return ''
-  const date = new Date(dateStr.replace(' ', 'T'))
+  const [year, month, day] = dateStr.split('-').map(Number)
+  const date = new Date(year, month - 1, day)
+
   if (isNaN(date)) return ''
-  const month = date.toLocaleString('en-US', { month: 'short' })
-  const day = date.getDate()
-  const year = date.getFullYear()
-  return `${month} ${day}, ${year}`
+  const m = date.toLocaleString('en-US', { month: 'long' })
+  return `${m} ${day}`
 }
 
 function formatDateTime(dateStr) {
   if (!dateStr) return ''
   const date = new Date(dateStr.replace(' ', 'T'))
+  
   if (isNaN(date)) return ''
-  const month = date.toLocaleString('en-US', { month: 'short' })
+  const month = date.toLocaleString('en-US', { month: 'long' })
   const day = date.getDate()
-  const year = date.getFullYear()
   const hours = date.getHours()
   const minutes = date.getMinutes()
   const ampm = hours >= 12 ? 'PM' : 'AM'
   const displayHours = hours % 12 || 12
-  return `${month} ${day}, ${year} at ${displayHours}:${minutes.toString().padStart(2, '0')} ${ampm}`
+  return `${month} ${day}, ${displayHours}:${minutes.toString().padStart(2, '0')} ${ampm}`
 }
 
 function displayValue(val) {

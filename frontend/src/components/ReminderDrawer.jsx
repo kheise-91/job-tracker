@@ -57,8 +57,9 @@ function ReminderDrawer({ isOpen, onClose, reminders, reminderCount, onDismiss, 
     if (!dateStr) return '';
     const [year, month, day] = dateStr.split(' ')[0].split('-').map(Number);
     const date = new Date(year, month - 1, day);
+
     if (isNaN(date)) return '';
-    const m = date.toLocaleString('en-US', { month: 'short' });
+    const m = date.toLocaleString('en-US', { month: 'long' });
     return `${m} ${day}`;
   }
 
