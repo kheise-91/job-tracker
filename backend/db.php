@@ -24,7 +24,7 @@ try {
             position TEXT NOT NULL,
             salary TEXT NOT NULL,
             status TEXT NOT NULL DEFAULT 'Applied',
-            date_applied DATETIME DEFAULT CURRENT_TIMESTAMP,
+            date_applied DATETIME,
             followed_up_date DATETIME DEFAULT NULL,
             follow_up_dismissed BOOLEAN DEFAULT 0,
             interview_date DATETIME DEFAULT NULL,
@@ -32,7 +32,7 @@ try {
             hyperlink TEXT,
             notes TEXT,
             `order` INTEGER NOT NULL DEFAULT 0,
-            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            updated_at DATETIME
         )
     ");
 
