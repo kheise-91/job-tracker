@@ -308,9 +308,55 @@ working and dismissable, and PWA criteria met.
     the dropdown. Setting an interview date on an Applied job auto-selects "Interviewing".
     Dragging an Applied card to "Followed Up" with no existing `followed_up_date` auto-sets
     it to today's date. Manual override works for all cases. Other status transitions are
+
+- [ ] **3.17 - Interview Prep: Frontend**
+
+    Wire the existing "Interview Prep" sidebar link in `Sidebar.jsx` to be clickable with
+    active-state highlighting. Add a `currentPage` state (`'board'` or `'prep'`) to
+    `App.jsx` that conditionally renders the KanbanBoard or the Interview Prep page.
+
+    Create `InterviewPrep.jsx` - a page component that fetches prep entries from the API
+    and displays them as full-width accordion cards showing company + position in the
+    header. Expanding a card reveals a 3-column layout: **Col 1** - job info (company,
+    position, status, date applied, source, hyperlink); **Col 2** - notes from the linked
+    job (read-only display); **Col 3** - Q&A section with expand/collapse per question/answer
+    pair and an "Add Q&A" button. Empty state shows a message and "Add Prep" button when
+    no entries exist.
+
+    Create `InterviewPrepModal.jsx` - a modal for creating/editing prep entries. Contains
+    a dropdown to select a job, a textarea for prep notes, and a dynamic Q&A builder where
+    users can add/remove question-answer pairs. On submit, the Q&A array is JSON-serialized
+    into the `prep_questions` column.
+
+    Done when: Clicking "Interview Prep" in the sidebar loads the page. Prep entries display
+    as accordion cards with a 3-column expand view. Users can create, edit, and delete prep
+    entries via the modal. Q&A pairs are rendered as expandable items. Empty state displays
+    correctly when no entries exist. The "Resources" link remains a non-functional placeholder.
     unaffected.
 
-- [ ] **3.17 - PWA configuration**
+- [ ] **3.18 - Interview Prep: Backend**
+
+    Create a new `interview_prep` table in SQLite (`backend/db.php`) with columns:
+    `id`, `job_id` (FK to `jobs.id`), `prep_notes` (TEXT), `prep_questions` (TEXT,
+    stores JSON array of `{question, answer}` objects, defaults to `'[]'`), `created_at`,
+    `updated_at`.
+
+    Add CRUD endpoints in `backend/api.php`:
+    `GET /api/interview-prep` - list all prep entries with a JOIN on the jobs table to
+    include company, position, and status; `POST /api/interview-prep` - create entry
+    (validates `job_id` references an existing job and that `prep_questions` is valid JSON);
+    `PUT /api/interview-prep/{id}` - partial update; `DELETE /api/interview-prep/{id}`.
+
+    Done when: The `interview_prep` table is created on app startup. All 4 endpoints work
+    correctly via curl or browser dev tools. GET returns prep entries with linked job data.
+    POST validates that the referenced job exists and that `prep_questions` is valid JSON.
+
+- [ ] **3.19 - Resources Page**
+
+    Create a new page titled "Resources" that contains links for websites that are helpful
+    when job searching (such as LinkedIn, Indeed, Glassdoor etc.).
+
+- [ ] **3.20 - PWA configuration**
     
     Add and validate the web app manifest (name, short name, icons, theme color, display
     mode). Verify the app passes PWA installability criteria on desktop and mobile via a Lighthouse audit.
@@ -318,7 +364,7 @@ working and dismissable, and PWA criteria met.
     Done when: The app installs to a mobile home screen via "Add to Home Screen".
     Lighthouse PWA audit shows no blocking issues.
 
-- [ ] **3.18 - Full code review**
+- [ ] **3.21 - Full code review**
 
     Review all frontend and backend code against professional standards: consistent naming
     conventions, no dead imports or unused variables, no `console.log` statements, component
@@ -364,47 +410,8 @@ runs cleanly with a single command.
 This phase introduces high-value updates to enrich user experience. It builds on core
 functionality based on continuous user feedback.
 
-- [ ] **5.1 - Interview Prep: Backend**
+- [ ] **5.1 - Database Admin Page**
 
-    Create a new `interview_prep` table in SQLite (`backend/db.php`) with columns:
-    `id`, `job_id` (FK to `jobs.id`), `prep_notes` (TEXT), `prep_questions` (TEXT,
-    stores JSON array of `{question, answer}` objects, defaults to `'[]'`), `created_at`,
-    `updated_at`.
-
-    Add CRUD endpoints in `backend/api.php`:
-    `GET /api/interview-prep` - list all prep entries with a JOIN on the jobs table to
-    include company, position, and status; `POST /api/interview-prep` - create entry
-    (validates `job_id` references an existing job and that `prep_questions` is valid JSON);
-    `PUT /api/interview-prep/{id}` - partial update; `DELETE /api/interview-prep/{id}`.
-
-    Done when: The `interview_prep` table is created on app startup. All 4 endpoints work
-    correctly via curl or browser dev tools. GET returns prep entries with linked job data.
-    POST validates that the referenced job exists and that `prep_questions` is valid JSON.
-
-- [ ] **5.2 - Interview Prep: Frontend**
-
-    Wire the existing "Interview Prep" sidebar link in `Sidebar.jsx` to be clickable with
-    active-state highlighting. Add a `currentPage` state (`'board'` or `'prep'`) to
-    `App.jsx` that conditionally renders the KanbanBoard or the Interview Prep page.
-
-    Create `InterviewPrep.jsx` - a page component that fetches prep entries from the API
-    and displays them as full-width accordion cards showing company + position in the
-    header. Expanding a card reveals a 3-column layout: **Col 1** - job info (company,
-    position, status, date applied, source, hyperlink); **Col 2** - notes from the linked
-    job (read-only display); **Col 3** - Q&A section with expand/collapse per question/answer
-    pair and an "Add Q&A" button. Empty state shows a message and "Add Prep" button when
-    no entries exist.
-
-    Create `InterviewPrepModal.jsx` - a modal for creating/editing prep entries. Contains
-    a dropdown to select a job, a textarea for prep notes, and a dynamic Q&A builder where
-    users can add/remove question-answer pairs. On submit, the Q&A array is JSON-serialized
-    into the `prep_questions` column.
-
-    Done when: Clicking "Interview Prep" in the sidebar loads the page. Prep entries display
-    as accordion cards with a 3-column expand view. Users can create, edit, and delete prep
-    entries via the modal. Q&A pairs are rendered as expandable items. Empty state displays
-    correctly when no entries exist. The "Resources" link remains a non-functional placeholder.
-
-- [ ] **5.3 - Resources Page**
-
-- [ ] **5.4 - Database Admin Page**
+    Front-end user interfce for working with the Sqlite database (similar to phpMyAdmin). 
+    This should only be available if the `DB_ADMIN` environment variable in the 
+    `docker_compose.yml` file is set to true.
