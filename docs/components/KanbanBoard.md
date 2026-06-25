@@ -18,6 +18,7 @@ Six status columns (Wishlist, Applied, Followed Up, Interviewing, Offer, Rejecte
 | `jobs` | `Job[]` | Full job list (from App) |
 | `onBoardUpdate` | `(updatedJobs: Job[]) => void` | Called with updated jobs after drag reorder for immediate UI feedback (App's `handleBoardUpdate`) |
 | `onFetchJobs` | `() => Promise<void>` | Called after reorder API succeeds to refetch authoritative state from backend (picks up auto-set fields like `followed_up_date`) |
+| `onFetchJobs` | `() => Promise<void>` | Called after reorder API succeeds to refetch authoritative state from backend (picks up auto-set fields like `followed_up_date`) |
 | `onDeleteJob` | `(id: number) => void` | Delete handler passed through to JobCard config |
 | `onEditJob` | `(job: Job) => void` | Edit handler passed through to JobCard config |
 | `onViewJob` | `(job: Job) => void` | View handler passed through to JobCard for opening the profile card |

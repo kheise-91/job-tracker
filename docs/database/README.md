@@ -33,7 +33,7 @@ Stores individual job application entries for tracking through the hiring pipeli
 | `position`           | TEXT      | NOT NULL                     | —                       | Job title/position               |
 | `salary`             | TEXT      | NOT NULL                     | `''`                    | Salary/compensation data         |
 | `status`             | TEXT      | NOT NULL                     | `'Applied'`             | Pipeline stage                   |
-| `date_applied`       | DATETIME  | —                            | `CURRENT_TIMESTAMP`     | When the job was created         |
+| `date_applied`       | DATETIME  | —                            | `NULL`                  | Date the application was submitted (set by API, not auto-populated) |
 | `followed_up_date`   | DATETIME  | —                            | `NULL`                  | Date of last follow-up           |
 | `follow_up_dismissed`| BOOLEAN   | —                            | `0`                     | Whether follow-up reminder dismissed (stored as 0/1) |
 | `interview_date`     | DATETIME  | —                            | `NULL`                  | Scheduled interview date/time    |
@@ -41,7 +41,7 @@ Stores individual job application entries for tracking through the hiring pipeli
 | `hyperlink`          | TEXT      | —                            | `NULL`                  | URL to the job posting           |
 | `notes`              | TEXT      | —                            | `NULL`                  | Free-form notes                  |
 | `order`              | INTEGER   | NOT NULL                     | `0`                     | Display order within a status column |
-| `updated_at`         | DATETIME  | —                            | `CURRENT_TIMESTAMP`     | Last modification timestamp      |
+| `updated_at`         | DATETIME  | —                            | `NULL`                  | Last modification timestamp (set explicitly by API, not via DEFAULT) |
 
 ### Valid `status` values
 
@@ -61,5 +61,5 @@ No migration system exists. The schema is created once via `CREATE TABLE IF NOT 
 
 ### Notes
 
-- `date_applied` and `updated_at` rely on SQLite's `CURRENT_TIMESTAMP` for default values.
-- `updated_at` is set manually via `CURRENT_TIMESTAMP` in UPDATE queries (not via a trigger), so it only updates when the API's PUT endpoint is called.
+- `date_applied` and `updated_at` have no DEFAULT values — they are set explicitly by the PHP API using `date('Y-m-d')` / `date('Y-m-d H:i:s')`.
+- `updated_at` is updated on every PUT request (both single-job update and bulk reorder).

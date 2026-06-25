@@ -39,8 +39,8 @@ description: A white card displaying job details (company, position) with action
 
 | Function | Purpose |
 |---|---|
-| `formatInterviewDate(dateStr)` | Parses ISO datetime string, formats as "May 27, 2:30 PM" |
-| `formatFollowedUpDate(dateStr)` | Parses date-only string as local date (avoids UTC shift), formats as "May 27" |
+| `formatInterviewDate(dateStr)` | Parses datetime string, formats as "May 27, 2:30 PM" (full month name) |
+| `formatFollowedUpDate(dateStr)` | Parses date-only string as local date via `new Date(year, month-1, day)` (avoids UTC shift), formats as "May 27" (full month name) |
 
 ## Notable patterns
 

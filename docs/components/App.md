@@ -31,7 +31,7 @@ None — this is the top-level component.
 | `profileCardOpen` | `boolean` | JobProfileCard open/close toggle |
 | `viewingJob` | `Job \| null` | The job being viewed in the profile card |
 
-Reminders are derived state — computed from `jobs` on every render via the `computeReminders(jobs, today)` helper function above the `App` component. This ensures reminders always stay in sync with job data regardless of how jobs are modified (modal edit, drag-and-drop, delete, or dismiss).
+Reminders are derived state — computed from `jobs` on every render via the `computeReminders(jobs)` helper function above the `App` component. Uses a timezone-safe `parseLocalDate()` helper (parses `YYYY-MM-DD` as local date via `new Date(year, month-1, day)`) to avoid UTC shift bugs in negative-offset timezones. This ensures reminders always stay in sync with job data regardless of how jobs are modified (modal edit, drag-and-drop, delete, or dismiss).
 
 ## Side effects
 

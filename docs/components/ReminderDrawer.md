@@ -44,13 +44,13 @@ A fixed-position, full-height drawer that slides in from the right edge of the s
 ## Date Formatting
 
 Each reminder displays `"Applied {formattedDate} · N days ago"` where:
-- `formattedDate` uses the project's existing date formatting pattern from `JobCard.jsx` (`formatFollowedUpDate`): parses the `date_applied` string as a local date and formats as `toLocaleString('en-US', { month: 'short' })` + day number (e.g., "May 24")
+- `formattedDate` uses `toLocaleString('en-US', { month: 'long' })` (full month name, e.g., "May 24") — consistent with JobCard and JobProfileCard date formatting.
 - `daysAgo` is pre-computed in `App.jsx` by subtracting `date_applied` from today
 
 ## Derived State (App.jsx)
 
 Reminders are computed on every render as derived state, not fetched independently:
-- `computeReminders(jobs, today)` filters the `jobs` array for Applied-status jobs where `follow_up_dismissed` is false and the application date falls within the 7–14 day window
+- `computeReminders(jobs)` filters the `jobs` array for Applied-status jobs where `follow_up_dismissed` is false and the application date falls within the 7–14 day window (uses timezone-safe `parseLocalDate()` from App.jsx)
 - Computes `daysAgo` for each matching job
 - Returns the array directly to `ReminderDrawer` — no separate state variable or API call
 
