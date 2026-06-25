@@ -183,6 +183,8 @@ Partially update a single job. Only fields present in the request body are updat
 
 Bulk-update status and order for multiple jobs at once. Accepts a map of column IDs (lowercase kebab-case) to arrays of job IDs. Uses a database transaction — rolls back on failure.
 
+**Auto-set `followed_up_date`:** When a job's status changes from "Applied" to "Followed Up" via drag-and-drop, and the job's `followed_up_date` is currently null/empty, the endpoint automatically sets `followed_up_date` to the current date (via PHP `date('Y-m-d')`). If `followed_up_date` already has a value, it is NOT overwritten.
+
 **Request body:**
 
 ```json

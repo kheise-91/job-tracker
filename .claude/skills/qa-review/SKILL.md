@@ -27,7 +27,7 @@ Read @ROADMAP.md. Find the sub-phase matching the derived number. Extract the fu
 Spawn each of the following agents to review the current branch's changes for their respective section(s):
 - **infra-devops**: `docker-compose.yml`, `docker/`
 - **backend-engineer**: `backend/`
-- **frontend-engineer**: `frontend/`
+- **frontend-ux**: `frontend/`
 
 Have each agent summarize every file changed, added, or deleted for their section and return the summary.
 
@@ -49,7 +49,7 @@ Using the Gitea MCP, detect the repo from the current git remote. List all issue
 
 ## Step 5 - Spawn the qa-reviewer agents
 
-Spawn one **`qa-reviewer`** agent for each summary returned in step 3. If a agent did not return a summary, skip that section. Each **qa-reviewer** agent should only review the files and section of the summary passed to it (frontend, backend, infra/devops)
+Spawn one **`qa-reviewer`** agent for each summary returned in step 3. If a agent did not return a summary, skip that section. Each **qa-reviewer** agent should only review the files and section of the summary passed to it (frontend, backend, infra/devops).
 
 Pass the following context and instructions:
 

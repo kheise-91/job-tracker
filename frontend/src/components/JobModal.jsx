@@ -53,6 +53,21 @@ function JobModal({ isOpen, onClose, onSubmit, initialData }) {
     }
   }, [isOpen, initialData])
 
+  // Auto-update status based on date fields
+  useEffect(() => {
+    // Only auto-change if current status is "Applied"
+    if (formData.status !== 'Applied') {
+      return
+    }
+
+    // Interview date takes precedence if both are filled
+    if (formData.interview_date) {
+      setFormData((prev) => ({ ...prev, status: 'Interviewing' }))
+    } else if (formData.followed_up_date) {
+      setFormData((prev) => ({ ...prev, status: 'Followed Up' }))
+    }
+  }, [formData.followed_up_date, formData.interview_date])
+
   const handleSubmit = (e) => {
     e.preventDefault()
     // Use React state directly — FormData from DOM can be stale

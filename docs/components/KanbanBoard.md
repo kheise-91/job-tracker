@@ -16,7 +16,9 @@ Six status columns (Wishlist, Applied, Followed Up, Interviewing, Offer, Rejecte
 | Prop | Type | Purpose |
 |---|---|---|
 | `jobs` | `Job[]` | Full job list (from App) |
-| `onBoardUpdate` | `(updatedJobs: Job[]) => void` | Called with updated jobs after drag reorder (App's `handleBoardUpdate`) |
+| `onBoardUpdate` | `(updatedJobs: Job[]) => void` | Called with updated jobs after drag reorder for immediate UI feedback (App's `handleBoardUpdate`) |
+| `onFetchJobs` | `() => Promise<void>` | Called after reorder API succeeds to refetch authoritative state from backend (picks up auto-set fields like `followed_up_date`) |
+| `onFetchJobs` | `() => Promise<void>` | Called after reorder API succeeds to refetch authoritative state from backend (picks up auto-set fields like `followed_up_date`) |
 | `onDeleteJob` | `(id: number) => void` | Delete handler passed through to JobCard config |
 | `onEditJob` | `(job: Job) => void` | Edit handler passed through to JobCard config |
 | `onViewJob` | `(job: Job) => void` | View handler passed through to JobCard for opening the profile card |
@@ -30,7 +32,7 @@ None. All derived from props via `useMemo`.
 | Function | Purpose |
 |---|---|
 | `buildDataSource(jobs)` | Transforms flat `Job[]` into the nested node-map structure expected by `react-kanban-kit`. Groups jobs by status, sorts by `order` then `id`, wraps each job as `card-{id}` node. |
-| `handleCardMove(cardId, fromColumnId, toColumnId, position)` | Removes job from source column, updates status to target column, renumbers orders in both columns, calls `onBoardUpdate` for immediate UI feedback, then persists via `PUT /api/jobs/reorder`. |
+| `handleCardMove(cardId, fromColumnId, toColumnId, position)` | Removes job from source column, updates status to target column, renumbers orders in both columns, calls `onBoardUpdate` for immediate UI feedback, persists via `PUT /api/jobs/reorder`, then calls `onFetchJobs` to get authoritative state (picks up auto-set fields like `followed_up_date`). |
 
 ## Dead code
 

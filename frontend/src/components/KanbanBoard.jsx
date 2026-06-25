@@ -104,6 +104,7 @@ function dataSourceToJobs(dataSource, existingJobs) {
 export default function KanbanBoard({
   jobs,
   onBoardUpdate,
+  onFetchJobs,
   onDeleteJob,
   onEditJob,
   onViewJob,
@@ -256,6 +257,9 @@ export default function KanbanBoard({
         },
         body: JSON.stringify(payload),
       })
+
+      // Refetch authoritative state from backend to pick up auto-set fields (e.g., followed_up_date)
+      onFetchJobs()
     } catch (err) {
       console.error('Error moving card:', err)
     }

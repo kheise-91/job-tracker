@@ -286,7 +286,7 @@ working and dismissable, and PWA criteria met.
     search either. Toggle is enabled by default. The filter section does not appear in 
     the collapsed sidebar or on the mobile bottom nav.
 
-- [ ] **3.16 - Auto-update fields on related changes**
+- [x] **[3.16 - Auto-update fields on related changes](https://gitea.heise.home/kheise/ats/milestone/11)**
     
     In `JobModal.jsx`, implement logic that auto-updates the status dropdown when certain
     date fields are set: if `followed_up_date` is filled and status is "Applied", switch

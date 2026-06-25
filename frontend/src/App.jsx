@@ -7,16 +7,31 @@ import JobProfileCard from './components/JobProfileCard'
 import ReminderDrawer from './components/ReminderDrawer'
 import BottomNav from './components/BottomNav'
 
-function computeReminders(jobs, today) {
+const today = new Date()
+const msPerDay = 1000 * 60 * 60 * 24
+
+function parseLocalDate(dateStr) {
+  if (!dateStr) return null
+  const parts = dateStr.split('-')
+  if (parts.length < 3) return null
+  const year = parseInt(parts[0], 10)
+  const month = parseInt(parts[1], 10) - 1
+  const day = parseInt(parts[2], 10)
+  const date = new Date(year, month, day)
+  return isNaN(date) ? null : date
+}
+
+function computeReminders(jobs) {
   return jobs
     .filter(job => {
-      const appliedDate = new Date(job.date_applied.replace(' ', 'T'))
-      const diffDays = Math.floor((today - appliedDate) / (1000 * 60 * 60 * 24))
+      const appliedDate = parseLocalDate(job.date_applied)
+      if (!appliedDate) return false
+      const diffDays = Math.floor((today - appliedDate) / msPerDay)
       return job.status === 'Applied' && diffDays >= 7 && diffDays <= 14 && !job.followed_up_date && !job.follow_up_dismissed
     })
     .map(job => ({
       ...job,
-      daysAgo: Math.floor((today - new Date(job.date_applied.replace(' ', 'T'))) / (1000 * 60 * 60 * 24)),
+      daysAgo: Math.floor((today - parseLocalDate(job.date_applied)) / msPerDay)
     }))
 }
 
@@ -31,8 +46,7 @@ function App() {
   const [viewingJob, setViewingJob] = useState(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [hideOldApplications, setHideOldApplications] = useState(true)
-  const today = new Date()
-  const reminders = computeReminders(jobs, today)
+  const reminders = computeReminders(jobs)
 
   const filteredJobs = useMemo(() => {
     let result = jobs
@@ -45,14 +59,20 @@ function App() {
         // Hide old 'Applied' jobs (no follow-up yet, older than 30 days)
         if (job.status === 'Applied') {
           if (!job.date_applied) return true
-          const appliedDate = new Date(job.date_applied.replace(' ', 'T'))
-          return appliedDate >= thirtyDaysAgo
+          const appliedDate = parseLocalDate(job.date_applied)
+          const diffDays = Math.floor((today - appliedDate) / msPerDay)
+
+          if (!appliedDate) return true
+          return diffDays < 31
         }
         // Hide old 'Followed Up' jobs (follow-up older than 30 days ago, no response)
         if (job.status === 'Followed Up') {
           if (!job.followed_up_date) return true
-          const followUpDate = new Date(job.followed_up_date.replace(' ', 'T'))
-          return followUpDate >= thirtyDaysAgo
+          const followUpDate = parseLocalDate(job.followed_up_date)
+          const diffDays = Math.floor((today - followUpDate) / msPerDay)
+
+          if (!followUpDate) return true
+          return diffDays < 31
         }
         return true
       })
@@ -243,6 +263,7 @@ function App() {
             <KanbanBoard
               jobs={filteredJobs}
               onBoardUpdate={handleBoardUpdate}
+              onFetchJobs={fetchJobs}
               onDeleteJob={handleDeleteJob}
               onEditJob={handleEditJob}
               onViewJob={handleViewJob}

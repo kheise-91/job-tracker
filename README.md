@@ -15,7 +15,7 @@ The original repository is on my self-hosted Gitea server. This repository is a 
 - **Frontend**: React 18 (with Vite) and Tailwind CSS v4
 - **Backend**: PHP 8.2 (Native, single-file router)
 - **Database**: SQLite (Embedded in the container)
-- **Infrastructure**: Docker & Docker Compose (single container with Nginx + PHP-FPM)
+- **Infrastructure**: Docker & Docker Compose (single container with Nginx + PHP-FPM, timezone configured to America/Chicago)
 
 ## AI Tools
 - **Claude Code** - Primary coding assistant for development, debugging, and architecture decisions
@@ -55,7 +55,7 @@ Then:
 ```bash
 # Clone the repository, then:
 cd frontend && npm run build
-cd ../ && docker-compose up --build
+cd ../ && docker compose up --build
 ```
 
 Serves on `http://localhost:5000`. For frontend development with hot-reload and API proxying (port 5173):
@@ -79,6 +79,7 @@ docker run -d \
   -p 5000:80 \
   -v /home/admin/Projects/ats/data/${APP_USER}:/var/www/html/data/${APP_USER}:rw \
   -e APP_USER=${APP_USER} \
+  -e TZ=America/Chicago \
   ats:latest
 ```
 
@@ -90,7 +91,8 @@ docker run -d \
 **Environment variables:**
 | Variable | Required | Default | Description |
 |---|---|---|---|
-| `APP_USER` | Yes | *(none)* | Set to first name of user. |
+| `APP_USER` | Yes | *(none)* | User-specific subdirectory for the SQLite database (e.g., `dev`). |
+| `TZ` | No | `America/Chicago` | System timezone. Also set in the Dockerfile at build time. |
 
 The frontend is baked into the Docker image at build time - changes to the React frontend require rebuilding the image (`docker compose build ats`).
 

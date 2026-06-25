@@ -39,8 +39,8 @@ None. Component is fully controlled via props.
 
 | Function / Constant | Purpose |
 |---|---|
-| `formatDate(dateStr)` | Parses datetime string, formats as "Aug 29, 2025" |
-| `formatDateTime(dateStr)` | Parses datetime string, formats as "Aug 29, 2025 at 2:30 PM" |
+| `formatDate(dateStr)` | Parses date string via `new Date(year, month-1, day)` (local time, no UTC shift), formats as "May 27" (full month name, no year). |
+| `formatDateTime(dateStr)` | Parses datetime string via `new Date(dateStr.replace(' ', 'T'))`, formats as "May 27, 2:30 PM" (full month name, no year). |
 | `displayValue(val)` | Returns formatted value or `<em>Not Set</em>` for null/empty strings |
 | `statusGradient` | Object mapping status strings to CSS `linear-gradient` values using `var(--color-*-status)` and `color-mix` for the dark-to-darker hero header effect |
 | `statusBadgeStyle` | Object mapping status strings to inline style objects (backgroundColor, color, borderColor) using `var(--color-*-status-light)` and `var(--color-*-status)` CSS variables |
@@ -59,4 +59,4 @@ None. Component is fully controlled via props.
 - Conditional rendering — returns `null` when `isOpen` is false or `job` is absent.
 - Uses HeroIcons from `@heroicons/react/24/outline` for all icons.
 - Status gradient and badge colors are mapped per status to match the kanban column color scheme, using inline styles with CSS custom properties (`var(--color-*-status)`, `var(--color-*-status-light)`) and `color-mix()` rather than Tailwind utility classes.
-- Date formatting uses `toLocaleString` for month names, consistent with JobCard's approach.
+- Date formatting uses `toLocaleString({ month: 'long' })` (full month names like "May", not abbreviated "May") — consistent with JobCard and ReminderDrawer.

@@ -6,6 +6,9 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
 
+$today = date('Y-m-d');
+$now = date('Y-m-d H:i:s');
+
 $allowedStatuses = [
     'Wishlist',
     'Applied',
@@ -115,14 +118,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $requestPath === '/api/jobs') {
             position,
             salary,
             status,
+            date_applied,
             followed_up_date,
             follow_up_dismissed,
             interview_date,
             `source`,
             hyperlink,
             notes,
-            `order`
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            `order`,
+            updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ");
 
     $stmt->execute([
@@ -130,13 +135,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $requestPath === '/api/jobs') {
         $position,
         $salary,
         $status,
+        $today,
         $followedUpDate,
         $followUpDismissed,
         $interviewDate,
         $source,
         $hyperlink,
         $notes,
-        $nextOrder
+        $nextOrder,
+        $now
     ]);
 
     $id = $pdo->lastInsertId();
@@ -176,20 +183,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && $requestPath === '/api/jobs/reorder'
             }
 
             foreach ($jobIds as $index => $jobId) {
-                $stmt = $pdo->prepare("
-                    UPDATE jobs
-                    SET
-                        status = ?,
-                        `order` = ?,
-                        updated_at = CURRENT_TIMESTAMP
-                    WHERE id = ?
-                ");
+                // Check if status is changing from "Applied" to "Followed Up"
+                $setFollowedUpDate = false;
+                if ($status === 'Followed Up') {
+                    $checkStmt = $pdo->prepare("SELECT `status`, followed_up_date FROM jobs WHERE id = ?");
+                    $checkStmt->execute([(int)$jobId]);
+                    $current = $checkStmt->fetch();
+                    if ($current && $current['status'] === 'Applied' && empty($current['followed_up_date'])) {
+                        $setFollowedUpDate = true;
+                    }
+                }
 
-                $stmt->execute([
-                    $status,
-                    $index,
-                    (int)$jobId
-                ]);
+                if ($setFollowedUpDate) {
+                    $stmt = $pdo->prepare("
+                        UPDATE jobs
+                        SET
+                            status = ?,
+                            `order` = ?,
+                            followed_up_date = ?,
+                            updated_at = ?
+                        WHERE id = ?
+                    ");
+
+                    $stmt->execute([
+                        $status,
+                        $index,
+                        $today,
+                        $now,
+                        (int)$jobId
+                    ]);
+                } else {
+                    $stmt = $pdo->prepare("
+                        UPDATE jobs
+                        SET
+                            status = ?,
+                            `order` = ?,
+                            updated_at = ?
+                        WHERE id = ?
+                    ");
+
+                    $stmt->execute([
+                        $status,
+                        $index,
+                        $now,
+                        (int)$jobId
+                    ]);
+                }
             }
         }
 
@@ -287,13 +326,14 @@ if (
         ], 400);
     }
 
+    $updates[] = 'updated_at = ?';
+    $params[] = $now;
     $params[] = $jobId;
 
     $sql = "
         UPDATE jobs
         SET
-            " . implode(', ', $updates) . ",
-            updated_at = CURRENT_TIMESTAMP
+            " . implode(', ', $updates) . "
         WHERE id = ?
     ";
 

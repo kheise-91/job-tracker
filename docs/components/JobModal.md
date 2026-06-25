@@ -51,6 +51,7 @@ A modal dialog with a fixed header (title + close button), scrollable form conte
 ## Side effects
 
 - `useEffect([isOpen, initialData])` — when the modal opens (`isOpen=true`) or `initialData` changes, populates `formData` from it (editing mode). When opening for a new job (`isOpen=true` and `initialData=null`), resets to a fresh form with empty fields.
+- `useEffect([formData.followed_up_date, formData.interview_date])` — auto-updates the status field when date fields are filled while status is "Applied". If `interview_date` is set, status changes to "Interviewing" (takes precedence). If only `followed_up_date` is set, status changes to "Followed Up". Users can still manually override the status after any auto-change.
 
 ## Form submission behavior
 
