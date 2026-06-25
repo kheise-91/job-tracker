@@ -150,7 +150,7 @@ Non-blocking observations can be noted in the PR body.
 
 ## Step 6 - Commit and push
 
-Stage all changes and commit:
+Stage ONLY the changes made for this issue and commit:
 ```
 feat: [short description matching issue title]
 
