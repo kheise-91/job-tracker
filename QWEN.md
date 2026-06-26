@@ -110,7 +110,7 @@ See `docs/components/README.md` for a full list of React components.
 - `frontend/src/App.jsx` - main React component (layout orchestration)
 - `frontend/src/components/` - UI components
 - `docker/nginx.conf` - SPA fallback + PHP routing rules
-- `docs/` - source of truth for the project (database schemas, API endpoints, React components, Claude skills/subagents guides)
+- `docs/` - source of truth for the project (database schemas, API endpoints, React components, Qwen skills/subagents guides)
   - `docs/api/README.md` - API endpoint reference
   - `docs/database/README.md` - database schema reference
   - `docs/components/README.md` - React component reference
