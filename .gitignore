@@ -1,10 +1,27 @@
-node_modules/
-vendor/
-.env
+# ======================
+# BACKEND FILES
+# ======================
 data/
+vendor/
+
+# ======================
+# BACKEND FILES
+# ======================
+node_modules/
 dist/
-tests/
 mockups/
+
+# ======================
+# CLAUDE FILES
+# ======================
 .claude/agent-memory
 .claude/plans
 .playwright-mcp/
+
+# ======================
+# MISC FILES
+# ======================
+.env
+TODO.md
+tests/
+scripts/
