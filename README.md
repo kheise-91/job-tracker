@@ -6,7 +6,7 @@ I built this app for two reasons: to keep track of the jobs I'm actively applyin
 
 The original repository is on my self-hosted Gitea server. This repository is a mirror of that.
 
-Check out the [Screenshots below](#web-app-preview).
+Check out the [screenshots below](#web-app-preview).
 
 ## Features
 
