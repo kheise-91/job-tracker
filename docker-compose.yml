@@ -8,7 +8,7 @@ services:
     ports:
       - 5000:80
     volumes:
-      - /home/admin/Projects/ats/data/${APP_USER}:/var/www/html/data/${APP_USER}:rw
+      - ./data/${APP_USER}:/var/www/html/data/${APP_USER}:rw
     environment:
       - APP_USER=${APP_USER}
       - TZ=America/Chicago
