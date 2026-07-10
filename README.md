@@ -1,23 +1,26 @@
 # Application Tracking System
 
-A simple, self-hosted Job Application Tracker designed to replace spreadsheets. Built with AI assistance, it lets you track job applications, update statuses, and manage application details.
+A simple, self-hosted Job Application Tracker designed to replace spreadsheets. Built with AI assistance, it lets you track job applications, update statuses, and manage application details. Fully responsive with PWA support — works great on mobile.
 
 I built this app for two reasons: to keep track of the jobs I'm actively applying for, and to learn how to use Claude Code and other AI-assisted development tools.
 
 The original repository is on my self-hosted Gitea server. This repository is a mirror of that.
 
 ## Features
+
 - **Add/Update/Delete Jobs**: Track company, position, status, and more.
 - **Simple Deployment**: Runs in a single Docker container for easy setup.
 - **Kanban Style**: After adding a job, simply drag it to the corresponding column whenever there are status updates.
 
 ## Tech Stack
+
 - **Frontend**: React 18 (with Vite) and Tailwind CSS v4
 - **Backend**: PHP 8.2 (Native, single-file router)
 - **Database**: SQLite (Embedded in the container)
 - **Infrastructure**: Docker & Docker Compose (single container with Nginx + PHP-FPM, timezone configured to America/Chicago)
 
 ## AI Tools
+
 - **Claude Code** - Primary coding assistant for development, debugging, and architecture decisions
 - **Qwen3.6-27B** - Locally hosted model on RTX 5080 for rapid prototyping and code generation
 - **Qwen3.6-35B-A3B** - Locally hosted model on RTX 5080 for complex reasoning and code review
@@ -39,6 +42,7 @@ I've also built custom Claude Code skills and subagents specifically for this pr
 - [Custom Subagents Guide](/docs/guides/claude-subagents.md)
 
 ## Prerequisites
+
 - [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
 - [Node.js](https://nodejs.org/) (v18+) and npm — required for building the frontend
 
@@ -97,6 +101,7 @@ docker run -d \
 The frontend is baked into the Docker image at build time - changes to the React frontend require rebuilding the image (`docker compose build ats`).
 
 ## Project Structure
+
 ```
 .
 ├── backend/           # PHP API logic (api.php, db.php)
@@ -115,3 +120,23 @@ The frontend is baked into the Docker image at build time - changes to the React
 ## Project Documentation
 
 See [`docs/README.md`](docs/README.md) for project related documentation (including API endpoints, React components, database schema, AI/Claude guides, and the project development workflow).
+
+## Web-App Preview
+
+### Dashboard
+![Dashboard](docs/images/desktop-dashboard.png)
+
+### Add Job Form
+![Add Job Form](docs/images/desktop-add-job-form.png)
+
+### View Job Modal
+![View Job Modal](docs/images/desktop-view-job-modal.png)
+
+### Reminders Drawer
+![Reminders Drawer](docs/images/desktop-reminders.png)
+
+### Tablet Dashboard
+![Tablet Dashboard](docs/images/tablet-dashboard.png)
+
+### Mobile Dashboard
+![Mobile Dashboard](docs/images/mobile-dashboard.png)
