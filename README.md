@@ -4,9 +4,26 @@ A simple, self-hosted Job Application Tracker designed to replace spreadsheets. 
 
 I built this app for two reasons: to keep track of the jobs I'm actively applying for, and to learn how to use Claude Code and other AI-assisted development tools.
 
-The original repository is on my self-hosted Gitea server. This repository is a mirror of that.
-
 Check out the [screenshots below](#web-app-preview).
+
+## Development Process
+
+This project is developed using a structured, milestone-driven workflow inspired by professional software engineering practices rather than ad-hoc feature development.
+
+Development includes:
+- Phase-based roadmap planning
+- Kanban project tracking
+- Milestone-driven delivery
+- Issue-based implementation
+- Branch-per-task workflows
+- Pull request reviews and QA validation
+- AI-assisted development workflows and automation
+
+Project planning, Kanban boards, milestones, and issue tracking are managed on a self-hosted Gitea instance, while this GitHub repository serves as a public mirror of the source code and commit history.
+
+For additional details on the development lifecycle and workflow used for this project, see:
+
+**[Development Workflow Guide](docs/workflows/project-development.md)**
 
 ## Features
 
@@ -35,9 +52,9 @@ Check out the [screenshots below](#web-app-preview).
 This project was built using Claude Code with a few tools and plugins:
 
 - **[Gitea MCP Server](https://gitea.com/gitea/gitea-mcp)** - Gitea integration for issue tracking, PR management, and repository operations
+- **[Playwright MCP Plugin](https://claude.com/plugins/playwright)** - Browser automation and end-to-end testing MCP server by Microsoft
 - **[Feature Dev Plugin](https://claude.com/plugins/feature-dev)** - Guided feature development with specialized agents for exploration, architecture, and review
 - **[Frontend Design Plugin](https://claude.com/plugins/frontend-design)** - Production-grade frontend design with distinctive visual output
-- **[Playwright MCP Plugin](https://claude.com/plugins/playwright)** - Browser automation and end-to-end testing MCP server by Microsoft
 
 I've also built custom Claude Code skills and subagents specifically for this project. See the guides:
 - [Custom Skills Guide](/docs/guides/claude-skills.md)
